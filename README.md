@@ -17,6 +17,32 @@ En esta dirección podrás correr los comandos de npm en caso de necesitar impor
 ```
 npm run dev
 ```
+## Para hacer commit
+Como el .gitignore se encuentra afuera de la carpeta de LearnIA, para hacer commit correctamente se necesita **salir** de la carpeta.
+1. Apagar todos los procesos (ctrl + c)
+```
+C:\Users\John\Documents\Code\LearnIA\LearnIA>^C
+```
+2. Salir de la carpeta LearnIA
+```
+C:\Users\John\Documents\Code\LearnIA\LearnIA>cd ..
+```
+3. Hacer una nueva branch
+```
+C:\Users\John\Documents\Code\LearnIA\LearnIA>git checkout -b <issue>
+```
+4. Agregar todos los cambios
+```
+C:\Users\John\Documents\Code\LearnIA\LearnIA>git add .
+```
+4. Agregar mensaje de commit
+```
+C:\Users\John\Documents\Code\LearnIA\LearnIA>git commit -m "Mensaje"
+```
+5. Push del branch local al remoto
+```
+C:\Users\John\Documents\Code\LearnIA\LearnIA>git push --set-upstream origin <issue>
+```
 ## Procesos para testear el código (pruebas estáticas)
 Es importante que los siguientes comandos se realicen cuando sea pertinente y *antes* de realizar un commit, para mantener el formato y corregir errores.
 ### Proceso de lint
