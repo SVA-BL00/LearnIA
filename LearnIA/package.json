@@ -1,0 +1,22 @@
+{
+  "name": "learnia",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Recurso complementario a clases de universidad, ofreciendo la posibilidad de repasar, profundizar y adelantar cursos, permitiendo que los alumnos avancen a su ritmo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "node ./server.js",
+    "start": "cross-env NODE_ENV=production node ./server.js"
+  },
+  "author": "P. Sánchez, S. Vargas, A. Solorio, M. Rodríguez, A. Zetter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SVA-BL00/LearnIA.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SVA-BL00/LearnIA/issues"
+  },
+  "homepage": "https://github.com/SVA-BL00/LearnIA#readme"
+}
