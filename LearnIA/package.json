@@ -1,36 +1,43 @@
 {
-  "name": "learnia",
-  "version": "1.0.0",
-  "type": "module",
-  "description": "Recurso complementario a clases de universidad, ofreciendo la posibilidad de repasar, profundizar y adelantar cursos, permitiendo que los alumnos avancen a su ritmo.",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "dev": "node ./server.js",
-    "start": "cross-env NODE_ENV=production node ./server.js"
-  },
-  "author": "P. Sánchez, S. Vargas, A. Solorio, M. Rodríguez, A. Zetter",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SVA-BL00/LearnIA.git"
-  },
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SVA-BL00/LearnIA/issues"
-  },
-  "homepage": "https://github.com/SVA-BL00/LearnIA#readme",
-  "dependencies": {
-    "@remix-run/express": "^2.9.1",
-    "@remix-run/node": "^2.9.1",
-    "@remix-run/react": "^2.9.1",
-    "cross-env": "^7.0.3",
-    "express": "^4.19.2",
-    "isbot": "^4.4.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "devDependencies": {
-    "@remix-run/dev": "^2.9.1",
-    "vite": "^5.2.11"
-  }
+	"name": "learnia",
+	"version": "1.0.0",
+	"type": "module",
+	"description": "Recurso complementario a clases de universidad, ofreciendo la posibilidad de repasar, profundizar y adelantar cursos, permitiendo que los alumnos avancen a su ritmo.",
+	"main": "index.js",
+	"scripts": {
+		"test": "vitest",
+		"coverage": "vitest run --coverage",
+		"format": "npx @biomejs/biome format ./ --write",
+		"lint": "npx @biomejs/biome lint ./ --apply",
+		"dev": "node ./server.js",
+		"start": "cross-env NODE_ENV=production node ./server.js"
+	},
+	"author": "P. Sánchez, S. Vargas, A. Solorio, M. Rodríguez, A. Zetter",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SVA-BL00/LearnIA.git"
+	},
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/SVA-BL00/LearnIA/issues"
+	},
+	"homepage": "https://github.com/SVA-BL00/LearnIA#readme",
+	"dependencies": {
+		"@remix-run/express": "^2.9.1",
+		"@remix-run/node": "^2.9.1",
+		"@remix-run/react": "^2.9.1",
+		"cross-env": "^7.0.3",
+		"express": "^4.19.2",
+		"isbot": "^4.4.0",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.7.3",
+		"@playwright/test": "^1.44.0",
+		"@remix-run/dev": "^2.9.1",
+		"@types/node": "^20.12.10",
+		"vite": "^5.2.11",
+		"vitest": "^1.6.0"
+	}
 }
