@@ -18,5 +18,19 @@
   "bugs": {
     "url": "https://github.com/SVA-BL00/LearnIA/issues"
   },
-  "homepage": "https://github.com/SVA-BL00/LearnIA#readme"
+  "homepage": "https://github.com/SVA-BL00/LearnIA#readme",
+  "dependencies": {
+    "@remix-run/express": "^2.9.1",
+    "@remix-run/node": "^2.9.1",
+    "@remix-run/react": "^2.9.1",
+    "cross-env": "^7.0.3",
+    "express": "^4.19.2",
+    "isbot": "^4.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.9.1",
+    "vite": "^5.2.11"
+  }
 }
