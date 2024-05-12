@@ -7,8 +7,8 @@ import {
 	ScrollRestoration,
 } from "@remix-run/react";
 
-import styles from "./styles/main.css?url";
-
+import styles from "bootstrap/dist/css/bootstrap.min.css?url";
+import styleFunct from "bootstrap/dist/js/bootstrap.bundle.min?url";
 export const meta = () => [
 	{
 		charset: "utf-8",
@@ -35,5 +35,8 @@ export default function App() {
 }
 
 export function links() {
-	return [{ rel: "stylesheet", href: styles }];
+	return [
+		{ rel: "stylesheet", href: styles },
+		{ rel: "script", href: styleFunct },
+	];
 }
