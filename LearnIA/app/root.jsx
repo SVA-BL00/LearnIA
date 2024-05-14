@@ -10,6 +10,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import SideNav from './components/SideNav';
+import ExampleComponent from './components/ExampleComponent'
 
 export const meta = () => [
 	{
@@ -27,8 +28,12 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
+				<div className="d-flex">
 				<SideNav />
-				<Outlet />
+				<ExampleComponent />
+				</div>
+				
+				
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />

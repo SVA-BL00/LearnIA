@@ -1,0 +1,11 @@
+.ExampleComponent {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.eContainer {
+    display: flex;
+  flex-direction: row;
+  position: relative;
+}
