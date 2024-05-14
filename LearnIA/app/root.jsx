@@ -7,8 +7,10 @@ import {
 	ScrollRestoration,
 } from "@remix-run/react";
 
-import styles from "bootstrap/dist/css/bootstrap.min.css?url";
-import styleFunct from "bootstrap/dist/js/bootstrap.bundle.min?url";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import SideNav from './components/SideNav';
+
 export const meta = () => [
 	{
 		charset: "utf-8",
@@ -25,6 +27,7 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
+				<SideNav />
 				<Outlet />
 				<ScrollRestoration />
 				<Scripts />
@@ -32,11 +35,4 @@ export default function App() {
 			</body>
 		</html>
 	);
-}
-
-export function links() {
-	return [
-		{ rel: "stylesheet", href: styles },
-		{ rel: "script", href: styleFunct },
-	];
 }
