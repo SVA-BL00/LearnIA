@@ -1,0 +1,53 @@
+  #sidebar-container {
+    width: 400px;
+    height: 100vh;  
+    background-color: #132941;
+    font-family: "Lato", sans-serif;
+  }
+
+  #learnia-logo {
+    font-family: "Ubuntu Mono", Ubuntu, monospace;
+    font-weight: 600;
+  }
+
+  #profile-image {
+    width: 85px;
+    height: auto;
+  }
+  #profile-info h5 {
+    font-weight: 500;
+  }
+  #profile-info h6 {
+    font-style: italic;
+    font-weight: 200;
+
+  }
+  
+  .nav {
+    font-size: 1.2em;
+    font-weight: 550;
+  }
+  
+  .bi {
+    font-size: 1.8em;
+    vertical-align: -.125em;
+    pointer-events: none;
+    padding-right: 1em;
+  }
+  
+  .nav-flush .nav-link {
+    border-radius: 0;
+  }
+
+  .nav-link.active {
+    background-color: white;
+    color: #132941 !important;
+    width: 100%;
+  }
+
+  .scrollarea {
+    overflow-y: auto;
+  }
+  
+  .fw-semibold { font-weight: 600; }
+  .lh-tight { line-height: 1.25; }
