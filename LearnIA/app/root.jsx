@@ -8,9 +8,10 @@ import {
 } from "@remix-run/react";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 import SideNav from './components/SideNav';
-import ExampleComponent from './components/ExampleComponent'
+
 
 export const meta = () => [
 	{
@@ -29,11 +30,11 @@ export default function App() {
 			</head>
 			<body>
 				<div className="d-flex">
-				<SideNav />
-				<ExampleComponent />
+					<SideNav />
+					<div className="main-content flex-grow-1">
+						<Outlet />
+					</div>
 				</div>
-				
-				
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />
