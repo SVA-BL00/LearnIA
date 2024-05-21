@@ -8,7 +8,10 @@ import {
 } from "@remix-run/react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+
+import SideNav from "./components/SideNav";
 
 export const meta = () => [
 	{
@@ -36,3 +39,4 @@ export default function App() {
 		</html>
 	);
 }
+
