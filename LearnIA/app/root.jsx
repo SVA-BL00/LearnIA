@@ -10,8 +10,6 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-import SideNav from "./components/SideNav";
-
 export const meta = () => [
 	{
 		charset: "utf-8",
@@ -29,10 +27,7 @@ export default function App() {
 			</head>
 			<body>
 				<div className="d-flex">
-					<SideNav />
-					<div className="main-content flex-grow-1">
-						<Outlet />
-					</div>
+					<Outlet />
 				</div>
 				<ScrollRestoration />
 				<Scripts />

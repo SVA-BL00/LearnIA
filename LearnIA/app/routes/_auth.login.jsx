@@ -1,6 +1,6 @@
-import { json, redirect } from "@remix-run/node";
+/* import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getSession, commitSession } from "../sessions";
+import { getSession, commitSession } from "../sessions"; */
 
 /* export async function loader({ request }) {
 	const session = await getSession(request.headers.get("Cookie"));

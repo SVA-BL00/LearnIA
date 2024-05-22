@@ -36,6 +36,7 @@ function SideNav() {
 								src="https://github.com/mdo.png"
 								className="rounded-circle"
 								id="profile-image"
+								alt="Profile avatar"
 							/>
 						</div>
 						<div className="col-12 col-md-9">
@@ -57,7 +58,7 @@ function SideNav() {
 						}`}
 						onClick={() => setActivePath("/dashboard")}
 					>
-						<i className="bi bi-laptop ps-2"></i>
+						<i className="bi bi-laptop ps-2" />
 						Dashboard
 					</Link>
 				</li>
@@ -69,7 +70,7 @@ function SideNav() {
 						}`}
 						onClick={() => setActivePath("/MisCursos")}
 					>
-						<i className="bi bi-mortarboard ps-2"></i>
+						<i className="bi bi-mortarboard ps-2" />
 						Mis cursos
 					</Link>
 				</li>
@@ -81,7 +82,7 @@ function SideNav() {
 						}`}
 						onClick={() => setActivePath("HistorialQuizzes")}
 					>
-						<i className="bi bi-clipboard2-check ps-2"></i>
+						<i className="bi bi-clipboard2-check ps-2" />
 						Historial de quizzes
 					</Link>
 				</li>
@@ -93,7 +94,7 @@ function SideNav() {
 						}`}
 						onClick={() => setActivePath("/explora")}
 					>
-						<i className="bi bi-search ps-2"></i>
+						<i className="bi bi-search ps-2" />
 						Explora
 					</Link>
 				</li>
@@ -109,7 +110,7 @@ function SideNav() {
 							}`}
 							onClick={() => setActivePath("/ayuda")}
 						>
-							<i className="bi bi-info-circle-fill"></i>
+							<i className="bi bi-info-circle-fill" />
 							Ayuda
 						</Link>
 					</li>
@@ -118,7 +119,7 @@ function SideNav() {
 							<i
 								className="bi bi-box-arrow-in-right"
 								style={{ marginLeft: "-4px" }}
-							></i>
+							/>
 							Cerrar sesión
 						</a>
 					</li>
