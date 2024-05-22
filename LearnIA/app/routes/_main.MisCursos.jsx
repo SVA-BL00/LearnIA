@@ -4,7 +4,7 @@ import "../styles/MisCursos.css";
 
 function MisCursos() {
 	const location = useLocation();
-	const [activePath, setActivePath] = useState(location.pathname);
+	const [_activePath, setActivePath] = useState(location.pathname);
 	const [isCollapsibleActive, setIsCollapsibleActive] = useState(false);
 
 	useEffect(() => {

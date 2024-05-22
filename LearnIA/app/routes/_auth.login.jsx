@@ -52,8 +52,9 @@ export default function Login() {
 	/* const { error } = useLoaderData(); */
 
 	return (
-		<div>
+		<div className="log"> 
 			{/* {error ? <div className="error">{error}</div> : null} */}
+
 			<form method="POST">
 				<div>
 					<p>Please sign in</p>
