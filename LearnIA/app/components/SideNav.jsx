@@ -52,11 +52,11 @@ function SideNav() {
 			<ul className="nav flex-column mb-auto">
 				<li className="nav-item">
 					<Link
-						to="/dashboard"
+						to="/"
 						className={`nav-link d-block text-white ${
-							activePath === "/dashboard" ? "active" : ""
+							activePath === "/" ? "active" : ""
 						}`}
-						onClick={() => setActivePath("/dashboard")}
+						onClick={() => setActivePath("/")}
 					>
 						<i className="bi bi-laptop ps-2" />
 						Dashboard

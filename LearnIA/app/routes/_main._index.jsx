@@ -1,4 +1,4 @@
-function dashboard() {
+function index() {
 	return (
 		<div className="dashboard">
 			<div className="container-fluid">
@@ -8,4 +8,4 @@ function dashboard() {
 	);
 }
 
-export default dashboard;
+export default index;
