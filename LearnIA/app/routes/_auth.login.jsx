@@ -52,9 +52,12 @@ export default function Login() {
 	/* const { error } = useLoaderData(); */
 
 	return (
-		<div className="log"> 
+		<>
+		<div id="learnia-logo">
+				LearnIA
+			</div>
+		<div className="log-form"> 
 			{/* {error ? <div className="error">{error}</div> : null} */}
-
 			<form method="POST">
 				<div>
 					<p>Please sign in</p>
@@ -67,5 +70,7 @@ export default function Login() {
 				</label>
 			</form>
 		</div>
+		</>
+		
 	);
 }
