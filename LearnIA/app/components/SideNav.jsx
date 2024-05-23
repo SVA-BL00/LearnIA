@@ -14,7 +14,7 @@ function SideNav() {
 	return (
 		<div className="d-flex flex-column text-white" id="sidebar-container">
 			<a
-				href="/dashboard"
+				href="/"
 				className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
 			>
 				<span className="fs-3 p-3" id="learnia-logo">
@@ -52,11 +52,11 @@ function SideNav() {
 			<ul className="nav flex-column mb-auto">
 				<li className="nav-item">
 					<Link
-						to="/dashboard"
+						to="/"
 						className={`nav-link d-block text-white ${
-							activePath === "/dashboard" ? "active" : ""
+							activePath === "/" ? "active" : ""
 						}`}
-						onClick={() => setActivePath("/dashboard")}
+						onClick={() => setActivePath("/")}
 					>
 						<i className="bi bi-laptop ps-2" />
 						Dashboard
@@ -115,7 +115,7 @@ function SideNav() {
 						</Link>
 					</li>
 					<li>
-						<a href="#" className="nav-link text-white">
+						<a href="/logout" className="nav-link text-white">
 							<i
 								className="bi bi-box-arrow-in-right"
 								style={{ marginLeft: "-4px" }}

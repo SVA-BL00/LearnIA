@@ -1,70 +1,42 @@
-/* import { json, redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { getSession, commitSession } from "../sessions"; */
+import { Form } from "@remix-run/react";
+import { SocialsProvider } from "remix-auth-socials";
 
-/* export async function loader({ request }) {
-	const session = await getSession(request.headers.get("Cookie"));
-
-	if (session.has("userId")) {
-		// Redirect to the home page if they are already signed in.
-		return redirect("/");
-	}
-
-	const data = { error: session.get("error") };
-
-	return json(data, {
-		headers: {
-			"Set-Cookie": await commitSession(session),
-		},
-	});
-}
-
-export async function action({ request }) {
-	const session = await getSession(request.headers.get("Cookie"));
-	const form = await request.formData();
-	const username = form.get("username");
-	const password = form.get("password");
-
-	const userId = await validateCredentials(username, password); // qué es la función validate credentials LOL
-
-	if (userId == null) {
-		session.flash("error", "Invalid username/password");
-
-		// Redirect back to the login page with errors.
-		return redirect("/login", {
-			headers: {
-				"Set-Cookie": await commitSession(session),
-			},
-		});
-	}
-
-	session.set("userId", userId);
-
-	// Login succeeded, send them to the home page.
-	return redirect("/", {
-		headers: {
-			"Set-Cookie": await commitSession(session),
-		},
-	});
-} */
+const SocialButton = ({ provider, label }) => (
+	<Form action={`/auth/${provider}`} method="post">
+		<button class="btn bsb-btn-xl btn-outline-primary" type="submit">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="16"
+				height="16"
+				fill="currentColor"
+				class="bi bi-google"
+				viewBox="0 0 16 16"
+			>
+				<path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+			</svg>
+			<span class="ms-2 fs-6">{label}</span>
+		</button>
+	</Form>
+);
 
 export default function Login() {
-	/* const { error } = useLoaderData(); */
-
 	return (
-		<div>
-			{/* {error ? <div className="error">{error}</div> : null} */}
-			<form method="POST">
-				<div>
-					<p>Please sign in</p>
-				</div>
-				<label>
-					Username: <input type="text" name="username" />
-				</label>
-				<label>
-					Password: <input type="password" name="password" />
-				</label>
-			</form>
-		</div>
+		<>
+			<div id="learnia-logo">LearnIA</div>
+			<div className="log-form">
+				{/* <SocialButton
+					provider={SocialsProvider.GITHUB}
+					label="Login with Github"
+				/> */}
+				<SocialButton
+					provider={SocialsProvider.GOOGLE}
+					label="Login with Google"
+				/>
+				{/* <SocialButton
+					provider={SocialsProvider.MICROSOFT}
+					label="Login with Microsoft"
+				/> */}
+			</div>
+		</>
 	);
 }

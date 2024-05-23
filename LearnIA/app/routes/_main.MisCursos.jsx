@@ -4,29 +4,29 @@ import '../styles/MisCursos.css';
 import CollapsibleSection from '../components/CollapsibleSection';
 
 function MisCursos() {
-    const location = useLocation();
-    const [activePath, setActivePath] = useState(location.pathname);
-    const [isCollapsibleActive, setIsCollapsibleActive] = useState(false);
+	const location = useLocation();
+	const [_activePath, setActivePath] = useState(location.pathname);
+	const [isCollapsibleActive, setIsCollapsibleActive] = useState(false);
 
-    useEffect(() => {
-        setActivePath(location.pathname);
-    }, [location.pathname]);
+	useEffect(() => {
+		setActivePath(location.pathname);
+	}, [location.pathname]);
 
-    const handleCollapsibleClick = () => {
-        setIsCollapsibleActive(!isCollapsibleActive);
-    };
+	const handleCollapsibleClick = () => {
+		setIsCollapsibleActive(!isCollapsibleActive);
+	};
 
-    return (
-        <div>
-            <div className="MisCursos">
-                <div className="container-fluid mt-5 mb-4">
-                    <h1>Mis Cursos</h1>
-                </div>
-            </div>
+	return (
+		<div>
+			<div className="MisCursos">
+				<div className="container-fluid mt-5 mb-4">
+					<h1>Mis Cursos</h1>
+				</div>
+			</div>
 
-            <div>
-              <hr className="solid" />
-            </div>
+			<div>
+				<hr className="solid" />
+			</div>
 
             <CollapsibleSection title="PROGRAMACIÓN ORIENTADA A OBJETOS">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet lacus sit amet.</p>
