@@ -1,76 +1,30 @@
-/* import { json, redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { getSession, commitSession } from "../sessions"; */
+import { Form } from "@remix-run/react";
+import { SocialsProvider } from "remix-auth-socials";
 
-/* export async function loader({ request }) {
-	const session = await getSession(request.headers.get("Cookie"));
-
-	if (session.has("userId")) {
-		// Redirect to the home page if they are already signed in.
-		return redirect("/");
-	}
-
-	const data = { error: session.get("error") };
-
-	return json(data, {
-		headers: {
-			"Set-Cookie": await commitSession(session),
-		},
-	});
-}
-
-export async function action({ request }) {
-	const session = await getSession(request.headers.get("Cookie"));
-	const form = await request.formData();
-	const username = form.get("username");
-	const password = form.get("password");
-
-	const userId = await validateCredentials(username, password); // qué es la función validate credentials LOL
-
-	if (userId == null) {
-		session.flash("error", "Invalid username/password");
-
-		// Redirect back to the login page with errors.
-		return redirect("/login", {
-			headers: {
-				"Set-Cookie": await commitSession(session),
-			},
-		});
-	}
-
-	session.set("userId", userId);
-
-	// Login succeeded, send them to the home page.
-	return redirect("/", {
-		headers: {
-			"Set-Cookie": await commitSession(session),
-		},
-	});
-} */
+const SocialButton = ({ provider, label }) => (
+	<Form action={`/auth/${provider}`} method="post">
+		<button type="submit">{label}</button>
+	</Form>
+);
 
 export default function Login() {
-	/* const { error } = useLoaderData(); */
-
 	return (
 		<>
-		<div id="learnia-logo">
-				LearnIA
+			<div id="learnia-logo">LearnIA</div>
+			<div className="log-form">
+				<SocialButton
+					provider={SocialsProvider.GITHUB}
+					label="Login with Github"
+				/>
+				<SocialButton
+					provider={SocialsProvider.GOOGLE}
+					label="Login with Google"
+				/>
+				<SocialButton
+					provider={SocialsProvider.MICROSOFT}
+					label="Login with Microsoft"
+				/>
 			</div>
-		<div className="log-form"> 
-			{/* {error ? <div className="error">{error}</div> : null} */}
-			<form method="POST">
-				<div>
-					<p>Please sign in</p>
-				</div>
-				<label>
-					Username: <input type="text" name="username" />
-				</label>
-				<label>
-					Password: <input type="password" name="password" />
-				</label>
-			</form>
-		</div>
 		</>
-		
 	);
 }
