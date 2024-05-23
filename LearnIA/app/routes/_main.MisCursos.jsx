@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "@remix-run/react";
-import "../styles/MisCursos.css";
+import { useState, useEffect } from 'react';
+import { useLocation } from '@remix-run/react';
+import '../styles/MisCursos.css';
+import CollapsibleSection from '../components/CollapsibleSection';
 
 function MisCursos() {
 	const location = useLocation();
@@ -27,24 +28,15 @@ function MisCursos() {
 				<hr className="solid" />
 			</div>
 
-			<button
-				type="button"
-				className={`collapsible ${isCollapsibleActive ? "active" : ""}`}
-				onClick={handleCollapsibleClick}
-			>
-				PROGRAMACIÓN ORIENTADA A OBJETOS
-				<div className="symbol-wrapper">
-					<span className="symbol">&#x2329;</span>
-				</div>
-			</button>
-			<div
-				className={`content ${isCollapsibleActive ? "active" : ""}`}
-				style={{ display: isCollapsibleActive ? "block" : "none" }}
-			>
-				<p>Lorem ipsum...</p>
-			</div>
-		</div>
-	);
+            <CollapsibleSection title="PROGRAMACIÓN ORIENTADA A OBJETOS">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet lacus sit amet.</p>
+            </CollapsibleSection>
+            
+            <CollapsibleSection title="DISEÑO DE SISTEMAS">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet lacus sit amet.</p>
+            </CollapsibleSection>
+        </div>
+    );
 }
 
 export default MisCursos;
