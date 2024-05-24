@@ -2,12 +2,12 @@
 import TitleWithImages from "../components/TitleWithImages";
 import CollapsibleSection from "../components/CollapsibleSection";
 
-import "../styles/MisCursos.css";
+import "../styles/Title.css";
 
 function ayuda() {
 	
 	return (
-		<div>
+		<div style={{marginLeft: '400px'}}>
 			<TitleWithImages title="Ayuda" />
 			
 
