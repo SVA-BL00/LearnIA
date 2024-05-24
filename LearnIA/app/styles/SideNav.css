@@ -3,6 +3,7 @@
     height: 100vh;  
     background-color: #132941;
     font-family: "Lato", sans-serif;
+    position: fixed;
   }
 
   #learnia-logo {

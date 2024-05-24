@@ -1,9 +1,10 @@
+import TitleWithImages from "../components/TitleWithImages";
+import '../styles/Title.css'
+
 function perfil() {
 	return (
-		<div className="perfil">
-			<div className="container-fluid">
-				<h1>Perfil</h1>
-			</div>
+		<div style={{marginLeft: '400px'}}>
+			<TitleWithImages title="Perfil" />
 		</div>
 	);
 }
