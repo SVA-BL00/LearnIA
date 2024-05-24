@@ -3,6 +3,7 @@ import { useLocation } from "@remix-run/react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "../styles/MisCursos.css";
 import CollapsibleSection from "../components/CollapsibleSection";
+import TitleWithImages from "../components/TitleWithImages";
 
 function MisCursos() {
     const location = useLocation();
@@ -20,10 +21,10 @@ function MisCursos() {
                 </div>
             </div>
 
-            <div>
-                <hr className="solid" />
-            </div>
 
+	return (
+		<div>
+			<TitleWithImages title="Mis Cursos" />
             <div>
                 <CollapsibleSection title="PROGRAMACIÓN ORIENTADA A OBJETOS II">
                     <div className="collapsible-content">
@@ -49,6 +50,7 @@ function MisCursos() {
                         </div>
                     </div>
                 </CollapsibleSection>
+
 
                 <CollapsibleSection title="BIOLOGÍA COMPUTACIONAL">
                     <div className="collapsible-content">
