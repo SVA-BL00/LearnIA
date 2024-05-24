@@ -13,15 +13,6 @@ function MisCursos() {
         setActivePath(location.pathname);
     }, [location.pathname]);
 
-    return (
-        <div>
-            <div className="MisCursos">
-                <div className="container-fluid mt-5 mb-4">
-                    <h1>Mis Cursos</h1>
-                </div>
-            </div>
-
-
 	return (
 		<div>
 			<TitleWithImages title="Mis Cursos" />
