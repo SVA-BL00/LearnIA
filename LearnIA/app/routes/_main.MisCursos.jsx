@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "@remix-run/react";
 import "../styles/MisCursos.css";
 import CollapsibleSection from "../components/CollapsibleSection";
+import TitleWithImages from "../components/TitleWithImages";
 
 function MisCursos() {
 	const location = useLocation();
@@ -18,15 +19,7 @@ function MisCursos() {
 
 	return (
 		<div>
-			<div className="MisCursos">
-				<div className="container-fluid mt-5 mb-4">
-					<h1>Mis Cursos</h1>
-				</div>
-			</div>
-
-			<div>
-				<hr className="solid" />
-			</div>
+			<TitleWithImages title="Mis Cursos" />
 
 			<CollapsibleSection title="PROGRAMACIÓN ORIENTADA A OBJETOS">
 				<p>
