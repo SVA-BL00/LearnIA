@@ -10,3 +10,46 @@
   margin-left: 60px;
   margin-right: 80px;
 }
+
+.left-content {
+  flex: 6; /* Cambiado a 40% del espacio disponible */
+  align-self: flex-start; /* Alineado a la izquierda */
+}
+
+.right-content {
+  flex: 4; /* Cambiado a 60% del espacio disponible */
+  align-self: flex-start;
+  margin-left: 120px;
+}
+
+.right-content .progress-text {
+  margin-top: 10px;
+  color: #2b8a74;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 9px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn.orange {
+  background-color: #ff7043;
+  color: white;
+}
+
+.btn.green {
+  background-color: #2b8a74;
+  color: white;
+}
+
+.btn.red {
+  background-color: #d32f2f;
+  color: white;
+}
