@@ -1,21 +1,40 @@
 .mainClock{
-width: 100%;
+width: auto;
+height: 100%;
 display: flex;
+padding-left: 1em;
+padding-right: 1em;
 flex-direction: row;
 justify-content: center;
-margin: auto;
-gap:30px;
 background-color:#357266;
+border-radius: 0.6vw;
 }
 
 .mainClock .box{
-width: calc(100%/4);
+width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-height: 100px;
-max-width: 150px;
-background-color: #6C988F;
 color: white;
+padding: 0.5em;
+}
+
+.value{
+    font-size: 3em;
+    padding: 0.2em;
+    font-family: "Ubuntu Mono", monospace;
+}
+
+.color-box{
+    background-color: #6C988F;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    border-radius: 0.6vw;
+}
+
+.label{
+    font-family: "Lato", monospace;
 }
