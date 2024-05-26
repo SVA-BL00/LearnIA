@@ -1,0 +1,17 @@
+.task-container {
+    border-radius: 0.6em;
+    background-color: white; /* Fill the background color */
+}
+
+.task-title {
+    border-radius: 0.4em 0.4em 0 0;
+    background-color: var(--red-color);
+    padding:1em;
+    color: white;
+}
+
+.tasks {
+    display: flex;
+    flex-direction: column;
+    padding:0.5em;
+}
