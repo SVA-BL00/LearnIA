@@ -34,7 +34,7 @@ function Task({ tasks, dates }) {
 					dates={dates}
 				/>
 			</div>
-			<div className="tasks" style={{ color: "var(--red-color)" }}>
+			<div className="tasks">
 				{tasks?.map((task, index) => (
 					<div
 						className="task Lato"

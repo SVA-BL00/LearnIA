@@ -81,6 +81,7 @@ function CursosDashboard({ courses }) {
 							<div className="task-display">
 								<Task tasks={course.tasks} dates={course.dates} />
 							</div>
+							
 						</div>
 					</div>
 				</TabPanel>
