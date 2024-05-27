@@ -1,6 +1,7 @@
 .task-container {
     border-radius: 0.6em;
-    background-color: white; /* Fill the background color */
+    background-color: white;
+    height: 100%;
 }
 
 .task-title {
@@ -8,6 +9,9 @@
     background-color: var(--red-color);
     padding:1em;
     color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .tasks {
@@ -15,3 +19,11 @@
     flex-direction: column;
     padding:0.5em;
 }
+
+.task-container .tasks .task {
+    padding: 0.5em 0;
+  }
+  
+  .task-container .tasks .task:not(:first-child) {
+    border-top: 2px solid var(--red-color);
+  }

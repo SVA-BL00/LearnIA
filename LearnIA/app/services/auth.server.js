@@ -2,7 +2,6 @@
 import { Authenticator } from "remix-auth";
 import {
 	GoogleStrategy,
-	MicrosoftStrategy,
 	SocialsProvider,
 } from "remix-auth-socials";
 import { sessionStorage } from "../services/session.server";

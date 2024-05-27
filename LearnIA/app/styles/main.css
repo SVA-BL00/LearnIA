@@ -24,6 +24,9 @@
 .Ubuntu{
     font-family: "Ubuntu";
 }
+.Roboto{
+    font-family: "Roboto Slab";
+}
 
 .container-full {
     height: 100vh; /* Full viewport height */

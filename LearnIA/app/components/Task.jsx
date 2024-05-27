@@ -6,15 +6,27 @@ function Task({ tasks }) {
 			style={{ border: "2px solid var(--red-color)" }}
 		>
 			<div
-				className="task-title"
+				className="task-title Roboto"
 				style={{ backgroundColor: "var(--red-color)" }}
 			>
 				Esta semana
-				<i className="bi bi-box-arrow-in-right" style={{ paddingRight: "0" }} />
+				<i
+					className="bi bi-arrows-angle-expand"
+					style={{
+						paddingRight: "0",
+						fontSize: "1.5em",
+						cursor: "pointer",
+						pointerEvents: "auto",
+					}}
+				/>
 			</div>
-			<div className="tasks">
+			<div className="tasks" style={{ color: "var(--red-color)" }}>
 				{tasks?.map((task, index) => (
-					<div className="task" key={index}>
+					<div className="task Lato" key={index}>
+						<i
+							className="bi bi-pencil"
+							style={{ paddingRight: "0.5em", fontSize: "1.5em" }}
+						/>
 						{task}
 					</div>
 				))}
