@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "@remix-run/react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "../styles/MisCursos.css";   
+import "../styles/MisCursos.css";
 import CollapsibleSection from "../components/CollapsibleSection";
 import TitleWithImages from "../components/TitleWithImages";
 

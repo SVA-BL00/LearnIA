@@ -6,13 +6,13 @@ import "../styles/custom-tabs.css";
 import "../styles/dashboard.css";
 
 function CursosDashboard({ courses }) {
-    return (
-        <Tabs>
-            <TabList>
-                {courses.map((course, index) => (
-                    <Tab key={index}>{course.title}</Tab>
-                ))}
-            </TabList>
+	return (
+		<Tabs>
+			<TabList>
+				{courses.map((course, index) => (
+					<Tab key={index}>{course.title}</Tab>
+				))}
+			</TabList>
 
 			{courses.map((course, index) => (
 				<TabPanel key={index}>
@@ -81,7 +81,6 @@ function CursosDashboard({ courses }) {
 							<div className="task-display">
 								<Task tasks={course.tasks} dates={course.dates} />
 							</div>
-							
 						</div>
 					</div>
 				</TabPanel>
@@ -91,4 +90,3 @@ function CursosDashboard({ courses }) {
 }
 
 export default CursosDashboard;
-
