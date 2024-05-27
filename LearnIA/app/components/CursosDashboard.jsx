@@ -7,7 +7,7 @@ import "../styles/dashboard.css";
 
 function CursosDashboard({ courses }) {
     return (
-        <Tabs style={{ height: "100%" }}>
+        <Tabs>
             <TabList>
                 {courses.map((course, index) => (
                     <Tab key={index}>{course.title}</Tab>
