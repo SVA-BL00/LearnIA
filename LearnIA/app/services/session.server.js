@@ -1,4 +1,5 @@
 import { createCookieSessionStorage } from "@remix-run/node";
+import { authenticator } from "./auth.server";
 
 // Create sessionStorage object
 const sessionStorage = createCookieSessionStorage({
@@ -17,3 +18,11 @@ const { getSession, commitSession, destroySession } = sessionStorage;
 
 // Export the objects
 export { sessionStorage, getSession, commitSession, destroySession };
+
+// Export the authenticator
+export async function requireUser(request) {
+	const user = await authenticator.isAuthenticated(request, {
+	  failureRedirect: "/login", // Redirige al login si no está autenticado
+	});
+	return user;
+}
