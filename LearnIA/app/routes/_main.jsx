@@ -1,6 +1,7 @@
 import { authenticator } from "../services/auth.server";
 import SideNav from "../components/SideNav";
 import { Outlet } from "@remix-run/react";
+import "../styles/custom-progress.css";
 
 // Define the loader function
 export async function loader({ request }) {

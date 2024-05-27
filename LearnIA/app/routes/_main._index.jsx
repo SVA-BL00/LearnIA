@@ -6,7 +6,17 @@ function index() {
 	const courses = [
 		{
 			title: "Programación orientada a objetos II",
-			tasks: ["Introduction to OOP", "Classes and Objects", "Inheritance"],
+			tasks: [
+				"Introduction to OOP",
+				"Classes and Objects",
+				"Inheritance",
+				"Introduction to OOP",
+				"Classes and Objects",
+				"Inheritance",
+			],
+			temasTotales: 10,
+			temasCompletados: 9,
+			calificacionFinal: 80,
 		},
 		{ title: "Title 2" },
 	];
