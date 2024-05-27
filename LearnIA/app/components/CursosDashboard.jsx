@@ -27,16 +27,21 @@ function CursosDashboard({ courses }) {
 					</h2>
 					<div className="container">
 						<div className="row">
-							<div className="col-6">
-								<div className="col"></div>
-								<div className="col"></div>
+							<div className="col-8">
+								<div className="row">
+									<div className="col-6">
+										<div className="child-1">Child 1</div>
+									</div>
+									<div className="col-6">
+										<div className="child-2">Child 2</div>
+									</div>
+								</div>
 							</div>
-							<div className="col pe-0">
+							<div className="col-4">
 								<Task tasks={course.tasks} />
 							</div>
 						</div>
 					</div>
-					{course.content}
 				</TabPanel>
 			))}
 		</Tabs>

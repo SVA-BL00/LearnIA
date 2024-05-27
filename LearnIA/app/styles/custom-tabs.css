@@ -23,6 +23,7 @@ border-radius: 0.6vw;
     list-style: none;
     padding: 6px 12px;
     cursor: pointer;
+    height: 100%;
   }
   
   .react-tabs__tab--selected {

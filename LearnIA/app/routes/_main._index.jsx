@@ -6,10 +6,9 @@ function index() {
 	const courses = [
 		{
 			title: "Programación orientada a objetos II",
-			content: "lorem impusm asdaskdasdasdas",
 			tasks: ["Introduction to OOP", "Classes and Objects", "Inheritance"],
 		},
-		{ title: "Title 2", content: "Any content 2" },
+		{ title: "Title 2" },
 	];
 	return (
 		//<div style={{marginLeft:'400px'}}>
