@@ -1,0 +1,37 @@
+.wrapper-notif {
+    display: flex;
+    height: 100%;
+    align-items: flex-start;
+  }
+  
+  .bell-notif {
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    box-shadow: -5px 7px 13px -7px rgba(0, 0, 0, 0.75);
+    width: 3em;
+    height: 3em;
+    background-color: white;
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .bell-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #E33838;
+    font-size: 1.4em;
+    transition: color 0.2s;
+    padding-right: 0;
+  }
+  
+  .bell-notif:hover {
+    background-color: #E33838;
+    box-shadow: -5px 7px 15px -7px rgba(0, 0, 0, 0.75);
+  }
+  
+  .bell-notif:hover .bell-icon {
+    color: white;
+  }
+  

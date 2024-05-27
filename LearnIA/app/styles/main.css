@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('fonts/RobotoSlab-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('fonts/Lato-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('fonts/UbuntuMono-Regular.ttf') format('truetype');
+}
+:root {
+    --yellow-color: #FF7F11;
+    --red-color: #E33838;
+    --blue-color: #132941;
+    --green-color: #48605B;
+}
+
+.Lato{
+    font-family: "Lato";
+}
+.Ubuntu{
+    font-family: "Ubuntu";
+}
+.Roboto{
+    font-family: "Roboto Slab";
+}
+
+.dashboard {
+    height: 100vh; /* Ensure the dashboard takes up the full viewport height */
+  }
+  
+  .container-full {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .wrapper {
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  
+  .wrapper-main {
+    display: flex;
+    align-items: center;
+    padding-left: 2em;
+  }
+  
+  .lower-wrapper {
+    min-height: 0;
+    height: 100%;
+    padding: 1.5em;
+  }
+  
+
+.title-wrapper {
+    display: flex;
+    width: 25%;
+    padding-right: 2em;
+    flex-wrap: wrap;
+    align-content: center;
+    align-self: center;
+}
+
+.title {
+    color: var(--yellow-color);
+    font-family: "Roboto Slab", serif;
+    font-weight: 600;
+    font-size: 2.3em;
+}
