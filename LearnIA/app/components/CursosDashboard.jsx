@@ -6,13 +6,13 @@ import "../styles/custom-tabs.css";
 import "../styles/dashboard.css";
 
 function CursosDashboard({ courses }) {
-	return (
-		<Tabs>
-			<TabList>
-				{courses.map((course, index) => (
-					<Tab key={index}>{course.title}</Tab>
-				))}
-			</TabList>
+    return (
+        <Tabs style={{ height: "100%" }}>
+            <TabList>
+                {courses.map((course, index) => (
+                    <Tab key={index}>{course.title}</Tab>
+                ))}
+            </TabList>
 
 			{courses.map((course, index) => (
 				<TabPanel key={index}>
@@ -90,3 +90,4 @@ function CursosDashboard({ courses }) {
 }
 
 export default CursosDashboard;
+
