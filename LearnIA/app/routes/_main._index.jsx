@@ -5,8 +5,8 @@ import "../styles/main.css";
 function index() {
 	const courses = [
 		{
-			"title": "Programación Orientada a Objetos II",
-			"tasks": [
+			title: "Programación Orientada a Objetos II",
+			tasks: [
 				"Introducción a la POO",
 				"Clases y Objetos",
 				"Herencia",
@@ -14,37 +14,38 @@ function index() {
 				"Encapsulamiento",
 				"Abstracción",
 			],
-			"temasTotales": 10,
-			"temasCompletados": 9,
-			"calificacionFinal": 80
+			temasTotales: 10,
+			temasCompletados: 9,
+			calificacionFinal: 80,
 		},
 		{
-			"title": "Estructuras de Datos y Algoritmos",
-			"tasks": [
+			title: "Estructuras de Datos y Algoritmos",
+			tasks: [
 				"Introducción a las Estructuras de Datos",
 				"Arrays y Listas Enlazadas",
-				"Pilas y Colas"
+				"Pilas y Colas",
 			],
-			"temasTotales": 10,
-			"temasCompletados": 8,
-			"calificacionFinal": 85
-		}
+			temasTotales: 10,
+			temasCompletados: 8,
+			calificacionFinal: 85,
+		},
 	];
 	return (
-		//<div style={{marginLeft:'400px'}}>
-		<div className="dashboard">
-			<div className="container-full">
-				<div className="wrapper">
-					<div className="wrapper-main">
-						<div className="title-wrapper">
-							<h2 className="title">¿Listo para tu examen?</h2>
+		<div style={{ marginLeft: "400px" }}>
+			<div className="dashboard">
+				<div className="container-full">
+					<div className="wrapper">
+						<div className="wrapper-main">
+							<div className="title-wrapper">
+								<h2 className="title">¿Listo para tu examen?</h2>
+							</div>
+							<Countdown />
 						</div>
-						<Countdown />
+						<Notification />
 					</div>
-					<Notification />
-				</div>
-				<div className="lower-wrapper">
-					<CursosDashboard courses={courses} />
+					<div className="lower-wrapper">
+						<CursosDashboard courses={courses} />
+					</div>
 				</div>
 			</div>
 		</div>

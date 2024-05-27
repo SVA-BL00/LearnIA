@@ -3,7 +3,7 @@ import "../styles/Title.css";
 
 function HistorialQuizzes() {
 	return (
-		<div style={{marginLeft: '400px'}}>
+		<div style={{ marginLeft: "400px" }}>
 			<TitleWithImages title="Historial de Quizzes" />
 		</div>
 	);

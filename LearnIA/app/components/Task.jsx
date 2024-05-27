@@ -17,7 +17,11 @@ function Task({ tasks }) {
 			</div>
 			<div className="tasks">
 				{tasks?.map((task, index) => (
-					<div className="task Lato" key={index} style={{color:"var(--red-color)"}}>
+					<div
+						className="task Lato"
+						key={index}
+						style={{ color: "var(--red-color)" }}
+					>
 						<i
 							className="bi bi-pencil"
 							style={{ paddingRight: "0.5em", fontSize: "1.5em" }}
