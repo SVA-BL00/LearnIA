@@ -2,17 +2,8 @@ import "../styles/task.css";
 
 function Task({ tasks }) {
 	return (
-		<div
-			className="task-container"
-			style={{
-				border: "2px solid var(--red-color)",
-				overflowY: "scroll",
-			}}
-		>
-			<div
-				className="task-title Roboto sticky-top"
-				style={{ backgroundColor: "var(--red-color)" }}
-			>
+		<div className="task-container">
+			<div className="task-title Roboto sticky-top">
 				Esta semana
 				<i
 					className="bi bi-arrows-angle-expand"
@@ -24,9 +15,9 @@ function Task({ tasks }) {
 					}}
 				/>
 			</div>
-			<div className="tasks" style={{ color: "var(--red-color)" }}>
+			<div className="tasks">
 				{tasks?.map((task, index) => (
-					<div className="task Lato" key={index}>
+					<div className="task Lato" key={index} style={{color:"var(--red-color)"}}>
 						<i
 							className="bi bi-pencil"
 							style={{ paddingRight: "0.5em", fontSize: "1.5em" }}

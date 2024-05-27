@@ -1,5 +1,6 @@
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { CircularProgressbar } from "react-circular-progressbar";
+import "../styles/custom-progress.css"
 import Task from "../components/Task";
 import "../styles/custom-tabs.css";
 import "../styles/dashboard.css";
@@ -23,19 +24,59 @@ function CursosDashboard({ courses }) {
 						<div className="content-box">
 							<div className="progress">
 								<div className="progress-box">
-								<VisibilitySensor>
-									{({ isVisible }) => {
-									return (
 										<CircularProgressbar
 										value={course.temasCompletados}
 										maxValue={course.temasTotales}
+										styles={{
+                                            path: {
+                                                stroke: `var(--green-color)`,
+                                            },
+                                        }}
 										/>
-									);
-									}}
-								</VisibilitySensor>
+										<div
+                                        className="Lato text-center fw-bold label-circle"
+                                        style={{ color: "var(--green-color)"}}
+                                    >
+                                        <span style={{ fontSize: "2em", marginRight: "0.1em" }}>
+                                            {course.temasCompletados}
+                                        </span>
+                                        <span>de</span>
+                                        <span
+                                            style={{
+                                                fontSize: "2em",
+                                                marginLeft: "0.1em",
+                                                marginRight: "0.1em",
+                                            }}
+                                        >
+                                            {course.temasTotales}
+                                        </span>
+                                        <span>temas completados</span>
+                                    </div>
 								</div>
-								<div className="progress-box"></div>
+								<div className="progress-box">
+									<CircularProgressbar
+                                        value={course.calificacionFinal}
+                                        styles={{
+                                            path: {
+                                                stroke: `var(--yellow-color)`,
+                                            },
+                                        }}
+                                    />
+                                    <div
+                                        className="Lato text-center fw-bold label-circle"
+                                        style={{ color: "var(--yellow-color)"}}
+                                    >
+                                        <span style={{ fontSize: "2em", marginRight: "0.1em" }}>
+                                            {course.calificacionFinal}%
+                                        </span>
+                                        <span>calificacion final</span>
+                                    </div>
+								</div>
 							</div>
+							<div className="task-display">
+								<Task tasks={course.tasks} />
+							</div>
+							
 						</div>
 					</div>
                 </TabPanel>

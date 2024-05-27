@@ -1,13 +1,19 @@
 .task-container {
+    flex-grow: 1;
     border-radius: 0.6em;
     background-color: white;
-    max-height: 100%;
+    border: 2px solid var(--red-color);
+    overflow-y: auto; /* Make it scrollable */
+    display: flex;
+    flex-direction: column;
+    max-height: 40vh;
+    width: 100%;
 }
 
 .task-title {
     border-radius: 0.4em 0.4em 0 0;
     background-color: var(--red-color);
-    padding:1em;
+    padding: 1em;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -17,13 +23,13 @@
 .tasks {
     display: flex;
     flex-direction: column;
-    padding:0.5em;
+    padding: 0.5em;
 }
 
 .task-container .tasks .task {
     padding: 0.5em 0;
-  }
-  
-  .task-container .tasks .task:not(:first-child) {
+}
+
+.task-container .tasks .task:not(:first-child) {
     border-top: 2px solid var(--red-color);
-  }
+}

@@ -5,20 +5,30 @@ import "../styles/main.css";
 function index() {
 	const courses = [
 		{
-			title: "Programación orientada a objetos II",
-			tasks: [
-				"Introduction to OOP",
-				"Classes and Objects",
-				"Inheritance",
-				"Introduction to OOP",
-				"Classes and Objects",
-				"Inheritance",
+			"title": "Programación Orientada a Objetos II",
+			"tasks": [
+				"Introducción a la POO",
+				"Clases y Objetos",
+				"Herencia",
+				"Polimorfismo",
+				"Encapsulamiento",
+				"Abstracción",
 			],
-			temasTotales: 10,
-			temasCompletados: 9,
-			calificacionFinal: 80,
+			"temasTotales": 10,
+			"temasCompletados": 9,
+			"calificacionFinal": 80
 		},
-		{ title: "Title 2" },
+		{
+			"title": "Estructuras de Datos y Algoritmos",
+			"tasks": [
+				"Introducción a las Estructuras de Datos",
+				"Arrays y Listas Enlazadas",
+				"Pilas y Colas"
+			],
+			"temasTotales": 10,
+			"temasCompletados": 8,
+			"calificacionFinal": 85
+		}
 	];
 	return (
 		//<div style={{marginLeft:'400px'}}>
