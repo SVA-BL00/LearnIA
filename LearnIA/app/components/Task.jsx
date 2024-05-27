@@ -1,12 +1,16 @@
 import "../styles/task.css";
+
 function Task({ tasks }) {
 	return (
 		<div
 			className="task-container"
-			style={{ border: "2px solid var(--red-color)" }}
+			style={{
+				border: "2px solid var(--red-color)",
+				overflowY: "scroll",
+			}}
 		>
 			<div
-				className="task-title Roboto"
+				className="task-title Roboto sticky-top"
 				style={{ backgroundColor: "var(--red-color)" }}
 			>
 				Esta semana
