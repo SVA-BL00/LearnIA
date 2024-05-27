@@ -1,9 +1,10 @@
+import TitleWithImages from "../components/TitleWithImages";
+import "../styles/Title.css";
+
 function explora() {
 	return (
-		<div className="explora">
-			<div className="container-fluid">
-				<h1>Explora</h1>
-			</div>
+		<div style={{marginLeft: '400px'}}>
+			<TitleWithImages title="Explora" />
 		</div>
 	);
 }

@@ -1,9 +1,10 @@
+import TitleWithImages from "../components/TitleWithImages";
+import "../styles/Title.css";
+
 function HistorialQuizzes() {
 	return (
-		<div className="HistorialQuizzes">
-			<div className="container-fluid">
-				<h1>HistorialQuizzes</h1>
-			</div>
+		<div style={{marginLeft: '400px'}}>
+			<TitleWithImages title="Historial de Quizzes" />
 		</div>
 	);
 }
