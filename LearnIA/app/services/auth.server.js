@@ -21,9 +21,10 @@ authenticator.use(
 			clientSecret: process.env.CLIENT_SECRET_GOOGLE,
 			callbackURL: getCallback(SocialsProvider.GOOGLE),
 		},
-		async ({ profile }) => {
-			console.log("User's name:", profile.name);
-			return profile; // Return the profile object as is
+		async ({ profile }, req, res) => {
+			req.session.userProfile = profile; // Store user profile in session
+			console.log(profile);
+			return profile;
 		},
 	),
 );
