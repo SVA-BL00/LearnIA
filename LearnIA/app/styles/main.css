@@ -17,6 +17,7 @@
     --red-color: #E33838;
     --blue-color: #132941;
     --green-color: #48605B;
+    --Lato: "Lato";
 }
 
 .Lato{
@@ -30,7 +31,7 @@
 }
 
 .dashboard {
-    height: 100vh; /* Ensure the dashboard takes up the full viewport height */
+    height: 100vh;
   }
   
   .container-full {
