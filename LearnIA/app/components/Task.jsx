@@ -1,6 +1,19 @@
+import { useState } from "react";
 import "../styles/task.css";
+import CalendarModal from "./CalendarModal";
 
-function Task({ tasks }) {
+function Task({ tasks, dates }) {
+	const [isComponentVisible, setComponentVisible] = useState(false);
+
+	const handleIconClick = () => {
+		setComponentVisible(!isComponentVisible);
+	};
+
+	const handleCloseModal = () => {
+		setComponentVisible(false);
+		setQuizzesText("");
+	};
+
 	return (
 		<div className="task-container">
 			<div className="task-title Roboto sticky-top">
@@ -13,6 +26,12 @@ function Task({ tasks }) {
 						cursor: "pointer",
 						pointerEvents: "auto",
 					}}
+					onClick={handleIconClick}
+				/>
+				<CalendarModal
+					show={isComponentVisible}
+					onClose={handleCloseModal}
+					dates={dates}
 				/>
 			</div>
 			<div className="tasks">

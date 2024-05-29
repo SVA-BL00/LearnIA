@@ -1,10 +1,9 @@
 import "../styles/countdown.css";
 import { useState, useEffect } from "react";
 
-const COUNTDOWN_TARGET = new Date("2024-06-05T23:59:59");
-
-const getTimeLeft = () => {
-	const totalTimeLeft = COUNTDOWN_TARGET - new Date();
+// FUNCTION TO GET TIME LEFT //
+const getTimeLeft = (targetDate) => {
+	const totalTimeLeft = targetDate - new Date();
 	const days = Math.floor(totalTimeLeft / (1000 * 60 * 60 * 24));
 	const hours = Math.floor((totalTimeLeft / (1000 * 60 * 60)) % 24);
 	const minutes = Math.floor((totalTimeLeft / (1000 * 60)) % 60);
@@ -23,18 +22,20 @@ const getTimeLeft = () => {
 	};
 };
 
-function Countdown() {
-	const [timeLeft, setTimeLeft] = useState(getTimeLeft);
+function Countdown({ examenFinalDate }) {
+	// GETS THE DATE AND CHANGES THE CLOCK //
+	const [timeLeft, setTimeLeft] = useState(getTimeLeft(examenFinalDate));
 
 	useEffect(() => {
 		const timer = setInterval(() => {
-			setTimeLeft(getTimeLeft());
+			setTimeLeft(getTimeLeft(examenFinalDate));
 		}, 1000);
 		return () => {
 			clearInterval(timer);
 		};
-	}, []);
+	}, [examenFinalDate]);
 
+	// MAPS EVERY VALUE INSIDE THE FRONT END //
 	return (
 		<div className="mainClock">
 			{Object.entries(timeLeft).map(([label, value]) => (

@@ -34,7 +34,7 @@ function CursosDashboard({ courses }) {
 										maxValue={course.temasTotales}
 										styles={{
 											path: {
-												stroke: `var(--green-color)`,
+												stroke: "var(--green-color)",
 											},
 										}}
 									/>
@@ -63,7 +63,7 @@ function CursosDashboard({ courses }) {
 										value={course.calificacionFinal}
 										styles={{
 											path: {
-												stroke: `var(--yellow-color)`,
+												stroke: "var(--yellow-color)",
 											},
 										}}
 									/>
@@ -79,7 +79,7 @@ function CursosDashboard({ courses }) {
 								</div>
 							</div>
 							<div className="task-display">
-								<Task tasks={course.tasks} />
+								<Task tasks={course.tasks} dates={course.dates} />
 							</div>
 						</div>
 					</div>
