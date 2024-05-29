@@ -21,13 +21,30 @@ function perfil() {
     return (
         <div style={{ marginLeft: "400px" }}>
             <TitleWithImages title="Perfil" />
-            <p>{userInformation.displayName}</p>
-			<p>{userInformation.email}</p>
-
-			<div className="container-fluid" id="main">
-				<h2>Datos Personales</h2>
+			<div className="container" id="main">
+				<div className="container-fluid p-4">
+					<h2>Datos Personales</h2>
+				</div>
+				<div className="container-fluid p-4" id="data-contaner">
+					<div className="row">
+						<div className="col-12 col-md-4 d-flex align-items-center justify-content-center p-3">
+							<img
+								src={userInformation.photo}
+								className="rounded-circle img-fluid"
+								id="perfil-image"
+								alt="Profile avatar"
+							/>
+						</div>
+						<div className="col-12 col-md-8 p-3" id="information">
+							<h4>Nombre:</h4>
+							<p>{userInformation.displayName}</p>
+							<h4>Email: </h4>
+							<p>{userInformation.email}</p>
+						</div>
+					</div>
+				</div>
+				
 			</div>
-
         </div>
     );
 }

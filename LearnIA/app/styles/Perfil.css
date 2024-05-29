@@ -2,16 +2,29 @@
     border: 3px solid;
     border-color: #132941;
     color: #132941;
-    padding: 18px;
     width: calc(100% - 80px);
-    text-align: left;
     font-size: 21px;
     font-weight: 500;
     border-radius: 20px;
-    margin-left: 40px;
-    margin-right: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 0;
     font-family: "Ubuntu Mono", monospace;
+}
+
+#data-contaner {
+    border-top: 3px solid;
+}
+
+#perfil-image {
+    width: 80%;
+    height: auto;
+}
+
+#information {
+    font-size: 1.1em;
+    font-weight: 300;
+    font-family: "Lato", sans-serif;
+}
+
+#information h4 {
+    font-weight: 590;
 }

@@ -31,7 +31,7 @@ function SideNav() {
 					onClick={() => setActivePath("/perfil")}
 				>
 					<div className="row py-2">
-						<div className="col-12 col-md-3 ps-4">
+						<div className="col-12 col-md-3 ps-4 d-flex align-items-center justify-content-center">
 							<img
 								src="https://github.com/mdo.png"
 								className="rounded-circle"
