@@ -1,41 +1,33 @@
-import { useEffect, useState } from "react";
+import { useLoaderData } from "@remix-run/react";
+import { loader as indexLoader } from '../services/auth.server';
+export { indexLoader as loader };
 
 import TitleWithImages from "../components/TitleWithImages";
 import "../styles/Title.css";
-
+import "../styles/Perfil.css";
 
 
 function perfil() {
-    const [userProfile, setUserProfile] = useState(null);
-    useEffect(() => {
-        // Fetch user profile from session
-        const fetchProfile = async () => {
-            try {
-                const response = await fetch("./api/profile");
-                if (response.ok) {
-                    const profile = await response.json();
-                    setUserProfile(profile);
-                } else {
-                    // Handle error
-                }
-            } catch (error) {
-                console.error("Error fetching profile:", error);
-            }
-        };
-
-        fetchProfile();
-    }, []);
+  	let userInformation = useLoaderData();
+	if (!userInformation || userInformation.error) {
+		return (
+		<div style={{ marginLeft: "400px" }}>
+			<TitleWithImages title="Perfil" />
+			Failed to load data.
+		</div>);
+	}
+	
 
     return (
         <div style={{ marginLeft: "400px" }}>
             <TitleWithImages title="Perfil" />
-            {userProfile && (
-                <div>
-                    <p>Name: {userProfile.name}</p>
-                    <p>Email: {userProfile.email}</p>
-                    {/* Render other user information here */}
-                </div>
-            )}
+            <p>{userInformation.displayName}</p>
+			<p>{userInformation.email}</p>
+
+			<div className="container-fluid" id="main">
+				<h2>Datos Personales</h2>
+			</div>
+
         </div>
     );
 }
