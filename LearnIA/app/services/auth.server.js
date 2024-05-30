@@ -7,7 +7,7 @@ import {
 } from "remix-auth-socials";
 import { sessionStorage } from "../services/session.server";
 import { config } from "dotenv";
-import { getConnection } from "../services/db";
+import prisma from "./prisma/prisma.js";
 
 config();
 
@@ -29,30 +29,28 @@ authenticator.use(
 		},
 		async ({ profile }) => {
 			try {
-				const connection = await getConnection();
-      
-      			// Check if the user already exists
-      			const [rows] = await connection.query('SELECT idEstudiante FROM Estudiante WHERE correo = ?', [profile.emails[0].value]);
-      
-      			let estudianteId;
-      			if (rows.length > 0) {
-        			// User exists
-        			estudianteId = rows[0].idEstudiante;
-     			} else {
-        			// User does not exist, create a new entry
-        			const [result] = await connection.query(
-          				'INSERT INTO Estudiante (nombre, correo) VALUES (?, ?)', 
-          				[profile.displayName, profile.emails[0].value]
-        			);
-        			estudianteId = result.insertId;
-      			}
+				let estudiante = await prisma.estudiante.findUnique({
+					where: {
+					  	correo: profile.emails[0].value,
+					},
+				});
+
+				if (!estudiante) {
+					// User does not exist, create a new entry
+					estudiante = await prisma.estudiante.create({
+						data: {
+						nombre: profile.displayName,
+						correo: profile.emails[0].value,
+						},
+					});
+				}
 
       			// Return the profile object with estudianteId
-      			return { ...profile, estudianteId };
+      			return { ...profile, estudianteId: estudiante.idEstudiante };
 			} catch (error) {
 				console.error("Error during authentication:", error);
         		throw new Error("Failed to authenticate user");
-			}
+			} 
 		},
-	)
+	),
 );

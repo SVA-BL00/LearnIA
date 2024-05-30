@@ -1,5 +1,6 @@
 import { createRequestHandler } from "@remix-run/express";
 import express from "express";
+import prisma from "./prisma/prisma.js";
 
 const viteDevServer =
 	process.env.NODE_ENV === "production"
@@ -21,6 +22,20 @@ const build = viteDevServer
 
 app.all("*", createRequestHandler({ build }));
 
-app.listen(3000, () => {
+// Start the server
+const server = app.listen(3000, () => {
 	console.log("App listening on http://localhost:3000");
 });
+
+// Shutdown the server
+const gracefulShutdown = async () => {
+	console.log("Shutting down gracefully...");
+	await prisma.$disconnect(); // Disconnect Prisma Client
+	server.close(() => {
+		console.log("Closed out remaining connections.");
+		process.exit(0);
+	});
+};
+
+process.on("SIGTERM", gracefulShutdown);
+process.on("SIGINT", gracefulShutdown);
