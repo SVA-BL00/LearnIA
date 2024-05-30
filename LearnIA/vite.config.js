@@ -5,6 +5,6 @@ import { defineConfig } from "vite";
 export default defineConfig({
 	plugins: [remix()],
 	test: {
-		// ...
+		globals: true,
 	},
 });
