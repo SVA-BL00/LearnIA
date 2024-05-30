@@ -1,0 +1,307 @@
+.collapsible {
+    background-color: #132941;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: calc(100% - 80px);
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 21px;
+    font-weight: 500;
+    border-radius: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-radius 0.3s ease;
+    font-family: "Ubuntu Mono", monospace;
+  }
+  
+  .collapsible.active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .active, .collapsible:hover {
+    background-color: #132941;
+  }
+  
+  .symbol-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .symbol {
+    font-weight: 500;
+    font-size: 40px;
+    color: white;
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+  }
+  
+  .collapsible.active .symbol {
+    transform: rotate(90deg);
+  }
+  
+  .collapsible .symbol {
+    transform: rotate(270deg);
+  }
+  
+  .content {
+    padding: 10px 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    border-radius: 0;
+    margin: 0 40px;
+    transition: border-radius 0.3s ease;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    font-family: "Lato", monospace;
+    max-width: calc(100vw - 480px);
+  }
+  
+  .content.active {
+    display: flex;
+  }
+
+  .collapsible-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 0;
+}
+
+/*Collapsible para carreras*/ 
+.collapsible1 {
+  background-color: white;
+  color: #132941;
+  cursor: pointer;
+  padding: 18px;
+  width: calc(100% - 80px);
+  border: 2px solid #132941;
+  text-align: left;
+  outline: none;
+  font-size: 25px;
+  font-weight: 600;
+  border-radius: 18px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: border-radius 0.3s ease, border-color 0.3s ease;;
+  font-family: "Ubuntu Mono", monospace;
+}
+.collapsible1.active {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.collapsible1-content1 {
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 0;
+}
+
+.symbol1 {
+  font-weight: 500;
+  font-size: 40px;
+  color: #132941;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+}
+.collapsible1.active .symbol1 {
+  transform: rotate(90deg);
+}
+
+.collapsible1 .symbol1 {
+  transform: rotate(270deg);
+}
+
+.content1.active {
+  display: flex;
+}
+.content1 {
+  padding: 0px 0px;
+  display: none;
+  overflow: hidden;
+  background-color: #132941;
+  border-radius: 0;
+  margin: 0 40px;
+  transition: border-radius 0.3s ease;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  font-family: "Lato", monospace;
+  max-width: calc(100vw - 480px);
+}
+
+.content1.active {
+  display: flex;
+}
+
+.collapsible1-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0px 0;
+}
+
+/*Collapsible para semestres*/ 
+.collapsible2 {
+  background-color: white;
+  color: #132941;
+  cursor: pointer;
+  padding: 10px 18px;
+  width: calc(100%);
+  border: 2px solid #132941;
+  text-align: left;
+  outline: none;
+  font-size: 21px;
+  font-weight: 500;
+  border-radius: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: border-radius 0.3s ease;
+  font-family: "Ubuntu Mono", monospace;
+}
+
+.collapsible2.active {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  display: flex;
+}
+
+.symbol2 {
+  font-weight: 350;
+  font-size: 35px;
+  color: #132941;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+}
+.collapsible2.active .symbol2 {
+  transform: rotate(90deg);
+}
+
+.collapsible2 .symbol2 {
+  transform: rotate(270deg);
+}
+
+.content2.active {
+  display: flex;
+}
+
+.content2 {
+  padding: 0px 0px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border-radius: 0;
+  margin: 0 0px;
+  transition: border-radius 0.3s ease;
+  box-sizing: border-box;
+  margin-bottom: 0px;
+  font-family: "Lato", monospace;
+  max-width: calc(100vw - 480px);
+  width: 100%;
+}
+
+.content2.active {
+  display: flex;
+}
+
+.collapsible2-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0px 0;
+}
+
+/*Collapsible para materias*/
+.collapsible3 {
+  background-color: white;
+  color: #132941;
+  cursor: pointer;
+  padding: 5px 18px;
+  width: calc(100%);
+  border: 2px solid #132941;
+  text-align: left;
+  outline: none;
+  font-size: 21px;
+  font-weight: 500;
+  border-radius: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: border-radius 0.3s ease;
+  font-family: "Ubuntu Mono", monospace;
+}
+
+.collapsible3.active {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  display: flex;
+}
+
+.symbol3 {
+  font-weight: 300;
+  font-size: 30px;
+  color: #132941;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+}
+.collapsible3.active .symbol3 {
+  transform: rotate(90deg);
+}
+
+.collapsible3 .symbol3 {
+  transform: rotate(270deg);
+}
+
+.content3.active {
+  display: flex;
+}
+
+.content3 {
+  padding: 20px 28px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border: 2px solid #132941;
+  border-radius: 0;
+  margin: 0 0px;
+  transition: border-radius 0.3s ease;
+  box-sizing: border-box;
+  margin-bottom: 0px;
+  font-family: "Lato", monospace;
+  max-width: calc(100vw - 480px);
+}
+
+.content3.active {
+  display: flex;
+}
+
+.collapsible3-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0px 0;
+}
