@@ -25,7 +25,7 @@ function explora() {
 											elementum faucibus mollis. Mauris vel lacinia libero. Proin
 											luctus semper sem, ac posuere velit.
 										</p>
-										<button className="btn green">Suscribirse</button>
+										<button className="btn green">Inscribirse</button>
 									</div>
 								</ExploraCollapsibleMateria>
 							</div>
