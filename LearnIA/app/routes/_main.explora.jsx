@@ -17,7 +17,7 @@ const courses = [
 		  },
 		  {
 			"name": "Semestre 3",
-			"subjects": ["Algoritmos fundamentales", "Internet de las cosas", "Ecuaciones diferenciales"]
+			"subjects": ["Algoritmos fundamentales", "Internet de las cosas"]
 		  }
 		]
 	  }
