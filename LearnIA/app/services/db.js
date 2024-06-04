@@ -2,38 +2,51 @@
 
 import prisma from './prisma/prisma.js';
 
-// Function to get the courses a student is enrolled in
-//export async function getCursosInscritos(estudianteId) {
-//  const cursosInscritos = await prisma.cursoInscrito.findMany({
-//    where: { estudianteId },
-//    select: { cursoId: true },
-//  });
-//  return cursosInscritos.map(ci => ci.cursoId);
-//}
+// Cursos activos con todos los detalles necesarios
+export async function getCursosActivosConDetalles(estudianteId) {
+  const cursosActivos = await prisma.curso.findMany({
+    where: { idEstudiante: estudianteId, completado: 'false' },
+    select: {
+      idCurso: true, // aqui tal vez no sea id curso, tal vez sea otro
+      materia: {
+        select: {
+          nombre: true,
+        },
+      },
+      descripcion: true,
+    },
+  });
 
-// Function to get course details by IDs
-//export async function getCursosByIds(cursoIds) {
-//  return prisma.curso.findMany({
-//    where: {
-//      idCurso: { in: cursoIds },
-//    },
-//  });
-//}
+  return await Promise.all(
+    cursosActivos.map(async (curso) => {
+      const temasCompletados = await prisma.tema.findMany({
+        where: {
+          idCurso: curso.idCurso,
+          completado: 'true',
+        },
+        select: { idTema: true },
+      });
 
-// Function to get the name of the course subject by course ID
-//export async function getNombreMateriaByCursoId(cursoId) {
-//  const curso = await prisma.curso.findUnique({
-//    where: { idCurso: cursoId },
-//    select: { nombreMateria: true },
-//  });
-//  return curso ? curso.nombreMateria : null;
-//}
+      const temasNoCompletados = await prisma.tema.findMany({
+        where: {
+          idCurso: curso.idCurso,
+          OR: [
+            { completado: null },
+            { completado: 'false' },
+          ],
+        },
+        select: { idTema: true },
+      });
 
-// Function to get the description of the course subject by course ID
-//export async function getDescripcionMateriaByCursoId(cursoId) {
-//  const curso = await prisma.curso.findUnique({
-//    where: { idCurso: cursoId },
-//    select: { descripcionMateria: true },
-//  });
-//  return curso ? curso.descripcionMateria : null;
-//}
+      const totalTemas = temasCompletados.length + temasNoCompletados.length;
+      const progreso = totalTemas > 0 ? Math.round((temasCompletados.length / totalTemas) * 100) : 0;
+
+      return {
+        idCurso: curso.idCurso,
+        nombreMateria: curso.materia.nombre,
+        descripcionMateria: curso.descripcion,
+        progreso,
+      };
+    })
+  );
+}

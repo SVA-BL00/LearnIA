@@ -3,7 +3,8 @@ import { Authenticator } from "remix-auth";
 import { GoogleStrategy, SocialsProvider } from "remix-auth-socials";
 import { sessionStorage } from "../services/session.server";
 import { config } from "dotenv";
-//import prisma from './prisma/prisma.js'
+import prisma from './prisma/prisma.js'; 
+
 config();
 
 // Create an instance of the authenticator
