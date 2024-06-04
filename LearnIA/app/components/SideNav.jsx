@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "@remix-run/react";
 
+import { useUser } from "../context/UserContext";
 import "../styles/SideNav.css";
 
 function SideNav() {
-	
+	const { user, loading, error } = useUser();
 
 	const location = useLocation();
 	const [activePath, setActivePath] = useState(location.pathname);
@@ -33,18 +34,24 @@ function SideNav() {
 					onClick={() => setActivePath("/perfil")}
 				>
 					
-					<div className="row py-2">
+					<div className="row py-2 ps-2">
 							<div className="col-12 col-md-3 ps-4 d-flex align-items-center justify-content-center">
+							{loading ? (
+							<p>Loading...</p>
+							) : error ? (
+							<p>Error loading user</p>
+							) : (
 								<img
-									src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+									src={user?.photo || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
 									className="rounded-circle"
 									id="profile-image"
 									alt="Profile avatar"
 								/>
+							)}
 							</div>
 							<div className="col-12 col-md-9">
 								<div className="container p-2 pt-3" id="profile-info">
-									<h5>Nombre Apellido</h5>
+									<h5>{user?.displayName || "Nombre Apellido"}</h5>
 									<h6>ITC — 4° semestre</h6>
 								</div>
 							</div>

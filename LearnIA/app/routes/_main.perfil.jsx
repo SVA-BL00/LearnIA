@@ -9,6 +9,7 @@ import "../styles/Perfil.css";
 
 function perfil() {
   	let userInformation = useLoaderData();
+	
     return (
         <div style={{ marginLeft: "400px" }}>
             <TitleWithImages title="Perfil" />
