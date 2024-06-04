@@ -5,8 +5,6 @@ import { sessionStorage } from "../services/session.server";
 import { config } from "dotenv";
 config();
 
-import { json } from "@remix-run/node";
-
 // Create an instance of the authenticator
 export const authenticator = new Authenticator(sessionStorage, {
 	sessionKey: "_session",
@@ -24,7 +22,7 @@ authenticator.use(
 			callbackURL: getCallback(SocialsProvider.GOOGLE),
 		},
 		async ({ profile }) => {
-			console.log(profile);
+			// console.log(profile);
 			const user = {
 				displayName: profile.displayName,
 				email: profile.emails[0].value,
@@ -34,16 +32,3 @@ authenticator.use(
 		},
 	),
 );
-
-export const loader = async ({ request }) => {
-	try {
-	  const user = await authenticator.isAuthenticated(request);
-	  if (!user) {
-		return redirect('/login'); // Redirect to login if the user is not authenticated
-	  }
-	  return json(user);
-	} catch (error) {
-	  console.error("Error in loader:", error);
-	  return json({ message: "Failed to load data", error: true });
-	}
-};
