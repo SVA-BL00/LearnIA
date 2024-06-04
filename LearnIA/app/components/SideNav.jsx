@@ -6,9 +6,6 @@ import "../styles/SideNav.css";
 
 function SideNav() {
 	const { user, loading, error } = useUser();
-	if(error) console.log("ERROR: ", error);
-	if(loading) console.log("LOADING: ", loading);
-	if(user) console.log("USER: ", user);
 
 	const location = useLocation();
 	const [activePath, setActivePath] = useState(location.pathname);
