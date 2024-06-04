@@ -2,8 +2,8 @@
 import { Authenticator } from "remix-auth";
 import { GoogleStrategy, SocialsProvider } from "remix-auth-socials";
 import { sessionStorage } from "../services/session.server";
+import prisma from './prisma/prisma.js'
 import { config } from "dotenv";
-
 config();
 
 // Create an instance of the authenticator
@@ -40,14 +40,9 @@ authenticator.use(
 						},
 					});
 				}
-        const user = {
-        displayName: profile.displayName,
-        email: profile.emails[0].value,
-        photo: profile.photos[0].value,
-        };
-
-        // Return the profile object with estudianteId
-        return { ...profile, estudianteId: estudiante.idEstudiante, user };
+				
+				// Return the profile object with estudianteId
+				return { ...profile, estudianteId: estudiante.idEstudiante };
 			} catch (error) {
 				console.error("Error during authentication:", error);
         		throw new Error("Failed to authenticate user");

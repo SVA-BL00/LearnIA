@@ -24,7 +24,7 @@ function perfil() {
 							<div className="row">
 								<div className="col-12 col-md-4 d-flex align-items-center justify-content-center p-3">
 									<img
-										src={userInformation.photo}
+										src={userInformation.photos[0].value}
 										className="rounded-circle img-fluid"
 										id="perfil-image"
 										alt="Profile avatar"
@@ -34,7 +34,7 @@ function perfil() {
 									<h4>Nombre:</h4>
 									<p>{userInformation.displayName}</p>
 									<h4>Email: </h4>
-									<p>{userInformation.email}</p>
+									<p>{userInformation.emails[0].value}</p>
 								</div>
 							</div>
 						)

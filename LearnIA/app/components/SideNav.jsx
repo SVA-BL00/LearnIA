@@ -6,6 +6,9 @@ import "../styles/SideNav.css";
 
 function SideNav() {
 	const { user, loading, error } = useUser();
+	if(error) console.log("ERROR: ", error);
+	if(loading) console.log("LOADING: ", loading);
+	if(user) console.log("USER: ", user);
 
 	const location = useLocation();
 	const [activePath, setActivePath] = useState(location.pathname);
@@ -42,7 +45,7 @@ function SideNav() {
 							<p>Error loading user</p>
 							) : (
 								<img
-									src={user?.photo || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
+									src={user?.photos?.[0]?.value || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
 									className="rounded-circle"
 									id="profile-image"
 									alt="Profile avatar"
