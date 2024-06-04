@@ -2,8 +2,8 @@
 import { Authenticator } from "remix-auth";
 import { GoogleStrategy, SocialsProvider } from "remix-auth-socials";
 import { sessionStorage } from "../services/session.server";
-import prisma from './prisma/prisma.js'
 import { config } from "dotenv";
+//import prisma from './prisma/prisma.js'
 config();
 
 // Create an instance of the authenticator
@@ -23,18 +23,13 @@ authenticator.use(
 			callbackURL: getCallback(SocialsProvider.GOOGLE),
 		},
 		async ({ profile }) => {
-			//console.log(profile);
-			
-
-				const user = {
-					displayName: profile.displayName,
-					email: profile.emails[0].value,
-					photo: profile.photos[0].value,
-				};
-				
-				// Return the profile object with estudianteId
-				return user;
-			
+			// console.log(profile);
+			const user = {
+				displayName: profile.displayName,
+				email: profile.emails[0].value,
+				photo: profile.photos[0].value,
+			};
+			return user;
 		},
 	),
 );

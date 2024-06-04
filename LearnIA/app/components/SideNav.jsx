@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "@remix-run/react";
 
-import { useUser } from "../context/UserContext";
 import "../styles/SideNav.css";
+import GorroImage from '../assets/img/gorro-de-graduacion.svg';
 
 function SideNav() {
-	const { user, loading, error } = useUser();
 
 	const location = useLocation();
 	const [activePath, setActivePath] = useState(location.pathname);
@@ -35,23 +34,17 @@ function SideNav() {
 				>
 					
 					<div className="row py-2 ps-2">
-							<div className="col-12 col-md-3 ps-4 d-flex align-items-center justify-content-center">
-							{loading ? (
-							<p>Loading...</p>
-							) : error ? (
-							<p>Error loading user</p>
-							) : (
-								<img
-									src={user?.photos?.[0]?.value || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
-									className="rounded-circle"
-									id="profile-image"
-									alt="Profile avatar"
-								/>
-							)}
+							<div className="col-12 col-md-3 ps-3 d-flex align-items-center justify-content-center">
+							<img
+								src={GorroImage}
+								className="rounded-circle"
+								id="profile-image"
+								alt="Profile avatar"
+							/>
 							</div>
 							<div className="col-12 col-md-9">
-								<div className="container p-2 pt-3" id="profile-info">
-									<h5>{user?.displayName || "Nombre Apellido"}</h5>
+								<div className="container p-1 pt-3" id="profile-info">
+									<h5>{"Nombre Apellido"}</h5>
 									<h6>ITC — 4° semestre</h6>
 								</div>
 							</div>

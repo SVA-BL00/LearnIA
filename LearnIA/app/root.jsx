@@ -11,7 +11,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-import { UserProvider } from "./context/UserContext";
 
 export const meta = () => [
 	{
@@ -29,11 +28,9 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
-				<UserProvider>
 				<div className="d-flex">
 					<Outlet />
 				</div>
-				</UserProvider>
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />

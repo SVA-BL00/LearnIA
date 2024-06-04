@@ -9,7 +9,6 @@ import "../styles/Perfil.css";
 
 function perfil() {
   	let userInformation = useLoaderData();
-	console.log("Cliente", userInformation);
 	
     return (
         <div style={{ marginLeft: "400px" }}>
