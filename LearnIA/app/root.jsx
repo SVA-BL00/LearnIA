@@ -27,11 +27,9 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
-				<UserProvider>
 				<div className="d-flex">
 					<Outlet />
 				</div>
-				</UserProvider>
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />
