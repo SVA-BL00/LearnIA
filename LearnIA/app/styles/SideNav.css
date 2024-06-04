@@ -52,3 +52,7 @@
   
   .fw-semibold { font-weight: 600; }
   .lh-tight { line-height: 1.25; }
+
+  .nav-link:not(.active) #profile-image {
+    filter: brightness(0) invert(1);
+  }
