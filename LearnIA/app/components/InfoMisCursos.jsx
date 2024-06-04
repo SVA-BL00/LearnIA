@@ -27,10 +27,10 @@ function MisCursos({ cursos }) {
           </div>
         ) : (
           cursos?.map((curso) => (
-            <CollapsibleSection key={curso.idCurso} title={curso.materia.nombre}>
+            <CollapsibleSection key={curso.idCurso} title={curso.nombreMateria}>
               <div className="collapsible-content">
                 <div className="left-content">
-                  <p>{curso.descripcion}</p>
+                  <p>{curso.descripcionMateria}</p>
                   <button className="btn orange">Ver temas</button>
                   <button className="btn green">Proyectos recomendados</button>
                   <button className="btn blue">Hacer quiz</button>
