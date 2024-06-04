@@ -3,7 +3,6 @@ import { Authenticator } from "remix-auth";
 import { GoogleStrategy, SocialsProvider } from "remix-auth-socials";
 import { sessionStorage } from "../services/session.server";
 import { config } from "dotenv";
-import prisma from "./prisma/prisma.js";
 
 config();
 
@@ -24,6 +23,7 @@ authenticator.use(
 			callbackURL: getCallback(SocialsProvider.GOOGLE),
 		},
 		async ({ profile }) => {
+			//console.log(profile);
 			try {
 				let estudiante = await prisma.estudiante.findUnique({
 					where: {
@@ -40,9 +40,14 @@ authenticator.use(
 						},
 					});
 				}
+        const user = {
+        displayName: profile.displayName,
+        email: profile.emails[0].value,
+        photo: profile.photos[0].value,
+        };
 
-      			// Return the profile object with estudianteId
-      			return { ...profile, estudianteId: estudiante.idEstudiante };
+        // Return the profile object with estudianteId
+        return { ...profile, estudianteId: estudiante.idEstudiante, user };
 			} catch (error) {
 				console.error("Error during authentication:", error);
         		throw new Error("Failed to authenticate user");
