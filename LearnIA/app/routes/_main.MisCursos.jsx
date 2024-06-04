@@ -1,82 +1,26 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "@remix-run/react";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "../styles/MisCursos.css";
-import CollapsibleSection from "../components/CollapsibleSection";
-import TitleWithImages from "../components/TitleWithImages";
+// app/routes/miscursos.jsx or app/routes/miscursos.js
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import prisma from './prisma/prisma.js'; 
 
-function MisCursos() {
-	const location = useLocation();
-	const [activePath, setActivePath] = useState(location.pathname);
+// Define the loader function
+export const loader = async () => {
+  // Fetch the data from the database
+  const cursos = await prisma.curso.findMany({
+    include: {
+      materia: true, // Adjust the relations as per your schema
+    },
+  });
 
-	useEffect(() => {
-		setActivePath(location.pathname);
-	}, [location.pathname]);
+  // Return the data as a JSON response
+  return json(cursos);
+};
 
-	return (
-		<div style={{ marginLeft: "400px" }}>
-			<TitleWithImages title="Mis Cursos" />
-			<div>
-				<CollapsibleSection title="PROGRAMACIÓN ORIENTADA A OBJETOS II">
-					<div className="collapsible-content">
-						<div className="left-content">
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-								elementum faucibus mollis. Mauris vel lacinia libero. Proin
-								luctus semper sem, ac posuere velit.
-							</p>
-							<button className="btn orange">Ver temas</button>
-							<button className="btn green">Proyectos recomendados</button>
-							<button className="btn red">Abandonar curso</button>
-						</div>
-						<div className="right-content">
-							<div style={{ width: 100, height: 100 }}>
-								<CircularProgressbar
-									value={63}
-									text={`${63}%`}
-									styles={buildStyles({
-										textColor: "#2b8a74",
-										pathColor: "#2b8a74",
-										trailColor: "#d6d6d6",
-									})}
-								/>
-							</div>
-							<div className="progress-text">63% de progreso</div>
-						</div>
-					</div>
-				</CollapsibleSection>
+// Your MisCursos component
+import MisCursos from "../components/InfoMisCursos";
 
-				<CollapsibleSection title="BIOLOGÍA COMPUTACIONAL">
-					<div className="collapsible-content">
-						<div className="left-content">
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-								elementum faucibus mollis. Mauris vel lacinia libero. Proin
-								luctus semper sem, ac posuere velit.
-							</p>
-							<button className="btn orange">Ver temas</button>
-							<button className="btn green">Proyectos recomendados</button>
-							<button className="btn red">Abandonar curso</button>
-						</div>
-						<div className="right-content">
-							<div style={{ width: 100, height: 100 }}>
-								<CircularProgressbar
-									value={63}
-									text={`${63}%`}
-									styles={buildStyles({
-										textColor: "#2b8a74",
-										pathColor: "#2b8a74",
-										trailColor: "#d6d6d6",
-									})}
-								/>
-							</div>
-							<div className="progress-text">63% de progreso</div>
-						</div>
-					</div>
-				</CollapsibleSection>
-			</div>
-		</div>
-	);
+export default function MisCursosRoute() {
+  const cursos = useLoaderData();
+
+  return <MisCursos cursos={cursos} />;
 }
-
-export default MisCursos;
