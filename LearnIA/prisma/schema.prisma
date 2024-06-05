@@ -17,54 +17,47 @@ model Carrera {
 }
 
 model Curso {
-  idCurso        Int          @id @unique(map: "idCurso_UNIQUE") @default(autoincrement())
-  idEstudiante   Int
-  idMateria      Int
-  plazo          String?      @db.VarChar(45)
-  idEvaluaciones Int          @unique(map: "idEvaluaciones_UNIQUE")
-  descripcion    String?      @db.VarChar(45)
-  completado     String?      @db.VarChar(45)
-  proyectosRec   String?      @db.VarChar(45)
-  estudiante     Estudiante   @relation(fields: [idEstudiante], references: [idEstudiante], onDelete: Cascade, map: "fk_Curso_Estudiante")
-  evaluaciones   Evaluaciones @relation(fields: [idEvaluaciones], references: [idEvaluaciones], onDelete: Cascade, map: "fk_Curso_Evaluaciones")
-  materia        Materia      @relation(fields: [idMateria], references: [idMateria], onDelete: Cascade, map: "fk_Curso_Materia")
-  tema           Tema[]
+  idCurso      Int        @id @unique(map: "idCurso_UNIQUE") @default(autoincrement())
+  idEstudiante Int
+  idMateria    Int
+  plazo        String?    @db.VarChar(45)
+  descripcion  String?    @db.VarChar(45)
+  completado   String?    @db.VarChar(45)
+  proyectosRec String?    @db.VarChar(45)
+  estudiante   Estudiante @relation(fields: [idEstudiante], references: [idEstudiante], onDelete: Cascade, map: "fk_Curso_Estudiante")
+  materia      Materia    @relation(fields: [idMateria], references: [idMateria], onDelete: Cascade, map: "fk_Curso_Materia")
+  tema         Tema[]
 
   @@index([idEstudiante], map: "fk_Curso_Estudiante")
   @@index([idMateria], map: "idMateria_idx")
 }
 
 model Estudiante {
-  idEstudiante Int            @id @unique(map: "idEstudiante_UNIQUE") @default(autoincrement())
-  nombre       String         @db.VarChar(45)
+  idEstudiante Int      @id @unique(map: "idEstudiante_UNIQUE") @default(autoincrement())
+  nombre       String   @db.VarChar(45)
   idCarrera    Int?
-  correo       String         @unique(map: "correo_UNIQUE") @db.VarChar(45)
+  correo       String   @unique(map: "correo_UNIQUE") @db.VarChar(45)
   curso        Curso[]
-  carrera      Carrera?       @relation(fields: [idCarrera], references: [idCarrera], onDelete: Cascade, map: "idCarrera")
-  evaluaciones Evaluaciones[]
+  carrera      Carrera? @relation(fields: [idCarrera], references: [idCarrera], onDelete: Cascade, map: "idCarrera")
 
   @@index([idCarrera], map: "idCarrera_idx")
 }
 
 model Evaluaciones {
-  idEvaluaciones                      Int        @id @unique(map: "idEvaluaciones_UNIQUE")
+  idEvaluaciones                      Int   @id @unique(map: "idEvaluaciones_UNIQUE")
   quizInicial                         Int
   quiz1                               Int?
   quiz2                               Int?
   final                               Int?
-  idEstudiante                        Int
-  curso                               Curso?
-  quiz_Evaluaciones_finalToQuiz       Quiz?      @relation("Evaluaciones_finalToQuiz", fields: [final], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "final")
-  Estudiante                          Estudiante @relation(fields: [idEstudiante], references: [idEstudiante], onDelete: NoAction, onUpdate: NoAction, map: "idEstudiante")
-  quiz_Evaluaciones_quiz1ToQuiz       Quiz?      @relation("Evaluaciones_quiz1ToQuiz", fields: [quiz1], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "quiz1")
-  quiz_Evaluaciones_quiz2ToQuiz       Quiz?      @relation("Evaluaciones_quiz2ToQuiz", fields: [quiz2], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "quiz2")
-  quiz_Evaluaciones_quizInicialToQuiz Quiz       @relation("Evaluaciones_quizInicialToQuiz", fields: [quizInicial], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "quizInicial")
+  idCurso                             Int?
+  quiz_Evaluaciones_quiz1ToQuiz       Quiz? @relation("Evaluaciones_quiz1ToQuiz", fields: [quiz1], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "quiz1")
+  quiz_Evaluaciones_quiz2ToQuiz       Quiz? @relation("Evaluaciones_quiz2ToQuiz", fields: [quiz2], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "quiz2")
+  quiz_Evaluaciones_quizInicialToQuiz Quiz  @relation("Evaluaciones_quizInicialToQuiz", fields: [quizInicial], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "quizInicial")
 
-  @@index([final, idEvaluaciones], map: "final_idx")
   @@index([quiz1], map: "quiz1_idx")
   @@index([quiz2], map: "quiz2_idx")
   @@index([quizInicial], map: "quizInicial_idx")
-  @@index([idEstudiante], map: "idEstudiante_idx")
+  @@index([idCurso], map: "idCurso_idx")
 }
 
 model Materia {
@@ -85,7 +78,6 @@ model Quiz {
   feedback                                    String         @db.VarChar(45)
   preguntas                                   String         @db.VarChar(45)
   fecha                                       DateTime       @db.DateTime(0)
-  evaluaciones_Evaluaciones_finalToQuiz       Evaluaciones[] @relation("Evaluaciones_finalToQuiz")
   evaluaciones_Evaluaciones_quiz1ToQuiz       Evaluaciones[] @relation("Evaluaciones_quiz1ToQuiz")
   evaluaciones_Evaluaciones_quiz2ToQuiz       Evaluaciones[] @relation("Evaluaciones_quiz2ToQuiz")
   evaluaciones_Evaluaciones_quizInicialToQuiz Evaluaciones[] @relation("Evaluaciones_quizInicialToQuiz")
