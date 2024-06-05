@@ -9,6 +9,7 @@ import "../styles/Perfil.css";
 
 function perfil() {
   	let userInformation = useLoaderData();
+	console.log("perfil: ",userInformation);
 	
     return (
         <div style={{ marginLeft: "400px" }}>
@@ -24,7 +25,7 @@ function perfil() {
 							<div className="row">
 								<div className="col-12 col-md-4 d-flex align-items-center justify-content-center p-3">
 									<img
-										src={userInformation.photo}
+										src={userInformation.user.photo}
 										className="rounded-circle img-fluid"
 										id="perfil-image"
 										alt="Profile avatar"
@@ -32,9 +33,9 @@ function perfil() {
 								</div>
 								<div className="col-12 col-md-8 p-3" id="information">
 									<h4>Nombre:</h4>
-									<p>{userInformation.displayName}</p>
+									<p>{userInformation.user.displayName}</p>
 									<h4>Email: </h4>
-									<p>{userInformation.email}</p>
+									<p>{userInformation.user.email}</p>
 								</div>
 							</div>
 						)
