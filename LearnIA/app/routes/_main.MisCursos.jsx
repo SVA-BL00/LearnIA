@@ -8,11 +8,13 @@ import { getCursosActivosConDetalles } from "../services/db";
 export const loader = async ({ request }) => {
 	const user = await authenticator.isAuthenticated(request);
 
+	console.log("User:", user);
+
 	if (!user) {
 		throw new Response("Unauthorized", { status: 401 });
 	}
 	
-	const cursos = await getCursosActivosConDetalles(user.estudianteId);
+	const cursos = await getCursosActivosConDetalles(user.user.estudianteId);
 
   // Return the data as a JSON response
   return json(cursos);
