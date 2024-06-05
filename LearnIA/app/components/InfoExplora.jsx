@@ -1,7 +1,6 @@
 // components/InfoExplora.jsx
 import React from "react";
 import { Form } from "@remix-run/react";
-import TitleWithImages from "../components/TitleWithImages";
 import ExploraCollapsibleCarrera from "../components/ExploraCollapsibleCarrera";
 import ExploraCollapsibleSemestre from "../components/ExploraCollapsibleSemestre";
 import ExploraCollapsibleMateria from "../components/ExploraCollapsibleMateria";

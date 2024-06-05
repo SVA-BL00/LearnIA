@@ -63,7 +63,7 @@ model Evaluaciones {
 model Materia {
   idMateria    Int      @id @unique(map: "idMateria_UNIQUE")
   idCarrera    Int?
-  nombre       String?  @db.VarChar(45)
+  nombre       String?  @db.TinyText
   semestre     Int?
   idMateriaTec String   @unique(map: "idMateriaTec_UNIQUE") @db.VarChar(45)
   objetivos    String?  @db.VarChar(45)
