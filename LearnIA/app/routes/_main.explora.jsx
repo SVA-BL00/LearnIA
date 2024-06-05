@@ -22,6 +22,18 @@ const courses = [
 		]
 	  }
 	];
+
+    //Estado de inscripción
+    const [enrollmentStatus, setEnrollmentStatus] = useState({});
+
+    //Cambiar al estado anterior cada vez que se presiona el botón (Inscrito / No inscrito)
+    const handleEnrollmentClick = (subject) => {
+      setEnrollmentStatus((prevStatus) => ({
+        ...prevStatus,
+        [subject]: !prevStatus[subject]
+      }));
+    };
+
   return (
     <div style={{ marginLeft: "400px" }}>
       <TitleWithImages title="Explora" />
@@ -34,7 +46,13 @@ const courses = [
                   <ExploraCollapsibleMateria key={subIndex} title={subject}>
                     <div className="collapsible3-content">
                       <p>{subject}</p>
-                      <button className="btn green">Inscribirse</button>
+                      <button
+                        //Dependiendo del status de inscripción el botón es verde o rojo y se cambia el texto
+                        className={`btn ${enrollmentStatus[subject] ? "red" : "green"}`}
+                        onClick={() => handleEnrollmentClick(subject)}
+                      >
+                        {enrollmentStatus[subject] ? "Dar de baja" : "Inscribirse"}
+                      </button>
                     </div>
                   </ExploraCollapsibleMateria>
                 ))}
