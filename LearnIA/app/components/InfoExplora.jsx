@@ -1,4 +1,5 @@
 // components/InfoExplora.jsx
+
 import React from "react";
 import { Form } from "@remix-run/react";
 import ExploraCollapsibleCarrera from "../components/ExploraCollapsibleCarrera";
@@ -20,7 +21,9 @@ function groupMateriasBySemester(materias) {
   return semesters;
 }
 
-function InfoExplora({ carreras }) {
+function InfoExplora({ carreras, enrolledMaterias }) {
+  const enrolledSet = new Set(enrolledMaterias);
+
   return (
     <div>
       {carreras.map((carrera) => {
@@ -36,10 +39,14 @@ function InfoExplora({ carreras }) {
                       <ExploraCollapsibleMateria key={materia.idMateria} title={materia.nombre}>
                         <div className="collapsible3-content">
                           <p>{materia.objetivos}</p>
-                          <Form method="post">
-                            <input type="hidden" name="idMateria" value={materia.idMateria} />
-                            <button type="submit" className="btn green">Inscribirse</button>
-                          </Form>
+                          {enrolledSet.has(materia.idMateria) ? (
+                            <p className="enrolled-message">Ya tienes este curso inscrito</p>
+                          ) : (
+                            <Form method="post">
+                              <input type="hidden" name="idMateria" value={materia.idMateria} />
+                              <button type="submit" className="btn green">Inscribirse</button>
+                            </Form>
+                          )}
                         </div>
                       </ExploraCollapsibleMateria>
                     ))}
