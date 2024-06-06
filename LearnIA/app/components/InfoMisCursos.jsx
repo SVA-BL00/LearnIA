@@ -1,7 +1,7 @@
-// app/components/InfoMisCursos.jsx
+// app/components/InfoMisCursos.jsx 
 
 import { useEffect, useState } from "react";
-import { useLocation } from "@remix-run/react";
+import { useLocation, Form } from "@remix-run/react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "../styles/MisCursos.css";
 import CollapsibleSection from "../components/CollapsibleSection";
@@ -10,10 +10,19 @@ import TitleWithImages from "../components/TitleWithImages";
 function MisCursos({ cursos }) {
   const location = useLocation();
   const [activePath, setActivePath] = useState(location.pathname);
+  const [selectedCurso, setSelectedCurso] = useState(null);
 
   useEffect(() => {
     setActivePath(location.pathname);
   }, [location.pathname]);
+
+  const handleVerTemasClick = (curso) => {
+    setSelectedCurso(curso);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedCurso(null);
+  };
 
   console.log('Cursos data:', cursos);
 
@@ -31,10 +40,13 @@ function MisCursos({ cursos }) {
               <div className="collapsible-content">
                 <div className="left-content">
                   <p>{curso.descripcionMateria}</p>
-                  <button className="btn orange">Ver temas</button>
+                  <button className="btn orange" onClick={() => handleVerTemasClick(curso)}>Ver temas</button>
                   <button className="btn green">Proyectos recomendados</button>
                   <button className="btn blue">Hacer quiz</button>
-                  <button className="btn red">Abandonar curso</button>
+                  <Form method="post">
+                    <input type="hidden" name="idCurso" value={curso.idCurso} />
+                    <button type="submit" className="btn red">Abandonar curso</button>
+                  </Form>
                 </div>
                 <div className="right-content">
                   <div style={{ width: 100, height: 100 }}>
@@ -55,6 +67,19 @@ function MisCursos({ cursos }) {
           ))
         )}
       </div>
+      {selectedCurso && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Temas de {selectedCurso.nombreMateria}</h2>
+            <ul>
+              {selectedCurso.temas.map((tema) => (
+                <li key={tema.idTema}>{tema.nombre}</li>
+              ))}
+            </ul>
+            <button onClick={handleCloseModal}>Cerrar</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
