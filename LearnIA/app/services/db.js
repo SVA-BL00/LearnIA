@@ -14,6 +14,8 @@ export async function getCursosActivosConDetalles(estudianteId) {
         },
       },
       descripcion: true,
+      proyectosRec: true,
+      plazo: true,
     },
   });
 
@@ -46,6 +48,8 @@ export async function getCursosActivosConDetalles(estudianteId) {
         nombreMateria: curso.materia.nombre,
         descripcionMateria: curso.descripcion,
         progreso,
+        plazo: curso.plazo,
+        proyectosRec: curso.proyectosRec,
       };
     })
   );

@@ -11,6 +11,7 @@ function MisCursos({ cursos }) {
   const location = useLocation();
   const [activePath, setActivePath] = useState(location.pathname);
   const [selectedCurso, setSelectedCurso] = useState(null);
+  const [selectedProyectos, setSelectedProyectos] = useState(null);
 
   useEffect(() => {
     setActivePath(location.pathname);
@@ -20,11 +21,14 @@ function MisCursos({ cursos }) {
     setSelectedCurso(curso);
   };
 
-  const handleCloseModal = () => {
-    setSelectedCurso(null);
+  const handleVerProyectosClick = (curso) => {
+    setSelectedProyectos(curso);
   };
 
-  console.log('Cursos data:', cursos);
+  const handleCloseModal = () => {
+    setSelectedCurso(null);
+    setSelectedProyectos(null);
+  };
 
   return (
     <div style={{ marginLeft: '400px' }}>
@@ -41,7 +45,7 @@ function MisCursos({ cursos }) {
                 <div className="left-content">
                   <p>{curso.descripcionMateria}</p>
                   <button className="btn orange" onClick={() => handleVerTemasClick(curso)}>Ver temas</button>
-                  <button className="btn green">Proyectos recomendados</button>
+                  <button className="btn green" onClick={() => handleVerProyectosClick(curso)}>Ver proyectos recomendados</button>
                   <button className="btn blue">Hacer quiz</button>
                   <Form method="post">
                     <input type="hidden" name="idCurso" value={curso.idCurso} />
@@ -76,6 +80,15 @@ function MisCursos({ cursos }) {
                 <li key={tema.idTema}>{tema.nombre}</li>
               ))}
             </ul>
+            <button className="btn close" onClick={handleCloseModal}>Cerrar</button>
+          </div>
+        </div>
+      )}
+      {selectedProyectos && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Proyectos recomendados:</h2>
+            <p>{selectedProyectos.proyectosRec}</p>
             <button className="btn close" onClick={handleCloseModal}>Cerrar</button>
           </div>
         </div>

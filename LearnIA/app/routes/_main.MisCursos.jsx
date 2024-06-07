@@ -10,8 +10,6 @@ import prisma from "./prisma/prisma.js";
 export const loader = async ({ request }) => {
 	const user = await authenticator.isAuthenticated(request);
 
-	console.log("User:", user);
-
 	if (!user) {
 		throw new Response("Unauthorized", { status: 401 });
 	}
@@ -19,12 +17,11 @@ export const loader = async ({ request }) => {
 	// Get the cursos for the user
 	const cursos = await getCursosActivosConDetalles(user.user.estudianteId);
 
-	// Get the temas for each curso
+	// Get the temas and proyectosRec for each curso
 	for (const curso of cursos) {
 		curso.temas = await prisma.tema.findMany({
 		  where: { idCurso: curso.idCurso }
 		});
-		console.log("Temas:", curso.temas);
 	}
 
   return json(cursos);
