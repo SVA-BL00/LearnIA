@@ -70,13 +70,13 @@ function MisCursos({ cursos }) {
       {selectedCurso && (
         <div className="modal">
           <div className="modal-content">
-            <h2>Temas de {selectedCurso.nombreMateria}</h2>
+            <h2>Temas de este curso:</h2>
             <ul>
               {selectedCurso.temas.map((tema) => (
                 <li key={tema.idTema}>{tema.nombre}</li>
               ))}
             </ul>
-            <button onClick={handleCloseModal}>Cerrar</button>
+            <button className="btn close" onClick={handleCloseModal}>Cerrar</button>
           </div>
         </div>
       )}

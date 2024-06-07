@@ -32,6 +32,7 @@ h1 {
 }
 
 .btn {
+  font-family: "Ubuntu Mono", monospace;
   display: block;
   width: 100%;
   padding: 10px;
@@ -76,10 +77,36 @@ h1 {
   align-items: center;
 }
 
+h2 {
+  font-family: "Ubuntu mono", monospace;
+  font-weight: 1000;
+  margin-bottom: 20px;
+  font-size: large;
+  align-items: center;
+  color: #132941;
+  text-align: center;
+}
+
 .modal-content {
+  font-family: "Ubuntu mono", monospace;
+  color:#132941;
   background: white;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 15px;
   width: 500px;
   max-width: 80%;
+}
+
+.btn.close {
+  align-self: center;
+  background-color: #f1f1f1;
+  width: 50%;
+  color: #132941;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
 }
