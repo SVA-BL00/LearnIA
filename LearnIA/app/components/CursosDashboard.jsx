@@ -1,3 +1,4 @@
+// components/CursosDashboard.jsx
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "../styles/custom-progress.css";

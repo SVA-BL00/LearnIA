@@ -7,7 +7,7 @@ export async function getCursosActivosConDetalles(estudianteId) {
   const cursosActivos = await prisma.curso.findMany({
     where: { idEstudiante: estudianteId, completado: 'false' },
     select: {
-      idCurso: true, // aqui tal vez no sea id curso, tal vez sea otro
+      idCurso: true, 
       materia: {
         select: {
           nombre: true,

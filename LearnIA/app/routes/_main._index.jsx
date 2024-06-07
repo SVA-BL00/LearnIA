@@ -1,3 +1,7 @@
+// routes/_main._index.jsx
+/* cambiar base para que quiz tenga un nombre del tipo 
+de evaluacion que es (inicial, quiz1, quiz2, final) y eliminar
+Evaluaciones */
 import Countdown from "../components/Countdown";
 import CursosDashboard from "../components/CursosDashboard";
 import Notification from "../components/Notification";

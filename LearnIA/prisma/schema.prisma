@@ -43,23 +43,6 @@ model Estudiante {
   @@index([idCarrera], map: "idCarrera_idx")
 }
 
-model Evaluaciones {
-  idEvaluaciones                      Int   @id @unique(map: "idEvaluaciones_UNIQUE")
-  quizInicial                         Int
-  quiz1                               Int?
-  quiz2                               Int?
-  final                               Int?
-  idCurso                             Int?
-  quiz_Evaluaciones_quiz1ToQuiz       Quiz? @relation("Evaluaciones_quiz1ToQuiz", fields: [quiz1], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "quiz1")
-  quiz_Evaluaciones_quiz2ToQuiz       Quiz? @relation("Evaluaciones_quiz2ToQuiz", fields: [quiz2], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "quiz2")
-  quiz_Evaluaciones_quizInicialToQuiz Quiz  @relation("Evaluaciones_quizInicialToQuiz", fields: [quizInicial], references: [idQuiz], onDelete: NoAction, onUpdate: NoAction, map: "quizInicial")
-
-  @@index([quiz1], map: "quiz1_idx")
-  @@index([quiz2], map: "quiz2_idx")
-  @@index([quizInicial], map: "quizInicial_idx")
-  @@index([idCurso], map: "idCurso_idx")
-}
-
 model Materia {
   idMateria    Int      @id @unique(map: "idMateria_UNIQUE")
   idCarrera    Int?
@@ -74,13 +57,14 @@ model Materia {
 }
 
 model Quiz {
-  idQuiz                                      Int            @id @unique(map: "idQuiz_UNIQUE")
-  feedback                                    String         @db.VarChar(45)
-  preguntas                                   String         @db.VarChar(45)
-  fecha                                       DateTime       @db.DateTime(0)
-  evaluaciones_Evaluaciones_quiz1ToQuiz       Evaluaciones[] @relation("Evaluaciones_quiz1ToQuiz")
-  evaluaciones_Evaluaciones_quiz2ToQuiz       Evaluaciones[] @relation("Evaluaciones_quiz2ToQuiz")
-  evaluaciones_Evaluaciones_quizInicialToQuiz Evaluaciones[] @relation("Evaluaciones_quizInicialToQuiz")
+  idQuiz    Int      @id @unique(map: "idQuiz_UNIQUE")
+  feedback  String   @db.VarChar(45)
+  preguntas String   @db.VarChar(45)
+  fecha     DateTime @db.DateTime(0)
+  idCurso   Int
+  tipo      String   @db.VarChar(45)
+
+  @@index([idCurso], map: "idCurso_idx")
 }
 
 model Tema {

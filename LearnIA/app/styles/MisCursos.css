@@ -16,12 +16,12 @@ h1 {
 }
 
 .left-content {
-  flex: 6; /* Cambiado a 40% del espacio disponible */
-  align-self: flex-start; /* Alineado a la izquierda */
+  flex: 8; 
+  align-self: flex-start; 
 }
 
 .right-content {
-  flex: 4; /* Cambiado a 60% del espacio disponible */
+  flex: 2;
   align-self: flex-start;
   margin-left: 120px;
 }
