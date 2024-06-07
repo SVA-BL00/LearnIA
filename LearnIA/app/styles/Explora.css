@@ -57,3 +57,9 @@ h1 {
   background-color: #d32f2f;
   color: white;
 }
+
+.enrolled-message {
+  color: #132941;
+  text-align: center;
+  font-family: 'Ubuntu Mono', monospace;
+}
