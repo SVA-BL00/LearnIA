@@ -1,4 +1,3 @@
-// app/server/auth.server.js
 import { Authenticator } from "remix-auth";
 import { GoogleStrategy, SocialsProvider } from "remix-auth-socials";
 import { sessionStorage } from "../services/session.server";
@@ -23,7 +22,6 @@ authenticator.use(
 			callbackURL: getCallback(SocialsProvider.GOOGLE),
 		},
 		async ({ profile }) => {
-			// console.log(profile);
 			try {
 				let estudiante = await prisma.estudiante.findUnique({
 					where: {
@@ -31,15 +29,19 @@ authenticator.use(
 					},
 				});
 
+				let isNewUser = false;
+
 				if (!estudiante) {
 					// User does not exist, create a new entry
 					estudiante = await prisma.estudiante.create({
 						data: {
-						nombre: profile.displayName,
-						correo: profile.emails[0].value,
+							nombre: profile.displayName,
+							correo: profile.emails[0].value,
 						},
 					});
+					isNewUser = true;
 				}
+
 				const user = {
 					displayName: profile.displayName,
 					email: profile.emails[0].value,
@@ -47,14 +49,12 @@ authenticator.use(
 					estudianteId: estudiante.idEstudiante,
 				};
 
-				console.log("User:", user);
-
-      			// Return the profile object with estudianteId
-      			return { ...profile, user };
+				// Return the profile object with estudianteId and isNewUser flag
+				return { ...profile, user, isNewUser };
 			} catch (error) {
 				console.error("Error during authentication:", error);
         		throw new Error("Failed to authenticate user");
-			} 
+			}
 		},
 	),
 );
