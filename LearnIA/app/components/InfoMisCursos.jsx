@@ -1,7 +1,7 @@
 // app/components/InfoMisCursos.jsx 
 
 import { useEffect, useState } from "react";
-import { useLocation, Form } from "@remix-run/react";
+import { useLocation, Form, useNavigate } from "@remix-run/react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "../styles/MisCursos.css";
 import CollapsibleSection from "../components/CollapsibleSection";
@@ -9,6 +9,7 @@ import TitleWithImages from "../components/TitleWithImages";
 
 function MisCursos({ cursos }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activePath, setActivePath] = useState(location.pathname);
   const [selectedCurso, setSelectedCurso] = useState(null);
   const [selectedProyectos, setSelectedProyectos] = useState(null);
@@ -46,7 +47,7 @@ function MisCursos({ cursos }) {
                   <p>{curso.descripcionMateria}</p>
                   <button className="btn orange" onClick={() => handleVerTemasClick(curso)}>Ver temas</button>
                   <button className="btn green" onClick={() => handleVerProyectosClick(curso)}>Ver proyectos recomendados</button>
-                  <button className="btn blue">Hacer quiz</button>
+                  <button className="btn blue" onClick={() => navigate("/quizcurso")}>Hacer quiz</button>
                   <Form method="post">
                     <input type="hidden" name="idCurso" value={curso.idCurso} />
                     <button type="submit" className="btn red">Abandonar curso</button>
