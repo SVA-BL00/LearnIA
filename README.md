@@ -12,8 +12,13 @@ Se debería de ver una organización así
 C:\Users\John\Documents\Code\LearnIA\LearnIA>
 ```
 En esta dirección podrás correr los comandos de npm en caso de necesitar importar algo, así como toda la aplicación.
+2. Sincronizar con el schema de la base de datos
+```
+npx prisma db pull
+npx prisma generate
+```
 
-2. Correr la aplicación
+3. Correr la aplicación
 ```
 npm run dev
 ```
