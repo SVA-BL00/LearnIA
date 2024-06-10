@@ -3,17 +3,16 @@
 import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import prisma from "./prisma/prisma.js";
-import { authenticator } from "../services/auth.server";
+import { userLoader } from "../services/loaders.js";
 import TitleWithImages from "../components/TitleWithImages";
 import InfoExplora from "../components/InfoExplora";
 import "../styles/Explora.css";
 
 export const loader = async ({ request }) => {
-  const user = await authenticator.isAuthenticated(request);
+  const userLoaderResponse = await userLoader({ request });
 
-  if (!user) {
-    throw new Response("Unauthorized", { status: 401 });
-  }
+  const user = await userLoaderResponse.json();
+  const idEstudiante = user.estudianteId;
 
   const carreras = await prisma.carrera.findMany({
     include: {
@@ -23,7 +22,7 @@ export const loader = async ({ request }) => {
 
   const cursos = await prisma.curso.findMany({
     where: {
-      idEstudiante: user.user.estudianteId,
+      idEstudiante: idEstudiante,
     },
     select: {
       idMateria: true,
@@ -33,14 +32,14 @@ export const loader = async ({ request }) => {
   const enrolledMaterias = new Set(cursos.map(curso => curso.idMateria));
 
   return json({ carreras, enrolledMaterias: Array.from(enrolledMaterias), user });
+
 };
 
 export const action = async ({ request }) => {
-  const user = await authenticator.isAuthenticated(request);
+  const userLoaderResponse = await userLoader({ request });
 
-  if (!user) {
-    throw new Response("Unauthorized", { status: 401 });
-  }
+  const user = await userLoaderResponse.json();
+  const idEstudiante = user.estudianteId;
 
   const formData = await request.formData();
   const idMateria = formData.get("idMateria");
@@ -51,7 +50,7 @@ export const action = async ({ request }) => {
 
   await prisma.curso.create({
     data: {
-      idEstudiante: user.user.estudianteId,
+      idEstudiante: idEstudiante,
       idMateria: parseInt(idMateria, 10),
       completado: "false",  // Adjust as needed, use true/false if it's a boolean in your schema
       plazo: "",  // Default value, adjust as needed

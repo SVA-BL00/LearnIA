@@ -2,8 +2,8 @@
 
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { userLoader } from "../services/loaders";
 import { PrismaClient } from "@prisma/client";
-import { authenticator } from "../services/auth.server";
 import Countdown from "../components/Countdown";
 import CursosDashboard from "../components/CursosDashboard";
 import Notification from "../components/Notification";
@@ -12,7 +12,11 @@ import "../styles/main.css";
 const prisma = new PrismaClient();
 
 export const loader = async ({request}) => {
-	const user = await authenticator.isAuthenticated(request);
+	const userLoaderResponse = await userLoader({ request });
+
+  	const user = await userLoaderResponse.json();
+  	const idEstudiante = user.estudianteId;
+
   	const cursos = await prisma.curso.findMany({
     	include: {
       	materia: true,
@@ -20,9 +24,9 @@ export const loader = async ({request}) => {
 	  	quizzes: true,
    		},
 		where: {
-			idEstudiante: user.user.estudianteId,
+			idEstudiante: idEstudiante,
 			completado: 'false',
-		},
+		},	
   	});
   	return json({ cursos });
 };

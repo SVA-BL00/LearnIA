@@ -1,3 +1,5 @@
+// session.server.js
+
 import { createCookieSessionStorage } from "@remix-run/node";
 
 // Create sessionStorage object
