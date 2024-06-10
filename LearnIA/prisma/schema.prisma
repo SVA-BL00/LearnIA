@@ -21,11 +21,12 @@ model Curso {
   idEstudiante Int
   idMateria    Int
   plazo        String?    @db.VarChar(45)
-  descripcion  String?    @db.VarChar(45)
+  descripcion  String?    @db.MediumText
   completado   String?    @db.VarChar(45)
-  proyectosRec String?    @db.VarChar(45)
+  proyectosRec String?    @db.MediumText
   estudiante   Estudiante @relation(fields: [idEstudiante], references: [idEstudiante], onDelete: Cascade, map: "fk_Curso_Estudiante")
   materia      Materia    @relation(fields: [idMateria], references: [idMateria], onDelete: Cascade, map: "fk_Curso_Materia")
+  quizzes      Quiz[]     @relation("CursoQuizzes")
   tema         Tema[]
 
   @@index([idEstudiante], map: "fk_Curso_Estudiante")
@@ -49,7 +50,7 @@ model Materia {
   nombre       String?  @db.TinyText
   semestre     Int?
   idMateriaTec String   @unique(map: "idMateriaTec_UNIQUE") @db.VarChar(45)
-  objetivos    String?  @db.VarChar(45)
+  objetivos    String?  @db.MediumText
   curso        Curso[]
   carrera      Carrera? @relation(fields: [idCarrera], references: [idCarrera], onDelete: Cascade, map: "fk_Materia_Carrera")
 
@@ -57,12 +58,15 @@ model Materia {
 }
 
 model Quiz {
-  idQuiz    Int      @id @unique(map: "idQuiz_UNIQUE")
-  feedback  String   @db.VarChar(45)
-  preguntas String   @db.VarChar(45)
-  fecha     DateTime @db.DateTime(0)
-  idCurso   Int
-  tipo      String   @db.VarChar(45)
+  idQuiz       Int      @id @unique(map: "idQuiz_UNIQUE")
+  feedback     String   @db.MediumText
+  preguntas    String   @db.MediumText
+  fecha        DateTime @db.DateTime(0)
+  tipo         String   @db.VarChar(45)
+  respuestas   String?  @db.MediumText
+  calificacion Int
+  idCurso      Int?
+  curso        Curso?   @relation("CursoQuizzes", fields: [idCurso], references: [idCurso], onDelete: NoAction, onUpdate: NoAction, map: "fk_Quiz_Curso")
 
   @@index([idCurso], map: "idCurso_idx")
 }
