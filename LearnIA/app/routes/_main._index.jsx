@@ -11,20 +11,24 @@ import "../styles/main.css";
 
 const prisma = new PrismaClient();
 
-export const loader = async ({ request }) => {
-	const user = await authenticator.isAuthenticated(request);
-	const cursos = await prisma.curso.findMany({
-		include: {
-			materia: true,
-			tema: true,
-			quizzes: true,
-		},
+export const loader = async ({request}) => {
+	const userLoaderResponse = await userLoader({ request });
+
+  	const user = await userLoaderResponse.json();
+  	const idEstudiante = user.estudianteId;
+
+  	const cursos = await prisma.curso.findMany({
+    	include: {
+      	materia: true,
+      	tema: true,
+	  	quizzes: true,
+   		},
 		where: {
-			idEstudiante: user.user.estudianteId,
-			completado: "false",
-		},
-	});
-	return json({ cursos });
+			idEstudiante: idEstudiante,
+			completado: 'false',
+		},	
+  	});
+  	return json({ cursos });
 };
 
 function getClosestExamenFinalDate(cursos) {

@@ -1,22 +1,25 @@
 // app/services/APIs/fetchAndInsertMaterias.js
-import fetch from 'node-fetch';
-import prisma from './prisma/prisma.js';
+
+import fs from "fs";
+import path from "path";
+import prisma from "./prisma/prisma.js";
 
 export async function fetchAndInsertMaterias() {
     try {
-        const response = await fetch('http://localhost:5000/get_courses');
-        const materias = await response.json();
+        const filePath = path.join(__dirname, "materias.json");
+        const data = fs.readFileSync(filePath, 'utf8');
+        const materias = JSON.parse(data);
 
         for (const materia of materias) {
             await prisma.materia.create({
                 data: {
-                    idMateria: materia[0],  // Adjust this based on the actual data structure
-                    idCarrera: materia[1],
-                    nombre: materia[2],
-                    semestre: materia[3],
-                    idMateriaTec: materia[4],
-                    objetivos: materia[5],
-                    recursos: materia[6],
+                    idMateria: materia.idMateria,
+                    idCarrera: materia.idCarrera,
+                    nombre: materia.nombre,
+                    semestre: materia.semestre,
+                    idMateriaTec: materia.idMateriaTec,
+                    objetivos: materia.objetivos,
+                    recursos: materia.recursos,
                 },
             });
         }
