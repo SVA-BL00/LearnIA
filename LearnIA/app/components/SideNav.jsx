@@ -79,18 +79,6 @@ function SideNav() {
 				</li>
 				<li>
 					<Link
-						to="/HistorialQuizzes"
-						className={`nav-link d-block text-white ${
-							activePath === "/HistorialQuizzes" ? "active" : ""
-						}`}
-						onClick={() => setActivePath("HistorialQuizzes")}
-					>
-						<i className="bi bi-clipboard2-check ps-2" />
-						Historial de quizzes
-					</Link>
-				</li>
-				<li>
-					<Link
 						to="/explora"
 						className={`nav-link d-block text-white ${
 							activePath === "/explora" ? "active" : ""
