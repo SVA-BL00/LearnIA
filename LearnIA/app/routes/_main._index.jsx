@@ -24,8 +24,6 @@ export const loader = async ({request}) => {
 			completado: 'false',
 		},
   	});
-  	console.log(cursos);
-	console.log(cursos[0].quizzes[0]);
   	return json({ cursos });
 };
 
@@ -108,7 +106,13 @@ function index() {
 							<div className="title-wrapper">
 								<h2 className="title">¿Listo para tu examen?</h2>
 							</div>
-							<Countdown examenFinalDate={closestExamenFinalDate} />
+							{closestExamenFinalDate ? (
+                				<Countdown examenFinalDate={closestExamenFinalDate} />
+              				) : (
+								<div style={{ display: 'flex', fontFamily: `"Ubuntu Mono", monospace` }}>
+									<p>No tienes fechas establecidas para exámenes futuros. ¡Practica hasta que estés listo!</p>
+								</div>
+              				)}
 						</div>
 						<Notification />
 					</div>

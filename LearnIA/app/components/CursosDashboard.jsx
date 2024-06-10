@@ -8,7 +8,6 @@ import "../styles/custom-tabs.css";
 import "../styles/dashboard.css";
 
 function CursosDashboard({ cursos }) {
-
   if (!cursos || !Array.isArray(cursos) || cursos.length === 0) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh', fontFamily: `"Ubuntu Mono", monospace` }}>

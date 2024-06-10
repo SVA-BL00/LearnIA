@@ -11,6 +11,7 @@
 
 .react-tabs__tab-list {
   display: flex;
+  flex-wrap: wrap;
   flex-shrink: 0;
   border-bottom: 1px solid #aaa;
   padding: 0;
