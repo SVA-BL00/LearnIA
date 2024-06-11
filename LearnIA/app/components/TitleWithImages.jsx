@@ -1,5 +1,3 @@
-
-
 import Ellipse2 from "../assets/img/Ellipse2.svg";
 import Ellipse3 from "../assets/img/Ellipse3.svg";
 import Ellipse4 from "../assets/img/Ellipse4.svg";

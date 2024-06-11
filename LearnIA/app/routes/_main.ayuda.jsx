@@ -45,9 +45,9 @@ function ayuda() {
 
 			<CollapsibleSection title="¿Cómo puedo monitorear mi progreso en Learn-IA?">
 				<p>
-					En el Dashboard, podrás ver el progreso de las materias que
-					estás estudiando, los resultados de tus evaluaciones y un calendario
-					con fechas sugeridas para cubrir los temas y realizar evaluaciones.
+					En el Dashboard, podrás ver el progreso de las materias que estás
+					estudiando, los resultados de tus evaluaciones y un calendario con
+					fechas sugeridas para cubrir los temas y realizar evaluaciones.
 				</p>
 			</CollapsibleSection>
 
