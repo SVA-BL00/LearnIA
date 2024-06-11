@@ -3,6 +3,7 @@
 import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import prisma from "./prisma/prisma.js";
+import { authenticator } from "../services/auth.server";
 import TitleWithImages from "../components/TitleWithImages";
 import InfoExplora from "../components/InfoExplora";
 import "../styles/Explora.css";
@@ -14,11 +15,11 @@ export const loader = async ({ request }) => {
 		throw new Response("Unauthorized", { status: 401 });
 	}
 
-	const carreras = await prisma.carrera.findMany({
-		include: {
-			materia: true,
-		},
-	});
+  const carreras = await prisma.carrera.findMany({
+    include: {
+      materia: true,
+    },
+  });
 
 	const cursos = await prisma.curso.findMany({
 		where: {
@@ -29,7 +30,7 @@ export const loader = async ({ request }) => {
 		},
 	});
 
-	const enrolledMaterias = new Set(cursos.map((curso) => curso.idMateria));
+  const enrolledMaterias = new Set(cursos.map(curso => curso.idMateria));
 
 	return json({
 		carreras,
@@ -45,12 +46,12 @@ export const action = async ({ request }) => {
 		throw new Response("Unauthorized", { status: 401 });
 	}
 
-	const formData = await request.formData();
-	const idMateria = formData.get("idMateria");
+  const formData = await request.formData();
+  const idMateria = formData.get("idMateria");
 
-	if (!idMateria) {
-		throw new Response("Bad Request", { status: 400 });
-	}
+  if (!idMateria) {
+    throw new Response("Bad Request", { status: 400 });
+  }
 
 	await prisma.curso.create({
 		data: {
@@ -63,18 +64,18 @@ export const action = async ({ request }) => {
 		},
 	});
 
-	return redirect("/explora");
+  return redirect("/explora");
 };
 
 function Explora() {
-	const { carreras, enrolledMaterias } = useLoaderData();
+  const { carreras, enrolledMaterias } = useLoaderData();
 
-	return (
-		<div style={{ marginLeft: "400px" }}>
-			<TitleWithImages title="Explora" />
-			<InfoExplora carreras={carreras} enrolledMaterias={enrolledMaterias} />
-		</div>
-	);
+  return (
+    <div style={{ marginLeft: "400px" }}>
+      <TitleWithImages title="Explora" />
+      <InfoExplora carreras={carreras} enrolledMaterias={enrolledMaterias} />
+    </div>
+  );
 }
 
 export default Explora;
