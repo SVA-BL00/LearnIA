@@ -11,24 +11,20 @@ import "../styles/main.css";
 
 const prisma = new PrismaClient();
 
-export const loader = async ({request}) => {
-	const userLoaderResponse = await userLoader({ request });
-
-  	const user = await userLoaderResponse.json();
-  	const idEstudiante = user.estudianteId;
-
-  	const cursos = await prisma.curso.findMany({
-    	include: {
-      	materia: true,
-      	tema: true,
-	  	quizzes: true,
-   		},
+export const loader = async ({ request }) => {
+	const user = await authenticator.isAuthenticated(request);
+	const cursos = await prisma.curso.findMany({
+		include: {
+			materia: true,
+			tema: true,
+			quizzes: true,
+		},
 		where: {
-			idEstudiante: idEstudiante,
-			completado: 'false',
-		},	
-  	});
-  	return json({ cursos });
+			idEstudiante: user.user.estudianteId,
+			completado: "false",
+		},
+	});
+	return json({ cursos });
 };
 
 function getClosestExamenFinalDate(cursos) {
@@ -45,7 +41,13 @@ function getClosestExamenFinalDate(cursos) {
 						closestDate = new Date(quiz.fecha);
 						minDiff = diff;
 					}
+					const diff = new Date(quiz.fecha) - now;
+					if (diff > 0 && diff < minDiff) {
+						closestDate = new Date(quiz.fecha);
+						minDiff = diff;
+					}
 				}
+			});
 			});
 		}
 	});
@@ -55,6 +57,10 @@ function getClosestExamenFinalDate(cursos) {
 
 function getCalificacionFinal(cursos) {
 	return cursos.map((curso) => {
+		const totalCalificacion = curso.quizzes.reduce(
+			(acc, quiz) => acc + quiz.calificacion,
+			0,
+		);
 		const totalCalificacion = curso.quizzes.reduce(
 			(acc, quiz) => acc + quiz.calificacion,
 			0,
@@ -77,12 +83,24 @@ function getDateNameQuizzes(cursos) {
 			}
 			acc[dateStr].quizzes.push(quiz.tipo);
 			return acc;
+			const dateStr = quiz.fecha.split(" ")[0]; // Convierte fecha a YYYY-MM-DD
+			if (!acc[dateStr]) {
+				acc[dateStr] = {
+					date: new Date(quiz.fecha),
+					quizzes: [],
+				};
+			}
+			acc[dateStr].quizzes.push(quiz.tipo);
+			return acc;
 		}, {});
+
 
 		// Convert the dates object to an array
 		const dateArray = Object.values(dates);
 
+
 		return { ...curso, dates: dateArray };
+	});
 	});
 }
 
@@ -93,14 +111,19 @@ function index() {
 	const cursosWithDates = getDateNameQuizzes(cursosWithCF);
 
 	const transformedCourses = cursosWithDates.map((curso) => ({
+	const transformedCourses = cursosWithDates.map((curso) => ({
 		title: curso.materia.nombre,
 		tasks: curso.tema.map((tema) => tema.nombre),
+		tasks: curso.tema.map((tema) => tema.nombre),
 		temasTotales: curso.tema.length,
+		temasCompletados: curso.tema.filter((tema) => tema.completado).length,
 		temasCompletados: curso.tema.filter((tema) => tema.completado).length,
 		calificacionFinal: curso.calificacionFinal,
 		dates: curso.dates,
 		quizzes: curso.quizzes.map((quiz) => quiz.tipo),
+		quizzes: curso.quizzes.map((quiz) => quiz.tipo),
 	}));
+
 
 	const closestExamenFinalDate = getClosestExamenFinalDate(transformedCourses);
 
@@ -126,7 +149,20 @@ function index() {
 										No tienes fechas establecidas para exámenes futuros.
 										¡Practica hasta que estés listo!
 									</p>
+								<Countdown examenFinalDate={closestExamenFinalDate} />
+							) : (
+								<div
+									style={{
+										display: "flex",
+										fontFamily: `"Ubuntu Mono", monospace`,
+									}}
+								>
+									<p>
+										No tienes fechas establecidas para exámenes futuros.
+										¡Practica hasta que estés listo!
+									</p>
 								</div>
+							)}
 							)}
 						</div>
 						<Notification />
@@ -141,3 +177,4 @@ function index() {
 }
 
 export default index;
+
