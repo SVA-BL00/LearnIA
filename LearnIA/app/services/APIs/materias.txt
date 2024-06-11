@@ -1,0 +1,154 @@
+1 F1001B Modelación de la ingeniería y ciencias
+Al terminar la unidad de formación el alumno:
+- Explica el comportamiento de sistemas en la ingeniería y ciencias por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales, matemáticas y computación.
+- Demuestra el comportamiento de sistemas en la ingeniería y ciencias mediante evidencias empíricas y teóricas obtenidas de diversas metodologías de investigación y de cómputo.
+- Determina patrones relevantes en un conjunto de información, utilizando principios de las ciencias naturales, de las matemáticas y fundamentos computacionales.
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos relacionados con las ciencias de la ingeniería.
+- Toma decisiones en la solución de problemas en condiciones de incertidumbre y diferentes niveles de complejidad con base metodologías de investigación.
+- Implementa acciones científicas e ingenieriles o procesos computacionales que cumplen con el tipo de solución requerida.
+- Aplica los principios de sustentabilidad en la solución de problemas de ciencia e ingeniería que garanticen el bienestar de las generaciones futuras.
+Curso acreditable por examen de suficiencia
+LIBROS DE TEXTO:
+* Llamas Moya, B.,Tecnologías de lucha contra el cambio climático: del carbón al carbono,Huelva:Universidad de Huelva:Endesa.,2006,
+LIBROS DE CONSULTA:
+* Heckert, P. A. ,Understanding Kepler's Laws: An Astronomy 101 Tutorial,Tutorial,2011,
+1 F1004B Modelación computacional del movimiento
+Al terminar la unidad de formación el alumno:
+- Explica el funcionamiento de los procesos computacionales y de las tecnologías de información por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales y las matemáticas a través de la modelación computacional del movimiento.
+- Demuestra el funcionamiento de los procesos computacionales y de las tecnologías de la información mediante evidencias empíricas y teóricas obtenidas de diversas metodologías de investigación y de cómputo a través de la modelación computacional del movimiento.
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos computacionales a través de la modelación del movimiento.
+- Toma decisiones en la solución de problemas en condiciones de incertidumbre y diferentes niveles de complejidad con base metodologías de investigación y de cómputo mediante la modelación computacional del movimiento.
+- Implementa acciones científicas e ingenieriles o procesos computacionales que cumplen con el tipo de solución requerida a través de la modelación computacional del movimiento.
+LIBROS DE TEXTO:
+* Serway Raymond A,Física para ciencias e ingenierías [recurso electrónico],9a ed.,México:Cengage Learning Editores,2014,spa,607519200X
+LIBROS DE CONSULTA:
+* Kattan, P. I. ,MATLAB for beginners: A gentle approach,Petra Books,2010,
+* Chapra, S. C., & Canale, R. P.,Numerical methods for engineers,McGraw-Hill Higher Education.,2010,
+1 F1005B Modelación computacional aplicando leyes de conservación
+Al terminar la unidad de formación el alumno:
+- Explica el funcionamiento de los procesos computacionales y de las tecnologías de información por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales y las matemáticas.
+- Demuestra el funcionamiento de los procesos computacionales y de las tecnologías de la información mediante evidencias empíricas y teóricas obtenidas de diversas metodologías de investigación y de cómputo.
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos computacionales.
+- Toma decisiones en la solución de problemas en condiciones de incertidumbre y diferentes niveles de complejidad con base metodologías de investigación y de cómputo.
+- Implementa acciones científicas e ingenieriles o procesos computacionales que cumplen con el tipo de solución requerida.
+LIBROS DE TEXTO:
+* Larson, Ron, 1941-,Cálculo con geometría analítica / Ron Larson, Robert P. Hostetler, Bruce H. Edwards ; traductores Sergio Antonio Durán Reyes ... [et al].,2a ed. en espan~ol.,México : McGraw-Hill, c2006.,spaeng,9701052749
+* Peter I. Kattan,MATLAB Guide to Finite Elements: An Interactive Approach, Edition 2,Springer Science & Business Media,2010,Inglés,9783540706984
+LIBROS DE CONSULTA:
+* Gilat Amos,Numerical methods for engineers and scientists : an introduction with applications using MATLAB,2nd ed.,Hoboken, N.J.:Wiley,2011,9780470565155
+1 MA1028 Modelación matemática fundamental
+Al terminar la unidad de formación el alumno:
+- Explica el comportamiento de sistemas en la ingeniería y ciencias por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales, matemáticas y computación.
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos relacionados con las ciencias de la ingeniería.
+Curso acreditable por examen de suficiencia
+LIBROS DE TEXTO:
+* Stewart, James,Calculus early trascendentals,7a ed.,Belmont, CA:BROOKS/COLES Cengage Learning,2012,spa,9780538498876
+* Salinas, P., Alanis, J., Pulido, R., Santos, F., Escobedo, J. y Garza, J.,Cálculo Aplicado. Competencias matemáticas a través de contextos Tomo I.,Boca:Cengage Learning.,2015,
+* Salinas, P., Alanis, J., Pulido, R., Santos, F., Escobedo, J. y Garza, J. ,Cálculo Aplicado. Competencias matemáticas a través de contextos Tomo II.,Boca:Cengage Learning,2015,Español,
+1 Q1020 Análisis de la estructura y propiedades de la materia
+Al terminar la unidad de formación el alumno:- Explica el comportamiento de sistemas en la ingeniería y ciencias por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales, matemáticas y computación.- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos relacionados con las ciencias de la ingeniería.
+Materia No Vigente
+Al terminar la unidad de formación el alumno:
+- Explica el comportamiento de sistemas en la ingeniería y ciencias por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales, matemáticas y computación.
+LIBROS DE TEXTO:
+* Tro Nivaldo J,Chemistry : a molecular approach,3rd ed.,Boston, Columbus:Perarson Education,2014,spa,9780321809247
+* Chang Raymond,Chemistry,International edition.,spa,9789814599788
+1 TC1029 Pensamiento computacional y programación
+Al terminar la unidad de formación el alumno:
+- Demuestra el funcionamiento de los procesos computacionales y de las tecnologías de la información mediante evidencias empíricas obtenidas de diversas metodologías de investigación y de cómputo.
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos computacionales.
+- Toma decisiones en la solución de problemas en condiciones de incertidumbre y diferentes niveles de complejidad con base metodologías de investigación y de cómputo.
+- Implementa acciones científicas e ingenieriles o procesos computacionales que cumplen con el tipo de solución requerida.
+- Aplica los estándares y normas en el ejercicio de su profesión manteniéndolos como referencia a seguir en la solución de problemas computacionales y tecnologías de información.
+Materia No Vigente
+LIBROS DE TEXTO:
+LIBROS DE CONSULTA:
+* Beecher, K.,Computational thinking: A beginner's guide to problem-solving and programming,BCS Learning & Development Limited,2017,
+* Deitel, P. J., Deitel, H. M., Mukherjee, S., Bhattacharjee, A. K., & Pearson,C ++: How to program,Pearson,2014,
+2 BT1013 Análisis de biología computacional
+Al terminar la unidad de formación el alumno:
+- Explica el funcionamiento de los procesos computacionales y de las tecnologías de información por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales y las matemáticas.- Determina patrones relevantes en un conjunto de información, utilizando principios de las ciencias naturales, de las matemáticas y fundamentos computacionales.
+- Aplica los principios de sustentabilidad en la solución de problemas computacionales y de tecnologías de información que garanticen el bienestar de las generaciones futuras.
+- Explica el funcionamiento de los procesos computacionales y de las tecnologías de información por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales y las matemáticas.
+LIBROS DE TEXTO:
+* Allison, L.,Fundamental Molecular Biology.,Blackwell Publishing,2007,
+LIBROS DE CONSULTA:
+* Gentleman, Robert,R programming for bioinformatics,Boca Raton:CRC Press,2009,1420063677
+* Gentleman, R., Irizarry, R., Dudoit, S.,Bioinformatics and Computational Biology Solutions Using R and Bioconductor, :Springer,2005,
+* Taylor, L,Translational Bioinformatics,Springer,2013,
+2 F1008 Experimentación física y pensamiento estadístico
+Al terminar la unidad de formación el alumno:
+- Explica el comportamiento de sistemas en la ingeniería y ciencias por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales, matemáticas y computación.
+- Demuestra el comportamiento de sistemas en la ingeniería y ciencias mediante evidencias empíricas y teóricas obtenidas de diversas metodologías de investigación y de cómputo.
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos relacionados con las ciencias de la ingeniería.
+- Toma decisiones en la solución de problemas en condiciones de incertidumbre y diferentes niveles de complejidad con base metodologías de investigación.
+- Implementa acciones científicas e ingenieriles o procesos computacionales que cumplen con el tipo de solución requerida.
+- Aplica los estándares y normas en el ejercicio de su profesión manteniéndolos como referencia a seguir en la solución de problemas de ingeniería y ciencias.
+LIBROS DE TEXTO:
+LIBROS DE CONSULTA:
+* Gil Salvador,Física re-creativa : experimentos de física usando nuevas tecnologías,1a ed.,Buenos Aires:Pearson Education,2001,spa,9879460189
+* EFRON, ALEXANDER,FISICA EXPERIMENTAL PARA TODOS,1 Ed.,Barcelona:Sopena,1967,spa,8430302948
+2 F1013B Modelación computacional de sistemas eléctricos
+Al terminar la unidad de formación el alumno:
+- Explica el funcionamiento de los procesos computacionales y de las tecnologías de información por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales y las matemáticas.
+- Demuestra el funcionamiento de los procesos computacionales y de las tecnologías de la información mediante evidencias empíricas y teóricas obtenidas de diversas metodologías de investigación y de cómputo.
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos computacionales.
+- Toma decisiones en la solución de problemas en condiciones de incertidumbre y diferentes niveles de complejidad con base metodologías de investigación y de cómputo.
+- Implementa acciones científicas e ingenieriles o procesos computacionales que cumplen con el tipo de solución requerida.
+LIBROS DE TEXTO:
+LIBROS DE CONSULTA:
+* Mathews, John H,Numerical methods using MATLAB,3rd ed. /,Upper Saddle River, N.J.:Prentice Hall,1999,0132700425
+* Thomas, G.B; ‎Weir, M.D andHass, J.,Cálculo Una Variable,Pearson, Adisson-Wesley,2005,
+* Kattan, P. I.,Solving Equations with MATLAB,Petra Books,2011,
+2 F1014B Modelación computacional de sistemas electromagnéticos
+Al terminar la unidad de formación el alumno:
+- Explica el funcionamiento de los procesos computacionales y de las tecnologías de información por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales y las matemáticas a través de la modelación computacional de sistemas electromagnéticos.
+- Demuestra el funcionamiento de los procesos computacionales y de las tecnologías de la información mediante evidencias empíricas y teóricas obtenidas de diversas metodologías de investigación y de cómputo a través de la modelación computacional de sistemas electromagnéticos.
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos computacionales mediante la modelación computacional de sistemas electromagnéticos.
+- Toma decisiones en la solución de problemas en condiciones de incertidumbre y diferentes niveles de complejidad con base metodologías de investigación y de cómputo a través de la modelación computacional de sistemas electromagnéticos.
+- Implementa acciones científicas e ingenieriles o procesos computacionales que cumplen con el tipo de solución requerida mediante la modelación computacional de sistemas electromagnéticos.
+LIBROS DE TEXTO:
+* Fishbane, P. M. & Gasiorowic, S. ,Physics for Scientists and Engineers: Extended Version, Vol. 2,,2a,Pearson.,1995,
+* Kline, Morris,Calculus : an intuitive and physical approach,2nd ed.,Mineola, N.Y.:Dover Publications,1998,0486404536 : PAP
+* Attaway Stormy,MATLAB : a practical introduction to programming and problem solving,2nd ed.,Waltham, MA:Butterworth-Heinemann,2012,9780123850812
+LIBROS DE CONSULTA:
+* Esfandiari, R. S.,Numerical Methods for Engineers and Scientists Using MATLAB,CRC Press,2017,
+2 MA1029 Modelación matemática intermedia
+Al terminar la unidad de formación el alumno:
+- Explica el comportamiento de sistemas en la ingeniería y ciencias por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales, matemáticas y computación.
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos relacionados con las ciencias de la ingeniería.
+LIBROS DE TEXTO:
+* Blanchard Paul,Differential equations,4th ed.,Boston, MA:CL-Brooks/Cole,2012,0495561983
+* Patricia Salinas...[etal],Cálculo aplicado  [recurso electronico] :  competencias matemáticas a través de contextos,México:Cengage Learning,2013,spa,9786074819120
+* Stewart, J. ,Calculus Early Transcendentals,8a,Boston:Thomson Brooks/Cole,2016,English,
+LIBROS DE CONSULTA:
+* Zill, D. ,Ecuaciones Diferenciales con problemas de valores en la frontera,9a,Toluca:Cengage,2018,
+2 MA1031 Análisis estadístico
+Al terminar la unidad de formación el alumno:
+- Determina patrones relevantes en un conjunto de información, utilizando principios de las ciencias naturales, de las matemáticas y fundamentos computacionales.
+- Interpreta interacciones entre variables relevantes en un problema, utilizando principios de ciencias naturales, herramientas matemáticas y de tecnologías de información.
+- Desarrolla escenarios de acción en la toma de decisiones con base en el análisis de patrones de un conjunto de datos.
+LIBROS DE TEXTO:
+* Montgomery, C.D.,Diseño y análisis de experimentos,2a.,México, D.F.:Limusa - Wiley,2003,Español ,9789681861566
+LIBROS DE CONSULTA:
+* Devore J. L.,Probabilidad y estadística para ingenieria y ciencias ,5a.,México, D.F:Thomson Learning,2001,Español ,9706868313
+* Kuehl O. R. , Diseño de experimentos. Principios estadísticos de diseño y análisis de investigación,,2a.,México, D.F.:Thomson Learning.,2001,Español,9706860487
+2 TC1003B Modelación de la ingeniería con matemática computacional
+Al terminar la unidad de formación el alumno:
+- Explica el funcionamiento de los procesos computacionales y de las tecnologías de información por medio de argumentaciones estructuradas y coherentes fundamentadas en conceptos, teorías y principios de las ciencias naturales y las matemáticas.
+- Demuestra el funcionamiento de los procesos computacionales y de las tecnologías de la información mediante evidencias empíricas obtenidas de diversas metodologías de investigación y de cómputo.
+LIBROS DE TEXTO:
+* Rosen, K. H. & Krithivasan, K., Discrete mathematics and its applications,New York:McGraw-Hill Companies ,2013,Inglés,0071315012
+LIBROS DE CONSULTA:
+* Epp, S.S.,Discrete mathematics with applications,4th ed.,Boston, MA:Brooks/Cole,2011,Inglés ,9780495391326
+* Nakos, G., & Joyner, D,Álgebra lineal con aplicaciones,3a.,México, D.F.:International Thomson.,1999,Español,9687529865
+2 TC1030 Programación orientada a objetos
+Al terminar la unidad de formación el alumno:
+- Evalúa los componentes que integran una problemática de acuerdo a principios y procesos computacionales.
+- Toma decisiones en la solución de problemas en condiciones de incertidumbre y diferentes niveles de complejidad con base metodologías de investigación y de cómputo.
+LIBROS DE TEXTO:
+* Deitel Paul J,C++ : how to program,9th ed.,Boston:Prentice Hall,2014,9780133378719
+LIBROS DE CONSULTA:
+3 MA1033 Análisis de ecuaciones diferenciales
+The 'Objetivo general de la Unidad de Formación' section was not found in the provided HTML content.
+
