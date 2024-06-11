@@ -1,5 +1,4 @@
 // app/server/auth.server.js
-
 import { Authenticator } from "remix-auth";
 import { GoogleStrategy, SocialsProvider } from "remix-auth-socials";
 import { sessionStorage } from "../services/session.server";
@@ -47,6 +46,8 @@ authenticator.use(
 					photo: profile.photos[0].value,
 					estudianteId: estudiante.idEstudiante,
 				};
+
+				console.log("User:", user);
 
 				// Return the profile object with estudianteId
 				return { ...profile, user };

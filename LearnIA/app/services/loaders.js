@@ -12,7 +12,7 @@ export async function userLoader({ request }) {
       return redirect('/login'); // Redirect to login if the user is not authenticated
     }
     
-    return json(user.user);
+    return json(user);
 
   } catch (error) {
     console.error("Error in loader:", error);
