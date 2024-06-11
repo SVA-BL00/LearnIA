@@ -3,7 +3,6 @@
 import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import prisma from "./prisma/prisma.js";
-import { userLoader } from "../services/loaders.js";
 import TitleWithImages from "../components/TitleWithImages";
 import InfoExplora from "../components/InfoExplora";
 import "../styles/Explora.css";
