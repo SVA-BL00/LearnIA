@@ -11,20 +11,20 @@ import "../styles/main.css";
 
 const prisma = new PrismaClient();
 
-export const loader = async ({request}) => {
+export const loader = async ({ request }) => {
 	const user = await authenticator.isAuthenticated(request);
-  	const cursos = await prisma.curso.findMany({
-    	include: {
-      	materia: true,
-      	tema: true,
-	  	quizzes: true,
-   		},
+	const cursos = await prisma.curso.findMany({
+		include: {
+			materia: true,
+			tema: true,
+			quizzes: true,
+		},
 		where: {
 			idEstudiante: user.user.estudianteId,
-			completado: 'false',
+			completado: "false",
 		},
-  	});
-  	return json({ cursos });
+	});
+	return json({ cursos });
 };
 
 function getClosestExamenFinalDate(cursos) {
@@ -36,13 +36,13 @@ function getClosestExamenFinalDate(cursos) {
 		if (curso.quizzes && Array.isArray(curso.quizzes)) {
 			curso.quizzes.forEach((quiz) => {
 				if (quiz.tipo === "Examen Final") {
-                	const diff = new Date(quiz.fecha) - now;
-                	if (diff > 0 && diff < minDiff) {
-                    	closestDate = new Date(quiz.fecha);
-                    	minDiff = diff;
-                	}
+					const diff = new Date(quiz.fecha) - now;
+					if (diff > 0 && diff < minDiff) {
+						closestDate = new Date(quiz.fecha);
+						minDiff = diff;
+					}
 				}
-            });
+			});
 		}
 	});
 
@@ -51,7 +51,10 @@ function getClosestExamenFinalDate(cursos) {
 
 function getCalificacionFinal(cursos) {
 	return cursos.map((curso) => {
-		const totalCalificacion = curso.quizzes.reduce((acc, quiz) => acc + quiz.calificacion, 0);
+		const totalCalificacion = curso.quizzes.reduce(
+			(acc, quiz) => acc + quiz.calificacion,
+			0,
+		);
 		const calificacionFinal = totalCalificacion / curso.quizzes.length;
 		return { ...curso, calificacionFinal };
 	});
@@ -61,22 +64,22 @@ function getDateNameQuizzes(cursos) {
 	return cursos.map((curso) => {
 		// Group quizzes by date
 		const dates = curso.quizzes.reduce((acc, quiz) => {
-			const dateStr = quiz.fecha.split(' ')[0]; // Convierte fecha a YYYY-MM-DD
-		  if (!acc[dateStr]) {
-			acc[dateStr] = {
-			  date: new Date(quiz.fecha),
-			  quizzes: [],
-			};
-		  }
-		  acc[dateStr].quizzes.push(quiz.tipo);
-		  return acc;
+			const dateStr = quiz.fecha.split(" ")[0]; // Convierte fecha a YYYY-MM-DD
+			if (!acc[dateStr]) {
+				acc[dateStr] = {
+					date: new Date(quiz.fecha),
+					quizzes: [],
+				};
+			}
+			acc[dateStr].quizzes.push(quiz.tipo);
+			return acc;
 		}, {});
-	
+
 		// Convert the dates object to an array
 		const dateArray = Object.values(dates);
-	
+
 		return { ...curso, dates: dateArray };
-	  });
+	});
 }
 
 function index() {
@@ -85,16 +88,16 @@ function index() {
 	const cursosWithCF = getCalificacionFinal(cursos);
 	const cursosWithDates = getDateNameQuizzes(cursosWithCF);
 
-	const transformedCourses = cursosWithDates.map(curso => ({
+	const transformedCourses = cursosWithDates.map((curso) => ({
 		title: curso.materia.nombre,
-		tasks: curso.tema.map(tema => tema.nombre),
+		tasks: curso.tema.map((tema) => tema.nombre),
 		temasTotales: curso.tema.length,
-		temasCompletados: curso.tema.filter(tema => tema.completado).length,
+		temasCompletados: curso.tema.filter((tema) => tema.completado).length,
 		calificacionFinal: curso.calificacionFinal,
 		dates: curso.dates,
-		quizzes: curso.quizzes.map(quiz => quiz.tipo),
+		quizzes: curso.quizzes.map((quiz) => quiz.tipo),
 	}));
-	
+
 	const closestExamenFinalDate = getClosestExamenFinalDate(transformedCourses);
 
 	return (
@@ -107,12 +110,20 @@ function index() {
 								<h2 className="title">¿Listo para tu examen?</h2>
 							</div>
 							{closestExamenFinalDate ? (
-                				<Countdown examenFinalDate={closestExamenFinalDate} />
-              				) : (
-								<div style={{ display: 'flex', fontFamily: `"Ubuntu Mono", monospace` }}>
-									<p>No tienes fechas establecidas para exámenes futuros. ¡Practica hasta que estés listo!</p>
+								<Countdown examenFinalDate={closestExamenFinalDate} />
+							) : (
+								<div
+									style={{
+										display: "flex",
+										fontFamily: `"Ubuntu Mono", monospace`,
+									}}
+								>
+									<p>
+										No tienes fechas establecidas para exámenes futuros.
+										¡Practica hasta que estés listo!
+									</p>
 								</div>
-              				)}
+							)}
 						</div>
 						<Notification />
 					</div>

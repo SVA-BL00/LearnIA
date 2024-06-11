@@ -51,6 +51,7 @@ model Materia {
   semestre     Int?
   idMateriaTec String   @unique(map: "idMateriaTec_UNIQUE") @db.VarChar(45)
   objetivos    String?  @db.MediumText
+  recursos     String?  @db.MediumText
   curso        Curso[]
   carrera      Carrera? @relation(fields: [idCarrera], references: [idCarrera], onDelete: Cascade, map: "fk_Materia_Carrera")
 

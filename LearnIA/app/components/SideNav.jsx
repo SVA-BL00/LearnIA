@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "@remix-run/react";
 
 import "../styles/SideNav.css";
-import GorroImage from '../assets/img/gorro-de-graduacion.svg';
+import GorroImage from "../assets/img/gorro-de-graduacion.svg";
 
 function SideNav() {
-
 	const location = useLocation();
 	const [activePath, setActivePath] = useState(location.pathname);
 
@@ -32,23 +31,22 @@ function SideNav() {
 					}`}
 					onClick={() => setActivePath("/perfil")}
 				>
-					
 					<div className="row py-2 ps-2">
-							<div className="col-12 col-md-3 ps-3 d-flex align-items-center justify-content-center">
+						<div className="col-12 col-md-3 ps-3 d-flex align-items-center justify-content-center">
 							<img
 								src={GorroImage}
 								className="rounded-circle"
 								id="profile-image"
 								alt="Profile avatar"
 							/>
-							</div>
-							<div className="col-12 col-md-9">
-								<div className="container p-1 pt-3" id="profile-info">
-									<h5>{"Nombre Apellido"}</h5>
-									<h6>ITC — 4° semestre</h6>
-								</div>
+						</div>
+						<div className="col-12 col-md-9">
+							<div className="container p-1 pt-3" id="profile-info">
+								<h5>{"Nombre Apellido"}</h5>
+								<h6>ITC — 4° semestre</h6>
 							</div>
 						</div>
+					</div>
 				</Link>
 			</div>
 
