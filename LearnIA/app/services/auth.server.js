@@ -47,8 +47,6 @@ authenticator.use(
 					estudianteId: estudiante.idEstudiante,
 				};
 
-				console.log("User:", user);
-
 				// Return the profile object with estudianteId
 				return { ...profile, user };
 			} catch (error) {
