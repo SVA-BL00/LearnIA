@@ -4,6 +4,8 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { PrismaClient } from "@prisma/client";
 import { authenticator } from "../services/auth.server";
+import { sessionStorage } from "../services/session.server";
+import { redirect } from "@remix-run/node";
 import Countdown from "../components/Countdown";
 import CursosDashboard from "../components/CursosDashboard";
 import Notification from "../components/Notification";
@@ -12,7 +14,20 @@ import "../styles/main.css";
 const prisma = new PrismaClient();
 
 export const loader = async ({ request }) => {
+	const session = await sessionStorage.getSession(request.headers.get("Cookie"));
 	const user = await authenticator.isAuthenticated(request);
+	if (user && user.user.newUser) {
+		console.log("New user status before update:", user.user.newUser);
+
+		user.user.newUser = false;
+		// Update the newUser status in the database
+		await sessionStorage.commitSession(request.headers.get("Cookie"), { user: user.user });
+
+		// Log the change for debugging
+		console.log("New user status after update:", user.user.newUser);
+
+		return redirect("/carrera");
+	}
 	const cursos = await prisma.curso.findMany({
 		include: {
 			materia: true,

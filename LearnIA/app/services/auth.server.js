@@ -30,7 +30,7 @@ authenticator.use(
 						correo: profile.emails[0].value,
 					},
 				});
-
+				let newUser = false;
 				if (!estudiante) {
 					// User does not exist, create a new entry
 					estudiante = await prisma.estudiante.create({
@@ -39,12 +39,14 @@ authenticator.use(
 							correo: profile.emails[0].value,
 						},
 					});
+					newUser = true;
 				}
 				const user = {
 					displayName: profile.displayName,
 					email: profile.emails[0].value,
 					photo: profile.photos[0].value,
 					estudianteId: estudiante.idEstudiante,
+					newUser: newUser,
 				};
 
 				console.log("User:", user);
