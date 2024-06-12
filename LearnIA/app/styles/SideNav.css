@@ -12,7 +12,7 @@
   }
 
   #profile-image {
-    width: 85px;
+    width: 65px;
     height: auto;
   }
   #profile-info h5 {
@@ -52,7 +52,3 @@
   
   .fw-semibold { font-weight: 600; }
   .lh-tight { line-height: 1.25; }
-
-  .nav-link:not(.active) #profile-image {
-    filter: brightness(0) invert(1);
-  }

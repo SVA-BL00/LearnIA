@@ -4,13 +4,13 @@ import { Link, useLocation } from "@remix-run/react";
 import "../styles/SideNav.css";
 import GorroImage from "../assets/img/gorro-de-graduacion.svg";
 
-function SideNav() {
+function SideNav({ user }) {
 	const location = useLocation();
 	const [activePath, setActivePath] = useState(location.pathname);
 
 	useEffect(() => {
 		setActivePath(location.pathname);
-	}, [location.pathname]);
+	}, [location.pathname, user.photo]);
 
 	return (
 		<div className="d-flex flex-column text-white" id="sidebar-container">
@@ -34,7 +34,7 @@ function SideNav() {
 					<div className="row py-2 ps-2">
 						<div className="col-12 col-md-3 ps-3 d-flex align-items-center justify-content-center">
 							<img
-								src={GorroImage}
+								src={user.photo}
 								className="rounded-circle"
 								id="profile-image"
 								alt="Profile avatar"
@@ -42,7 +42,7 @@ function SideNav() {
 						</div>
 						<div className="col-12 col-md-9">
 							<div className="container p-1 pt-3" id="profile-info">
-								<h5>{"Nombre Apellido"}</h5>
+								<h5>{user.displayName}</h5>
 								<h6>ITC — 4° semestre</h6>
 							</div>
 						</div>
