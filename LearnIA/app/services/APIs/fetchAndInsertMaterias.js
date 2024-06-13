@@ -4,7 +4,7 @@ import prisma from "./prisma/prisma.js";
 
 export async function fetchAndInsertMaterias() {
   try {
-    const __dirname = path.dirname(new URL(import.meta.url).pathname); // Fix for ES module
+    const __dirname = path.dirname(new URL(import.meta.url).pathname); 
     const filePath = path.join(__dirname, "materias.txt");
     const data = fs.readFileSync(filePath, "utf8");
 

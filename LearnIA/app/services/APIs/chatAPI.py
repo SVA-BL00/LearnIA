@@ -27,7 +27,7 @@ def temario():
         completion = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "Eres una IA creadora de temarios, buscas crear temarios que enseñen desde lo básico hasta lo más avanzado. Los temarios deben de ser de 10 temas. Pueden contener subtemas para clarificar el contenido de cada tema. Dados el nombre de la carrera, el nombre de la materia, los objetivos de la materia y los libros recomendados, quiero que generes un temario. El temario se deberá regresar en formato json"},
+                {"role": "system", "content": "Eres una IA creadora de temarios, buscas crear temarios que enseñen desde lo básico hasta lo más avanzado. Los temarios deben de ser de 10 temas. Dados el nombre de la carrera, el nombre de la materia, los objetivos de la materia y los libros recomendados, quiero que generes un temario donde el nombre de cada tema sea descriptivo. El temario se deberá regresar en formato json con un tema por linea."},
                 {"role": "user", "content": user_message},
             ],
             temperature=0.1,
@@ -64,7 +64,7 @@ def quiz():
                 Los quizzes se harán en base a un temario de 10 temas. Para cada tema indicará si ya está completado con "completado": "true" y si no está completado con "completado":"false"
                 Es IMPORTANTE que el quiz incluya TODOS LOS TEMAS NO COMPLETADOS. Indicarás además, de cuál tema es cada pregunta.
 
-                Deberás hacer 2 preguntas por tema. Se proporcionarán también subtemas que podrás tomar en cuenta para hacer las preguntas, pero lo más importante es el tema.
+                Deberás hacer 2 preguntas por tema.
 
                 Construirás distintas preguntas de opción múltiple para la audiencia. Las preguntas deben ser altamente relevantes y no simples hechos. Las respuestas alternas de opción múltiple (las que no son las correctas) deberán ser competentes, de manera que estudiantes las vean como posibles respuestas. No deberá haber una opción de "Todas las anteriores"
 

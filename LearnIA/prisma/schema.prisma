@@ -57,7 +57,7 @@ model Materia {
 }
 
 model Quiz {
-  idQuiz       Int      @id @unique(map: "idQuiz_UNIQUE")
+  idQuiz       Int      @id @unique(map: "idQuiz_UNIQUE") @default(autoincrement())
   feedback     String   @db.MediumText
   preguntas    String   @db.MediumText
   fecha        DateTime @db.DateTime(0)
@@ -71,7 +71,7 @@ model Quiz {
 }
 
 model Tema {
-  idTema     Int     @id
+  idTema     Int     @id @default(autoincrement())
   idCurso    Int?
   completado String? @db.VarChar(45)
   nombre     String? @db.VarChar(45)
