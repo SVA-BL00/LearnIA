@@ -1,8 +1,9 @@
-import { Form } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
 import ExploraCollapsibleCarrera from "../components/ExploraCollapsibleCarrera";
 import ExploraCollapsibleSemestre from "../components/ExploraCollapsibleSemestre";
 import ExploraCollapsibleMateria from "../components/ExploraCollapsibleMateria";
 import "../styles/Explora.css";
+import { fetchDataFromFlask } from "../services/APIs/aiRequest.js";
 
 // Function to group materias by semester
 function groupMateriasBySemester(materias) {
@@ -24,6 +25,21 @@ function groupMateriasBySemester(materias) {
 function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
   const enrolledSet = new Set(enrolledMaterias);
   const materiasBySemester = groupMateriasBySemester(materias);
+  const fetcher = useFetcher();
+
+  const handleInscribirse = async (materia) => {
+    // Fetch data for Temario and Proyectos
+    try {
+      const dataTemario = { nombreCarrera, nombre: materia.nombre, objetivos: materia.objetivos, librosRecomendados: materia.recursos};
+      const temasData = await fetchDataFromFlask('http://127.0.0.1:5000/temario', dataTemario);
+      const temas = temasData.response;
+
+      // Submit the form after fetching data
+      fetcher.submit({ idMateria: materia.idMateria, temas: JSON.stringify(temas) }, { method: 'post' });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   return (
     <div>
@@ -39,12 +55,13 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
                       {enrolledSet.has(materia.idMateria) ? (
                         <p className="enrolled-message">Ya tienes este curso inscrito</p>
                       ) : (
-                        <Form method="post">
-                          <input type="hidden" name="idMateria" value={materia.idMateria} />
-                          <button type="submit" className="btn green">
-                            Inscribirse
-                          </button>
-                        </Form>
+                        <button
+                          type="button"
+                          className="btn green"
+                          onClick={() => handleInscribirse(materia)}
+                        >
+                          Inscribirse
+                        </button>
                       )}
                     </div>
                   </ExploraCollapsibleMateria>
