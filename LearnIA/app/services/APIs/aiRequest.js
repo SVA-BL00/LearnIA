@@ -2,7 +2,11 @@ import axios from 'axios';
 
 export async function fetchDataFromFlask(url, data) {
   try {
-    const response = await axios.post(url, data);
+    const response = await axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);

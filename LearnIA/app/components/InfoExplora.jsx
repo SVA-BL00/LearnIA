@@ -1,10 +1,10 @@
-import { Form, useFetcher } from "@remix-run/react";
+import { Form } from "@remix-run/react";
 import ExploraCollapsibleCarrera from "../components/ExploraCollapsibleCarrera";
 import ExploraCollapsibleSemestre from "../components/ExploraCollapsibleSemestre";
 import ExploraCollapsibleMateria from "../components/ExploraCollapsibleMateria";
 import "../styles/Explora.css";
 import { fetchDataFromFlask } from "../services/APIs/aiRequest.js";
-
+ 
 // Function to group materias by semester
 function groupMateriasBySemester(materias) {
   const semesters = {};
@@ -25,17 +25,19 @@ function groupMateriasBySemester(materias) {
 function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
   const enrolledSet = new Set(enrolledMaterias);
   const materiasBySemester = groupMateriasBySemester(materias);
-  const fetcher = useFetcher();
 
   const handleInscribirse = async (materia) => {
     // Fetch data for Temario and Proyectos
     try {
       const dataTemario = { nombreCarrera, nombre: materia.nombre, objetivos: materia.objetivos, librosRecomendados: materia.recursos};
+      console.log('dataTemario:', dataTemario);
       const temasData = await fetchDataFromFlask('http://127.0.0.1:5000/temario', dataTemario);
-      const temas = temasData.response;
+      console.log('temasData:', temasData);
 
-      // Submit the form after fetching data
-      fetcher.submit({ idMateria: materia.idMateria, temas: JSON.stringify(temas) }, { method: 'post' });
+      const parsedResponse = JSON.parse(temasData.response);
+      const temas = parsedResponse.Temario;
+      console.log('temas:', temas);
+
     } catch (error) {
       console.error('Error fetching data:', error);
     }

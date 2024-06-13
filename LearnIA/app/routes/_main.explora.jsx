@@ -14,7 +14,7 @@ export const loader = async ({ request }) => {
 	if (!user) {
 	  throw new Response("Unauthorized", { status: 401 });
 	}
-  
+   
 	// Step 1: Retrieve idCarrera using estudianteId
 	const estudiante = await prisma.estudiante.findUnique({
 	  where: {

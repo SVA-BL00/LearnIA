@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import openai
 import os
 from dotenv import load_dotenv
@@ -7,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 # Set your OpenAI API key from environment variable
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -17,7 +19,15 @@ def temario():
         return jsonify({'error': 'Invalid input format, JSON expected'}), 400
 
     data = request.json
-    user_message = data.get('message', '')
+    nombre_carrera = data.get('nombreCarrera')
+    nombre = data.get('nombre')
+    objetivos = data.get('objetivos')
+    libros_recomendados = data.get('librosRecomendados')
+
+    if not all([nombre_carrera, nombre, objetivos, libros_recomendados]):
+        return jsonify({'error': 'Missing fields'}), 400
+
+    user_message = f"Carrera: {nombre_carrera}\nMateria: {nombre}\nObjetivos: {objetivos}\nLibros recomendados: {libros_recomendados}"
 
     if not user_message:
         return jsonify({'error': 'No message provided'}), 400
