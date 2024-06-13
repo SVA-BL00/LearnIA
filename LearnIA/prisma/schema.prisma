@@ -13,7 +13,6 @@ model Carrera {
   escuela       String?      @db.VarChar(45)
   nombre        String?      @db.VarChar(45)
   estudiante    Estudiante[]
-  materia       Materia[]
 }
 
 model Curso {
@@ -24,8 +23,8 @@ model Curso {
   descripcion  String?    @db.MediumText
   completado   String?    @db.VarChar(45)
   proyectosRec String?    @db.MediumText
-  estudiante   Estudiante @relation(fields: [idEstudiante], references: [idEstudiante], onDelete: Cascade, map: "fk_Curso_Estudiante")
-  materia      Materia    @relation(fields: [idMateria], references: [idMateria], onDelete: Cascade, map: "fk_Curso_Materia")
+  estudiante   Estudiante @relation(fields: [idEstudiante], references: [idEstudiante], onDelete: NoAction, onUpdate: NoAction, map: "fk_Curso_Estudiante")
+  materia      Materia    @relation(fields: [idMateria], references: [idMateria], onDelete: NoAction, onUpdate: NoAction, map: "fk_Curso_Materia")
   quizzes      Quiz[]     @relation("CursoQuizzes")
   tema         Tema[]
 
@@ -39,21 +38,20 @@ model Estudiante {
   idCarrera    Int?
   correo       String   @unique(map: "correo_UNIQUE") @db.VarChar(45)
   curso        Curso[]
-  carrera      Carrera? @relation(fields: [idCarrera], references: [idCarrera], onDelete: Cascade, map: "idCarrera")
+  carrera      Carrera? @relation(fields: [idCarrera], references: [idCarrera], onDelete: NoAction, onUpdate: NoAction, map: "idCarrera")
 
   @@index([idCarrera], map: "idCarrera_idx")
 }
 
 model Materia {
-  idMateria    Int      @id @unique(map: "idMateria_UNIQUE")
+  idMateria    Int     @id @unique(map: "idMateria_UNIQUE") @default(autoincrement())
   idCarrera    Int?
-  nombre       String?  @db.TinyText
+  nombre       String? @db.TinyText
   semestre     Int?
-  idMateriaTec String   @unique(map: "idMateriaTec_UNIQUE") @db.VarChar(45)
-  objetivos    String?  @db.MediumText
-  recursos     String?  @db.MediumText
+  idMateriaTec String  @db.VarChar(45)
+  objetivos    String? @db.MediumText
+  recursos     String? @db.MediumText
   curso        Curso[]
-  carrera      Carrera? @relation(fields: [idCarrera], references: [idCarrera], onDelete: Cascade, map: "fk_Materia_Carrera")
 
   @@index([idCarrera], map: "idCarrera_idx")
 }
