@@ -5,7 +5,8 @@ import ExploraCollapsibleSemestre from "../components/ExploraCollapsibleSemestre
 import ExploraCollapsibleMateria from "../components/ExploraCollapsibleMateria";
 import "../styles/Explora.css";
 import { fetchDataFromFlask } from "../services/APIs/aiRequest.js";
- 
+import Modal from "./Modal";
+
 // Function to group materias by semester
 function groupMateriasBySemester(materias) {
   const semesters = {};
@@ -25,33 +26,73 @@ function groupMateriasBySemester(materias) {
 
 function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
   const [enrolledSet, setEnrolledSet] = useState(new Set(enrolledMaterias));
+  const [isComponentVisible, setComponentVisible] = useState(false);
+  const [selectedMateria, setSelectedMateria] = useState(null);
+
   const materiasBySemester = groupMateriasBySemester(materias);
 
-  const handleInscribirse = async (materia) => {
+  const handleIconClick = () => {
+    setComponentVisible(!isComponentVisible);
+  };
+
+  const handleCloseModal = () => {
+    setComponentVisible(false);
+  };
+
+  const handleInscribirse = (materia) => {
+    setSelectedMateria(materia);
+    setComponentVisible(true);
+  };
+
+  const proceedWithInscription = async ({ startDate, endDate }) => {
+    if (!selectedMateria) return;
+
+    const materia = selectedMateria;
+    setComponentVisible(false);
+
     // Fetch data for Temario and Proyectos
     try {
-      console.log("Prueba")
       const formData = new FormData();
       formData.append('idMateria', materia.idMateria);
+      
+      const dataTemario = { 
+        nombreCarrera, 
+        nombre: materia.nombre, 
+        objetivos: materia.objetivos, 
+        librosRecomendados: materia.recursos 
+      };
 
-      const dataTemario = { nombreCarrera, nombre: materia.nombre, objetivos: materia.objetivos, librosRecomendados: materia.recursos };
-        try {
-          const temasData = await fetchDataFromFlask('http://127.0.0.1:5000/temario', dataTemario);
-          
-          console.log(temasData);
-          const parsedResponse = JSON.parse(temasData.response);
-          const temas = parsedResponse.Temario;
-          console.log('Parsed temas:', temas);
+      if (startDate && endDate) {
+        dataTemario.startDate = startDate.toISOString().split('T')[0];
+        dataTemario.endDate = endDate.toISOString().split('T')[0];
+      }
 
-          formData.append('temas', JSON.stringify(temas));
-        } catch (error) {
-          console.error('Error fetching data from Flask:', error);
-          return; // Early return if there's an error
-        }
+      let temasData;
+      try {
+        temasData = await fetchDataFromFlask('http://127.0.0.1:5000/temario', dataTemario);
+        
+        console.log(temasData);
+        const temario = temasData.temario;
+        const quizzes = temasData.quizzes;
+        const examenFinal = temasData.examenFinal;
+
+        console.log('Parsed temario:', temario);
+        console.log('Parsed quizzes:', quizzes);
+        console.log('Parsed final exam:', examenFinal);
+
+        formData.append('temario', JSON.stringify(temario));
+        formData.append('quizzes', JSON.stringify(quizzes));
+        formData.append('examenFinal', JSON.stringify(examenFinal));
+      } catch (error) {
+        console.error('Error fetching data from Flask:', error);
+        return; // Early return if there's an error
+      }
 
       console.log("FormData before sending:", formData.get("idMateria"));
-      console.log("FormData before sending:", formData.get("temas"));
-      console.log("Pruebaaa");
+      console.log("FormData before sending:", formData.get("temario"));
+      console.log("FormData before sending:", formData.get("quizzes"));
+      console.log("FormData before sending:", formData.get("examenFinal"));
+
       const response = await fetch('/explora', {
         method: 'POST',
         body: formData,
@@ -99,6 +140,12 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
           ))}
         </div>
       </ExploraCollapsibleCarrera>
+
+      <Modal
+        show={isComponentVisible}
+        onClose={handleCloseModal}
+        onSubmit={proceedWithInscription}
+      />
     </div>
   );
 }

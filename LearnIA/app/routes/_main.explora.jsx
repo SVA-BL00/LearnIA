@@ -78,11 +78,13 @@ export const action = async ({ request }) => {
 
   	const formData = await request.formData();
   	const idMateria = formData.get("idMateria");
-	const temas = JSON.parse(formData.get("temas"));
+	const temas = JSON.parse(formData.get("temario"));
+	const quizzes = JSON.parse(formData.get("quizzes"));
+	const finalExam = JSON.parse(formData.get("examenFinal"));
   	
-	if (!idMateria || !temas) {
-    	throw new Response("Bad Request", { status: 400 });
- 	}
+	if (!idMateria || !temas || !quizzes || !finalExam) {
+		throw new Response("Bad Request", { status: 400 });
+	}
 
   	const curso = await prisma.curso.create({
     	data: {
@@ -108,11 +110,39 @@ export const action = async ({ request }) => {
 		});
 
 		console.log("Temas creados:", temasCreados);
+		console.log(quizzes);
+
+		const quizzesCreados = await prisma.quiz.createMany({
+			data: quizzes.map((quiz) => ({
+				idCurso: curso.idCurso,
+				fecha: new Date(quiz.fecha + "T00:00:00Z").toISOString(),
+				tipo: "quiz",
+				feedback: "",
+				preguntas: "",
+				respuestas: null,
+				calificacion: 0,
+			})),
+		});
+		console.log("Quizzes creados:", quizzesCreados);
+
+		const finalExamCreado = await prisma.quiz.create({
+			data: {
+				idCurso: curso.idCurso,
+				fecha: new Date(finalExam.fecha + "T00:00:00Z").toISOString(),
+				tipo: "final_exam",
+				feedback: "",
+				preguntas: "",
+				respuestas: null,
+				calificacion: 0,
+			},
+		});
+
+		console.log("Final exam creado:", finalExamCreado);
 
 	} catch (error) {
-    console.error("Error in action function:", error);
-    throw new Response("Internal Server Error", { status: 500 });
-  	}
+		console.error("Error in action function:", error);
+		throw new Response("Internal Server Error", { status: 500 });
+	}
 	return json({ success: true });
   	return redirect("/explora");
 };

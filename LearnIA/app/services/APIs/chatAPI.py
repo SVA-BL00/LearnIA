@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
+import json
 import os
 from dotenv import load_dotenv
 
@@ -23,6 +24,8 @@ def temario():
     nombre = data.get('nombre')
     objetivos = data.get('objetivos')
     libros_recomendados = data.get('librosRecomendados')
+    start_date_str = data.get('startDate')
+    end_date_str = data.get('endDate')
 
     if not all([nombre_carrera, nombre, objetivos, libros_recomendados]):
         return jsonify({'error': 'Missing fields'}), 400
@@ -33,21 +36,43 @@ def temario():
         return jsonify({'error': 'No message provided'}), 400
 
     try:
-        # Create a chat completion using the OpenAI client
+        messages = [
+            {"role": "system", "content": "Eres una IA creadora de temarios, buscas crear temarios que enseñen desde lo básico hasta lo más avanzado. Los temarios deben de ser de 10 temas. Dados el nombre de la carrera, el nombre de la materia, los objetivos de la materia y los libros recomendados, quiero que generes un temario donde el nombre de cada tema sea descriptivo. El temario se deberá regresar en formato json con un tema por linea."},
+            {"role": "user", "content": user_message},
+        ]
+
+        if start_date_str and end_date_str:
+            user_message_with_dates = (
+                f"{user_message}\n"
+                f"Las fechas del curso son desde {start_date_str} hasta {end_date_str}.\n"
+                "Además del temario, por favor genera 2 quizzes y un examen final"
+                "Cada quiz y el examen final deben tener un id y una fecha de realización dentro de este período, llamados idQuiz y fecha dentro del json."
+            )
+            messages.append({"role": "user", "content": user_message_with_dates})
+
         completion = openai.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "Eres una IA creadora de temarios, buscas crear temarios que enseñen desde lo básico hasta lo más avanzado. Los temarios deben de ser de 10 temas. Dados el nombre de la carrera, el nombre de la materia, los objetivos de la materia y los libros recomendados, quiero que generes un temario donde el nombre de cada tema sea descriptivo. El temario se deberá regresar en formato json con un tema por linea."},
-                {"role": "user", "content": user_message},
-            ],
+            messages=messages,
             temperature=0.1,
-            #max_tokens=150,
-
         )
 
         # Accessing the content from the response
         message = completion.choices[0].message.content.strip()
-        return jsonify({'response': message})
+
+        # Separate the response into temas and quizzes/final_exam
+        # Assuming the response format is something like:
+        # {"temas": [{"tema1": "description1"}, ..., {"tema10": "description10"}], "quizzes": [{"id": "quiz1", "date": "date1"}, {"id": "quiz2", "date": "date2"}], "final_exam": {"id": "final_exam", "date": "final_date"}}
+        response_data = json.loads(message)
+
+        temas_response = response_data.get('temario', [])
+        quizzes_response = response_data.get('quizzes', [])
+        final_exam_response = response_data.get('examenFinal', {})
+
+        return jsonify({
+            'temario': temas_response,
+            'quizzes': quizzes_response,
+            'examenFinal': final_exam_response,
+        })
     except Exception as e:
         # Log the error
         app.logger.error(f"Error occurred: {e}", exc_info=True)
