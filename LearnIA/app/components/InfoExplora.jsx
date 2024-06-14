@@ -55,30 +55,44 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
       const formData = new FormData();
       formData.append('idMateria', materia.idMateria);
       
-      // Append start and end dates only if they are provided DESCOMENTAR Y PROBAR IMPORTANTE
-      /* if (startDate && endDate) {
-        formData.append('startDate', startDate.toISOString().split('T')[0]);
-        formData.append('endDate', endDate.toISOString().split('T')[0]);
-      } */
+      const dataTemario = { 
+        nombreCarrera, 
+        nombre: materia.nombre, 
+        objetivos: materia.objetivos, 
+        librosRecomendados: materia.recursos 
+      };
 
-      const dataTemario = { nombreCarrera, nombre: materia.nombre, objetivos: materia.objetivos, librosRecomendados: materia.recursos };
+      if (startDate && endDate) {
+        dataTemario.startDate = startDate.toISOString().split('T')[0];
+        dataTemario.endDate = endDate.toISOString().split('T')[0];
+      }
+
+      let temasData;
       try {
-        const temasData = await fetchDataFromFlask('http://127.0.0.1:5000/temario', dataTemario);
+        temasData = await fetchDataFromFlask('http://127.0.0.1:5000/temario', dataTemario);
         
         console.log(temasData);
-        const parsedResponse = JSON.parse(temasData.response);
-        const temas = parsedResponse.Temario;
-        console.log('Parsed temas:', temas);
+        const temario = temasData.temario;
+        const quizzes = temasData.quizzes;
+        const examenFinal = temasData.examenFinal;
 
-        formData.append('temas', JSON.stringify(temas));
+        console.log('Parsed temario:', temario);
+        console.log('Parsed quizzes:', quizzes);
+        console.log('Parsed final exam:', examenFinal);
+
+        formData.append('temario', JSON.stringify(temario));
+        formData.append('quizzes', JSON.stringify(quizzes));
+        formData.append('examenFinal', JSON.stringify(examenFinal));
       } catch (error) {
         console.error('Error fetching data from Flask:', error);
         return; // Early return if there's an error
       }
 
       console.log("FormData before sending:", formData.get("idMateria"));
-      console.log("FormData before sending:", formData.get("temas"));
-      console.log("Pruebaaa");
+      console.log("FormData before sending:", formData.get("temario"));
+      console.log("FormData before sending:", formData.get("quizzes"));
+      console.log("FormData before sending:", formData.get("examenFinal"));
+
       const response = await fetch('/explora', {
         method: 'POST',
         body: formData,
