@@ -65,7 +65,7 @@ model Quiz {
   respuestas   String?  @db.MediumText
   calificacion Int
   idCurso      Int?
-  curso        Curso?   @relation("CursoQuizzes", fields: [idCurso], references: [idCurso], onDelete: NoAction, onUpdate: NoAction, map: "fk_Quiz_Curso")
+  curso        Curso?   @relation("CursoQuizzes", fields: [idCurso], references: [idCurso], onDelete: Cascade, map: "fk_Quiz_Curso")
 
   @@index([idCurso], map: "idCurso_idx")
 }
@@ -75,7 +75,7 @@ model Tema {
   idCurso    Int?
   completado String? @db.VarChar(45)
   nombre     String? @db.MediumText
-  curso      Curso?  @relation(fields: [idCurso], references: [idCurso], onDelete: NoAction, onUpdate: NoAction, map: "idCurso")
+  curso      Curso?  @relation(fields: [idCurso], references: [idCurso], onDelete: Cascade, map: "idCurso")
 
   @@index([idCurso], map: "idCurso_idx")
 }
