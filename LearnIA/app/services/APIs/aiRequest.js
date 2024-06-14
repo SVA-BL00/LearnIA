@@ -2,17 +2,38 @@ import axios from 'axios';
 
 export async function fetchDataFromFlask(url, data) {
   try {
-    const response = await axios.post(url, data, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
+      const response = await fetch(url, {
+          method: 'POST', // Assuming you are sending data via POST method
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: jsonData
+      });
+
+      if (!response.ok) {
+          throw new Error('Network response was not ok.');
+      }
+
+      const responseData = await response.json();
+      console.log(responseData); // Process the response data from Flask server
   } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
+      console.error('Error fetching data:', error);
   }
-}
+};
+
+// export async function fetchDataFromFlask(url, data) {
+//   try {
+//     const response = await axios.post(url, data, {
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     throw error;
+//   }
+// }
 
 // en crear curso vas a generar temas y vas a marcar todos como no completados
 // y vas a generar proyectos recomedados (guardas todo en la base de datos)

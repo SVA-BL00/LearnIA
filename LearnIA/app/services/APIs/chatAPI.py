@@ -8,7 +8,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+#CORS(app, resources={r"/*": {"origins": "*"}}) 
+CORS(app, origins=['http://localhost:3000'])  # Permitir solo solicitudes desde http://localhost:3000
+
 
 # Set your OpenAI API key from environment variable
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -141,7 +143,8 @@ def quiz():
                         "La cantidad de líneas de código escritas.",
                     ],
                     correct_answer:
-                        "La alineación del proceso computacional con los requisitos del problema específico.",
+                        "La alineación del proceso computacional con los requisitos del problema específico."
+                 }
                 '''},
                 {"role": "user", "content": user_message},
             ],

@@ -1,0 +1,12 @@
+{
+  "name": "learnia",
+  "version": "1.0.0",
+  "description": "Learn-IA es un recurso complementario a las clases, ofreciendo a los estudiantes la posibilidad de repasar, profundizar e incluso adelantarse en los temas de sus cursos. Learn-IA permite que los estudiantes progresen a su ritmo, consoliden los temas abordados en cada curso y reduzcan la heterogeneidad de los grupos de estudiantes mediante el uso de una herramienta personalizada para la educación.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
