@@ -54,7 +54,7 @@ def temario():
                 f"{user_message}\n"
                 "Además del temario, por favor genera 2 quizzes y un examen final"
                 "Cada quiz y el examen final deben tener un id llamados idQuiz y fecha que será un valor nulo dentro del json."
-                "Se verán de la siguiente manera: {'idQuiz': 1, 'fecha': null} NO generes preguntas"
+                "Se verán de la siguiente manera: {'idQuiz': 1, 'fecha': None} NO generes preguntas"
             )
             messages.append({"role": "user", "content": user_message_no_dates})
 

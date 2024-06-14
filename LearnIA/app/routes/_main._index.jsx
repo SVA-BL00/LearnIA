@@ -68,15 +68,17 @@ function getDateNameQuizzes(cursos) {
 	return cursos.map((curso) => {
 		// Group quizzes by date
 		const dates = curso.quizzes.reduce((acc, quiz) => {
-			const dateStr = quiz.fecha.split("T")[0]; // Convert date to YYYY-MM-DD
-			if (!acc[dateStr]) {
-				acc[dateStr] = {
-					date: new Date(quiz.fecha),
-					quizzes: [],
-				};
-			}
-			acc[dateStr].quizzes.push(quiz.tipo);
-			return acc;
+			if (quiz.fecha) {
+                const dateStr = quiz.fecha.split("T")[0]; // Convert date to YYYY-MM-DD
+                if (!acc[dateStr]) {
+                    acc[dateStr] = {
+                        date: new Date(quiz.fecha),
+                        quizzes: [],
+                    };
+                }
+                acc[dateStr].quizzes.push(quiz.tipo);
+            }
+            return acc;
 			
 		}, {});
 
