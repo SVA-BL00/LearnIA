@@ -1,141 +1,65 @@
-/*Collapsible rojo para carreras*/
+/* Collapsible rojo para carreras */
 .collapsible-degree {
-    background-color: #132941;
-    color: white;
-    cursor: pointer;
-    padding: 18px;
-    width: calc(100% - 80px);
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 21px;
-    font-weight: 500;
-    border-radius: 20px;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: border-radius 0.3s ease;
-    font-family: "Ubuntu Mono", monospace;
-  }
-  
-  .collapsible-degree.active {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  
-  .active, .collapsible-degree:hover {
-    background-color: #132941;
-  }
-  
-  .symbol-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-  }
-  
-  .symbol {
-    font-weight: 500;
-    font-size: 40px;
-    color: white;
-    transition: transform 0.3s ease;
-    transform-origin: center center;
-  }
-  
-  .collapsible-degree.active .symbol {
-    transform: rotate(90deg);
-  }
-  
-  .collapsible-degree .symbol {
-    transform: rotate(270deg);
-  }
-  
-  .content {
-    padding: 10px 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-    border-radius: 0;
-    margin: 0 40px;
-    transition: border-radius 0.3s ease;
-    box-sizing: border-box;
-    margin-bottom: 15px;
-    font-family: "Lato", monospace;
-    max-width: calc(100vw - 480px);
-  }
-  
-  .content.active {
-    display: flex;
-  }
-
-  .collapsible-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 0;
-}
-
-/*Collapsible verde para semestres*/
-.collapsible1 {
-  background-color: white;
-  color: #132941;
+  background-color: #e33838;
+  color: white;
   cursor: pointer;
   padding: 18px;
   width: calc(100% - 80px);
-  border: 2px solid #132941;
+  border: none;
   text-align: left;
   outline: none;
-  font-size: 25px;
-  font-weight: 600;
-  border-radius: 18px;
+  font-size: 21px;
+  font-weight: 500;
+  border-radius: 20px;
   margin-left: 40px;
   margin-right: 40px;
-  margin-top: 0px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: border-radius 0.3s ease, border-color 0.3s ease;;
+  transition: border-radius 0.3s ease;
   font-family: "Ubuntu Mono", monospace;
 }
-.collapsible1.active {
+
+.collapsible-degree.active {
+  background-color: #e33838;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.collapsible1-content1 {
-  width: 100%;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0px 0;
+.collapsible-degree:hover {
+  background-color: #d22f2f;
 }
 
-.symbol1 {
+.symbol-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.symbol {
   font-weight: 500;
   font-size: 40px;
-  color: #132941;
+  color: white;
   transition: transform 0.3s ease;
   transform-origin: center center;
 }
-.collapsible1.active .symbol1 {
+
+.collapsible-degree.active .symbol {
   transform: rotate(90deg);
 }
 
-.collapsible1 .symbol1 {
+.collapsible-degree .symbol {
   transform: rotate(270deg);
 }
 
-.content1.active {
-  display: flex;
-}
-.content1 {
-  padding: 0px 0px;
+.content {
+  padding: 10px 18px;
   display: none;
   overflow: hidden;
-  background-color: #132941;
+  background-color: #f1f1f1;
   border-radius: 0;
   margin: 0 40px;
   transition: border-radius 0.3s ease;
@@ -143,16 +67,94 @@
   margin-bottom: 15px;
   font-family: "Lato", monospace;
   max-width: calc(100vw - 480px);
+  flex-direction: column; 
 }
 
-.content1.active {
-  display: flex;
+.content.active {
+  display: block;
+}
+.content p {
+  padding: 10px;
+  margin: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.collapsible1-content {
+.content p:hover {
+  background-color: #ddd;
+}
+
+.options-container {
+  overflow-y: auto;
+}
+
+.collapsible-degree-content {
   display: flex;
-  flex-direction: column;
-  width: 100%;
   justify-content: space-between;
+  align-items: center;
   padding: 0px 0;
+}
+
+/* Collapsible verde para semestres */
+.collapsible-semester {
+background-color: #357266;
+color: white;
+cursor: pointer;
+padding: 18px;
+width: calc(100% - 80px);
+border: none;
+text-align: left;
+outline: none;
+font-size: 21px;
+font-weight: 500;
+border-radius: 20px;
+margin-left: 40px;
+margin-right: 40px;
+margin-top: 10px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+transition: border-radius 0.3s ease;
+font-family: "Ubuntu Mono", monospace;
+}
+
+.collapsible-semester.active {
+background-color: #357266;
+border-bottom-left-radius: 0;
+border-bottom-right-radius: 0;
+}
+
+.collapsible-semester:hover {
+background-color: #2e5e55;
+}
+
+.symbol-wrapper {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+}
+
+.symbol {
+font-weight: 500;
+font-size: 40px;
+color: white;
+transition: transform 0.3s ease;
+transform-origin: center center;
+}
+
+.collapsible-semester.active .symbol {
+transform: rotate(90deg);
+}
+
+.collapsible-semester .symbol {
+transform: rotate(270deg);
+}
+
+.collapsible-semester-content {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0px 0;
 }

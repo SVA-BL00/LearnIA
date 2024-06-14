@@ -24,7 +24,7 @@
 	"homepage": "https://github.com/SVA-BL00/LearnIA#readme",
 	"dependencies": {
 		"@dotenvx/dotenvx": "^0.44.0",
-		"@prisma/client": "^5.14.0",
+		"@prisma/client": "^5.15.0",
 		"@remix-run/express": "^2.9.1",
 		"@remix-run/node": "^2.9.1",
 		"@remix-run/react": "^2.9.1",
@@ -52,7 +52,7 @@
 		"@playwright/test": "^1.44.0",
 		"@remix-run/dev": "^2.9.1",
 		"@types/node": "^20.12.10",
-		"prisma": "^5.14.0",
+		"prisma": "^5.15.0",
 		"vite": "^5.2.11",
 		"vitest": "^1.6.0"
 	}

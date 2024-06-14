@@ -1,4 +1,3 @@
-
 import { Form } from "@remix-run/react";
 import ExploraCollapsibleCarrera from "../components/ExploraCollapsibleCarrera";
 import ExploraCollapsibleSemestre from "../components/ExploraCollapsibleSemestre";
