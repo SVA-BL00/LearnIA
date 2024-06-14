@@ -7,7 +7,7 @@ import { Line } from 'react-chartjs-2';
 import { useLoaderData, useNavigate } from "@remix-run/react";
 import { authenticator } from "../services/auth.server";
 import { json } from "@remix-run/node";
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 ChartJS.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, CategoryScale);
 
