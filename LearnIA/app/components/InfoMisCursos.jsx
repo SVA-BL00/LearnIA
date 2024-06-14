@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useLocation, Form, useNavigate } from "@remix-run/react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "../styles/MisCursos.css";
+import "../styles/custom-progress.css";
+import "../styles/dashboard.css";
 import CollapsibleSection from "../components/CollapsibleSection";
 import TitleWithImages from "../components/TitleWithImages";
 
@@ -50,7 +52,7 @@ function MisCursos({ cursos }) {
 				) : (
 					cursos?.map((curso) => (
 						<CollapsibleSection key={curso.idCurso} title={curso.nombreMateria}>
-							<div className="collapsible-content">
+							<div className="collapsible-content" style={{width:"100%"}}>
 								<div className="left-content">
 									<p>{curso.descripcionMateria}</p>
 									<button
@@ -71,6 +73,13 @@ function MisCursos({ cursos }) {
 									>
 										Hacer quiz
 									</button>
+									<button
+										className="btn green"
+										style={{marginTop:'2em'}}
+										onClick={() => navigate(`/historial/${curso.idCurso}`)}
+									>
+										Ver historial de quizzes
+									</button>
 									<Form method="post">
 										<input type="hidden" name="idCurso" value={curso.idCurso} />
 										<button type="submit" className="btn red">
@@ -79,20 +88,36 @@ function MisCursos({ cursos }) {
 									</Form>
 								</div>
 								<div className="right-content">
-									<div style={{ width: 100, height: 100 }}>
-										<CircularProgressbar
-											value={curso.progreso}
-											text={`${curso.progreso}%`}
-											styles={buildStyles({
-												textColor: "#2b8a74",
-												pathColor: "#2b8a74",
-												trailColor: "#d6d6d6",
-											})}
-										/>
+								<div className="progress-box">
+									<CircularProgressbar
+										value='90'
+										maxValue='100'
+										styles={{
+											path: {
+												stroke: "var(--green-color)",
+											},
+										}}
+									/>
+									<div
+										className="Lato text-center fw-bold label-circle"
+										style={{ color: "var(--green-color)" }}
+									>
+										<span style={{ fontSize: "1em", marginRight: "0.1em" }}>
+											asdas
+										</span>
+										<span>de</span>
+										<span
+											style={{
+												fontSize: "1em",
+												marginLeft: "0.1em",
+												marginRight: "0.1em",
+											}}
+										>
+											asdas
+										</span>
+										<span>temas completados</span>
 									</div>
-									<div className="progress-text">
-										{curso.progreso}% de progreso
-									</div>
+								</div>
 								</div>
 							</div>
 						</CollapsibleSection>

@@ -104,7 +104,7 @@ export default function QuizCurso() {
 						<button
 							className="btn"
 							style={{ backgroundColor: "#48605B", color: "white" }}
-							onClick={() => navigate(`/${quiz.idQuiz}`)}
+							onClick={() => navigate(`/quiz/${quiz.idQuiz}`)}
 						>
 							Hacer quiz
 						</button>

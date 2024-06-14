@@ -16,14 +16,13 @@ h1 {
 }
 
 .left-content {
-  flex: 8; 
+  width: 50%;
   align-self: flex-start; 
 }
 
 .right-content {
   flex: 2;
   align-self: flex-start;
-  margin-left: 120px;
 }
 
 .right-content .progress-text {
