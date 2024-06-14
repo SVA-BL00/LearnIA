@@ -81,7 +81,7 @@ export const action = async ({ request }) => {
 	const temas = JSON.parse(formData.get("temario"));
 	const quizzes = JSON.parse(formData.get("quizzes"));
 	const finalExam = JSON.parse(formData.get("examenFinal"));
-	const proyectos = "Proyecto 1: Desarrolla una simulación en MATLAB para estudiar y optimizar el tiro parabólico en un campo de deportes, como el lanzamiento de una pelota de fútbol. El objetivo es determinar las mejores condiciones para maximizar la distancia y precisión del tiro. Proyecto 2: Desarrolla un proyecto en MATLAB que modele y analice el tiro parabólico aplicado en proyectos de ingeniería civil, como el lanzamiento de materiales en la construcción de puentes o edificios.";
+	const proyectos = "Proyecto 1: Desarrolla una simulación en MATLAB para estudiar y optimizar el tiro parabólico en un campo de deportes, como el lanzamiento de una pelota de fútbol. El objetivo es determinar las mejores condiciones para maximizar la distancia y precisión del tiro.Proyecto 2: Desarrolla un proyecto en MATLAB que modele y analice el tiro parabólico aplicado en proyectos de ingeniería civil, como el lanzamiento de materiales en la construcción de puentes o edificios.";
   	
 	if (!idMateria || !temas || !quizzes || !finalExam) {
 		throw new Response("Bad Request", { status: 400 });
@@ -116,7 +116,7 @@ export const action = async ({ request }) => {
 		const quizzesCreados = await prisma.quiz.createMany({
 			data: quizzes.map((quiz) => ({
 				idCurso: curso.idCurso,
-				fecha: new Date(quiz.fecha + "T00:00:00Z").toISOString(),
+				fecha: quiz.fecha ? new Date(quiz.fecha + "T00:00:00Z").toISOString() : null,
 				tipo: "quiz",
 				feedback: "",
 				preguntas: "",
@@ -129,7 +129,7 @@ export const action = async ({ request }) => {
 		const finalExamCreado = await prisma.quiz.create({
 			data: {
 				idCurso: curso.idCurso,
-				fecha: new Date(finalExam.fecha + "T00:00:00Z").toISOString(),
+				fecha: finalExam.fecha ? new Date(finalExam.fecha + "T00:00:00Z").toISOString() : null,
 				tipo: "final_exam",
 				feedback: "",
 				preguntas: "",
