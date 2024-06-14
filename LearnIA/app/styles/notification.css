@@ -1,37 +1,83 @@
 .wrapper-notif {
-    display: flex;
-    height: 100%;
-    align-items: flex-start;
-  }
-  
-  .bell-notif {
-    position: relative;
-    border: 2px solid transparent;
-    border-radius: 50%;
-    box-shadow: -5px 7px 13px -7px rgba(0, 0, 0, 0.75);
-    width: 3em;
-    height: 3em;
-    background-color: white;
-    transition: background-color 0.2s, box-shadow 0.2s;
-  }
-  
-  .bell-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #E33838;
-    font-size: 1.4em;
-    transition: color 0.2s;
-    padding-right: 0;
-  }
-  
-  .bell-notif:hover {
-    background-color: #E33838;
-    box-shadow: -5px 7px 15px -7px rgba(0, 0, 0, 0.75);
-  }
-  
-  .bell-notif:hover .bell-icon {
-    color: white;
-  }
-  
+  display: flex;
+  height: 100%;
+  align-items: flex-start;
+  position: relative;
+}
+
+.bell-notif {
+  position: relative;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  box-shadow: -5px 7px 13px -7px rgba(0, 0, 0, 0.75);
+  width: 3em;
+  height: 3em;
+  background-color: white;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.bell-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #E33838;
+  font-size: 1.4em;
+  transition: color 0.2s;
+  padding-right: 0;
+}
+
+.bell-notif:hover {
+  background-color: #E33838;
+  box-shadow: -5px 7px 15px -7px rgba(0, 0, 0, 0.75);
+}
+
+.bell-notif:hover .bell-icon {
+  color: white;
+}
+
+.notification-window {
+  position: absolute;
+  bottom: -8em;
+  transform: translateX(-80%);
+  background-color: white;
+  border: 2px solid var(--red-color);
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  width: 12vw;
+  max-width: 300px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.date-notif {
+  text-align: center;
+  font-size: 1em;
+  color: white;
+  font-family: var(--Roboto);
+  font-weight: 600;
+  padding: 0.5em 0;
+}
+
+.date-notif.deadline {
+ background-color: var(--red-color);
+}
+
+.date-notif.completion {
+  background-color: var(--green-color);
+ }
+.notification {
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+.notif-name {
+  font-size: 0.8em;
+  font-family: var(--Lato);
+  text-align: center;
+  padding: 0.5em;
+}
