@@ -49,6 +49,14 @@ def temario():
                 "Cada quiz y el examen final deben tener un id y una fecha de realización dentro de este período, llamados idQuiz y fecha dentro del json."
             )
             messages.append({"role": "user", "content": user_message_with_dates})
+        else:
+            user_message_no_dates = (
+                f"{user_message}\n"
+                "Además del temario, por favor genera 2 quizzes y un examen final"
+                "Cada quiz y el examen final deben tener un id llamados idQuiz y fecha que será un valor nulo dentro del json."
+                "Se verán de la siguiente manera: {'idQuiz': 1, 'fecha': None} NO generes preguntas"
+            )
+            messages.append({"role": "user", "content": user_message_no_dates})
 
         completion = openai.chat.completions.create(
             model="gpt-3.5-turbo",
@@ -58,12 +66,10 @@ def temario():
 
         # Accessing the content from the response
         message = completion.choices[0].message.content.strip()
-
         # Separate the response into temas and quizzes/final_exam
         # Assuming the response format is something like:
         # {"temas": [{"tema1": "description1"}, ..., {"tema10": "description10"}], "quizzes": [{"id": "quiz1", "date": "date1"}, {"id": "quiz2", "date": "date2"}], "final_exam": {"id": "final_exam", "date": "final_date"}}
         response_data = json.loads(message)
-
         temas_response = response_data.get('temario', [])
         quizzes_response = response_data.get('quizzes', [])
         final_exam_response = response_data.get('examenFinal', {})

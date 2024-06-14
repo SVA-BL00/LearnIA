@@ -33,18 +33,22 @@ function getClosestExamenFinalDate(cursos) {
 	let minDiff = Number.POSITIVE_INFINITY;
 
 	cursos.forEach((curso) => {
-		if (curso.quizzes && Array.isArray(curso.quizzes)) {
-			curso.quizzes.forEach((quiz) => {
-				if (quiz.tipo === "Examen Final") {
-					const diff = new Date(quiz.fecha) - now;
-					if (diff > 0 && diff < minDiff) {
-						closestDate = new Date(quiz.fecha);
-						minDiff = diff;
-					}
-				}
-			});
-		}
-	});
+        if (curso.dates && Array.isArray(curso.dates)) {
+            curso.dates.forEach((dateObject) => {
+                if (dateObject.quizzes && Array.isArray(dateObject.quizzes)) {
+                    dateObject.quizzes.forEach((quizType) => {
+                        if (quizType === "final_exam") {
+                            const diff = new Date(dateObject.date) - now;
+                            if (diff > 0 && diff < minDiff) {
+                                closestDate = new Date(dateObject.date);
+                                minDiff = diff;
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    });
 
 	return closestDate;
 }
@@ -64,20 +68,22 @@ function getDateNameQuizzes(cursos) {
 	return cursos.map((curso) => {
 		// Group quizzes by date
 		const dates = curso.quizzes.reduce((acc, quiz) => {
-			const dateStr = quiz.fecha.split(" ")[0]; // Convierte fecha a YYYY-MM-DD
-			if (!acc[dateStr]) {
-				acc[dateStr] = {
-					date: new Date(quiz.fecha),
-					quizzes: [],
-				};
-			}
-			acc[dateStr].quizzes.push(quiz.tipo);
-			return acc;
+			if (quiz.fecha) {
+                const dateStr = quiz.fecha.split("T")[0]; // Convert date to YYYY-MM-DD
+                if (!acc[dateStr]) {
+                    acc[dateStr] = {
+                        date: new Date(quiz.fecha),
+                        quizzes: [],
+                    };
+                }
+                acc[dateStr].quizzes.push(quiz.tipo);
+            }
+            return acc;
+			
 		}, {});
 
 		// Convert the dates object to an array
 		const dateArray = Object.values(dates);
-
 		return { ...curso, dates: dateArray };
 	});
 }
@@ -92,7 +98,7 @@ function index() {
 		title: curso.materia.nombre,
 		tasks: curso.tema.map((tema) => tema.nombre),
 		temasTotales: curso.tema.length,
-		temasCompletados: curso.tema.filter((tema) => tema.completado).length,
+		temasCompletados: curso.tema.filter((tema) => tema.completado === "true").length,
 		calificacionFinal: curso.calificacionFinal,
 		dates: curso.dates,
 		quizzes: curso.quizzes.map((quiz) => quiz.tipo),
