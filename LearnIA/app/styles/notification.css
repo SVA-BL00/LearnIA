@@ -47,7 +47,7 @@
   z-index: 100;
   width: 12vw;
   max-width: 300px;
-  max-height: 200px;
+  height: 200px;
   overflow-y: auto;
   padding: 0.5em;
   display: flex;
@@ -69,7 +69,8 @@
 
 .date-notif.completion {
   background-color: var(--green-color);
- }
+}
+
 .notification {
   width: 100%;
   margin-bottom: 0.5em;
@@ -80,4 +81,11 @@
   font-family: var(--Lato);
   text-align: center;
   padding: 0.5em;
+}
+
+.no-notifications {
+  font-family: var(--Lato);
+  text-align: center;
+  padding: 1em;
+  color: #333;
 }
