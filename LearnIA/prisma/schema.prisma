@@ -74,7 +74,7 @@ model Tema {
   idTema     Int     @id @default(autoincrement())
   idCurso    Int?
   completado String? @db.VarChar(45)
-  nombre     String? @db.VarChar(45)
+  nombre     String? @db.MediumText
   curso      Curso?  @relation(fields: [idCurso], references: [idCurso], onDelete: NoAction, onUpdate: NoAction, map: "idCurso")
 
   @@index([idCurso], map: "idCurso_idx")

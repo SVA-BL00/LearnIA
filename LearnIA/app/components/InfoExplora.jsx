@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Form } from "@remix-run/react";
 import ExploraCollapsibleCarrera from "../components/ExploraCollapsibleCarrera";
 import ExploraCollapsibleSemestre from "../components/ExploraCollapsibleSemestre";
@@ -23,23 +24,48 @@ function groupMateriasBySemester(materias) {
 }
 
 function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
-  const enrolledSet = new Set(enrolledMaterias);
+  const [enrolledSet, setEnrolledSet] = useState(new Set(enrolledMaterias));
   const materiasBySemester = groupMateriasBySemester(materias);
 
   const handleInscribirse = async (materia) => {
     // Fetch data for Temario and Proyectos
     try {
-      const dataTemario = { nombreCarrera, nombre: materia.nombre, objetivos: materia.objetivos, librosRecomendados: materia.recursos};
-      console.log('dataTemario:', dataTemario);
-      const temasData = await fetchDataFromFlask('http://127.0.0.1:5000/temario', dataTemario);
-      console.log('temasData:', temasData);
+      console.log("Prueba")
+      const formData = new FormData();
+      formData.append('idMateria', materia.idMateria);
 
-      const parsedResponse = JSON.parse(temasData.response);
-      const temas = parsedResponse.Temario;
-      console.log('temas:', temas);
+      const dataTemario = { nombreCarrera, nombre: materia.nombre, objetivos: materia.objetivos, librosRecomendados: materia.recursos };
+        try {
+          const temasData = await fetchDataFromFlask('http://127.0.0.1:5000/temario', dataTemario);
+          
+          console.log(temasData);
+          const parsedResponse = JSON.parse(temasData.response);
+          const temas = parsedResponse.Temario;
+          console.log('Parsed temas:', temas);
 
+          formData.append('temas', JSON.stringify(temas));
+        } catch (error) {
+          console.error('Error fetching data from Flask:', error);
+          return; // Early return if there's an error
+        }
+
+      console.log("FormData before sending:", formData.get("idMateria"));
+      console.log("FormData before sending:", formData.get("temas"));
+      console.log("Pruebaaa");
+      const response = await fetch('/explora', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        // Update the enrolledSet state to include the newly enrolled materia
+        setEnrolledSet((prevSet) => new Set(prevSet).add(materia.idMateria));
+      } else {
+        console.error("Failed to enroll:", await response.text());
+      }
+  
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error enrolling:', error);
     }
   };
 

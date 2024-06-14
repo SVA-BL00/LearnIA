@@ -78,12 +78,13 @@ export const action = async ({ request }) => {
 
   	const formData = await request.formData();
   	const idMateria = formData.get("idMateria");
-
-  	if (!idMateria) {
+	const temas = JSON.parse(formData.get("temas"));
+  	
+	if (!idMateria || !temas) {
     	throw new Response("Bad Request", { status: 400 });
  	}
 
-  	await prisma.curso.create({
+  	const curso = await prisma.curso.create({
     	data: {
       		idEstudiante: user.user.estudianteId,
       		idMateria: Number.parseInt(idMateria, 10),
@@ -93,15 +94,26 @@ export const action = async ({ request }) => {
       		proyectosRec: "", // Default value, adjust as needed
    		},
   	});
+      console.log("FormData before sending aaaaa:", formData.get("temas"));
+      console.log("Funcionapleasetelosuplico", temas);
+	  console.log("idcurso", curso.idCurso);
+	
+	try{
+		const temasCreados = await prisma.tema.createMany({
+			data: temas.map((tema) => ({
+				idCurso: curso.idCurso,
+				nombre: tema,
+				completado: "false",
+			})),
+		});
 
-	await prisma.tema.createMany({
-		data: temas.map((tema) => ({
-			idCurso: curso.idCurso,
-			nombre: tema.nombre,
-			completado: "false",
-		})),
-	});
+		console.log("Temas creados:", temasCreados);
 
+	} catch (error) {
+    console.error("Error in action function:", error);
+    throw new Response("Internal Server Error", { status: 500 });
+  	}
+	return json({ success: true });
   	return redirect("/explora");
 };
 
