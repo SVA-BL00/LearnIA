@@ -1,81 +1,78 @@
-
-import { Form } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
 import ExploraCollapsibleCarrera from "../components/ExploraCollapsibleCarrera";
 import ExploraCollapsibleSemestre from "../components/ExploraCollapsibleSemestre";
 import ExploraCollapsibleMateria from "../components/ExploraCollapsibleMateria";
 import "../styles/Explora.css";
+import { fetchDataFromFlask } from "../services/APIs/aiRequest.js";
 
+// Function to group materias by semester
 function groupMateriasBySemester(materias) {
-	const semesters = {};
+  const semesters = {};
 
-	materias.forEach((materia) => {
-		const semester = materia.semestre || "Unknown Semester";
-		if (!semesters[semester]) {
-			semesters[semester] = [];
-		}
-		semesters[semester].push(materia);
-	});
+  materias.forEach((materia) => {
+    const semester = materia.semestre || "Unknown Semester";
 
-	return semesters;
+    if (!semesters[semester]) {
+      semesters[semester] = [];
+    }
+
+    semesters[semester].push(materia);
+  });
+
+  return semesters;
 }
 
-function InfoExplora({ carreras, enrolledMaterias }) {
-	const enrolledSet = new Set(enrolledMaterias);
+function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
+  const enrolledSet = new Set(enrolledMaterias);
+  const materiasBySemester = groupMateriasBySemester(materias);
+  const fetcher = useFetcher();
 
-	return (
-		<div>
-			{carreras.map((carrera) => {
-				const materiasBySemester = groupMateriasBySemester(carrera.materia);
+  const handleInscribirse = async (materia) => {
+    // Fetch data for Temario and Proyectos
+    try {
+      const dataTemario = { nombreCarrera, nombre: materia.nombre, objetivos: materia.objetivos, librosRecomendados: materia.recursos};
+      const temasData = await fetchDataFromFlask('http://127.0.0.1:5000/temario', dataTemario);
+      const temas = temasData.response;
 
-				return (
-					<ExploraCollapsibleCarrera
-						key={carrera.idCarrera}
-						title={carrera.nombre}
-					>
-						<div className="collapsible1-content">
-							{Object.entries(materiasBySemester).map(
-								([semester, materias]) => (
-									<ExploraCollapsibleSemestre
-										key={semester}
-										title={`Semestre ${semester}`}
-									>
-										<div className="collapsible2-content">
-											{materias.map((materia) => (
-												<ExploraCollapsibleMateria
-													key={materia.idMateria}
-													title={materia.nombre}
-												>
-													<div className="collapsible3-content">
-														<p>{materia.objetivos}</p>
-														{enrolledSet.has(materia.idMateria) ? (
-															<p className="enrolled-message">
-																Ya tienes este curso inscrito
-															</p>
-														) : (
-															<Form method="post">
-																<input
-																	type="hidden"
-																	name="idMateria"
-																	value={materia.idMateria}
-																/>
-																<button type="submit" className="btn green">
-																	Inscribirse
-																</button>
-															</Form>
-														)}
-													</div>
-												</ExploraCollapsibleMateria>
-											))}
-										</div>
-									</ExploraCollapsibleSemestre>
-								),
-							)}
-						</div>
-					</ExploraCollapsibleCarrera>
-				);
-			})}
-		</div>
-	);
+      // Submit the form after fetching data
+      fetcher.submit({ idMateria: materia.idMateria, temas: JSON.stringify(temas) }, { method: 'post' });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  return (
+    <div>
+      <ExploraCollapsibleCarrera title={`${nombreCarrera}`}>
+        <div className="collapsible1-content">
+          {Object.entries(materiasBySemester).map(([semester, materias]) => (
+            <ExploraCollapsibleSemestre key={semester} title={`Semestre ${semester}`}>
+              <div className="collapsible2-content">
+                {materias.map((materia) => (
+                  <ExploraCollapsibleMateria key={materia.idMateria} title={materia.nombre}>
+                    <div className="collapsible3-content">
+                      <p>{materia.objetivos}</p>
+                      {enrolledSet.has(materia.idMateria) ? (
+                        <p className="enrolled-message">Ya tienes este curso inscrito</p>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn green"
+                          onClick={() => handleInscribirse(materia)}
+                        >
+                          Inscribirse
+                        </button>
+                      )}
+                    </div>
+                  </ExploraCollapsibleMateria>
+                ))}
+              </div>
+            </ExploraCollapsibleSemestre>
+          ))}
+        </div>
+      </ExploraCollapsibleCarrera>
+    </div>
+  );
 }
 
 export default InfoExplora;
