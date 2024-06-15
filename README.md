@@ -17,7 +17,16 @@ En esta dirección podrás correr los comandos de npm en caso de necesitar impor
 npx prisma db pull
 npx prisma generate
 ```
+3. LearnIA hace uso de OpenAI API, llamando los endpoints en una aplicación de Flask.
 
+Abriendo una nueva terminal además de la que se tiene para correr la aplicación principal, entra a la siguiente dirección:
+```
+LearnIA/app/services/APIs
+```
+Crea un ambiente virtual:
+Instala todas las librerías que se corran en el archivo chatAPI.
+Activa el ambiente virtual:
+Corre chatAPI:
 3. Correr la aplicación
 ```
 npm run dev
