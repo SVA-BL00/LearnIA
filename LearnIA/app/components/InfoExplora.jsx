@@ -28,6 +28,8 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
   const [enrolledSet, setEnrolledSet] = useState(new Set(enrolledMaterias));
   const [isComponentVisible, setComponentVisible] = useState(false);
   const [selectedMateria, setSelectedMateria] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const materiasBySemester = groupMateriasBySemester(materias);
 
@@ -49,8 +51,9 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
 
     const materia = selectedMateria;
     setComponentVisible(false);
+    setIsLoading(true);
 
-    // Fetch data for Temario and Proyectos
+    // Fetch data Temario
     try {
       const formData = new FormData();
       formData.append('idMateria', materia.idMateria);
@@ -61,6 +64,7 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
         objetivos: materia.objetivos, 
         librosRecomendados: materia.recursos 
       };
+      
 
       if (startDate && endDate) {
         dataTemario.startDate = startDate.toISOString().split('T')[0];
@@ -83,6 +87,7 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
         formData.append('temario', JSON.stringify(temario));
         formData.append('quizzes', JSON.stringify(quizzes));
         formData.append('examenFinal', JSON.stringify(examenFinal));
+
       } catch (error) {
         console.error('Error fetching data from Flask:', error);
         return; // Early return if there's an error
@@ -92,7 +97,30 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
       console.log("FormData before sending:", formData.get("temario"));
       console.log("FormData before sending:", formData.get("quizzes"));
       console.log("FormData before sending:", formData.get("examenFinal"));
+      const dataProyectosRec = { 
+        nombreCarrera, 
+        nombreMateria: materia.nombre, 
+        objetivos: materia.objetivos, 
+        temas: JSON.parse(formData.get("temario"))
+      };
 
+      //Fetch data Proyectos
+			let proyectosRec = null;
+			try {
+				const proyectosData = await fetchDataFromFlask('http://127.0.0.1:5000/proyectos', dataProyectosRec);
+			
+				const parsedResponse = JSON.parse(proyectosData.response);
+
+				proyectosRec = parsedResponse.proyectos;
+				console.log(JSON.stringify(proyectosRec));
+
+				formData.append("proyectosRec", JSON.stringify(proyectosRec));
+
+			} catch (error) {
+				console.error("Error fetching data from Flask:", error);
+				return;
+			}
+			console.log("dataProyectosRec", JSON.stringify(proyectosRec));
       const response = await fetch('/explora', {
         method: 'POST',
         body: formData,
@@ -107,6 +135,8 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
   
     } catch (error) {
       console.error('Error enrolling:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -128,8 +158,9 @@ function InfoExplora({ materias, enrolledMaterias, nombreCarrera }) {
                           type="button"
                           className="btn green"
                           onClick={() => handleInscribirse(materia)}
+                          disabled={isLoading}
                         >
-                          Inscribirse
+                          {isLoading ? "Cargando..." : "Inscribirse"}
                         </button>
                       )}
                     </div>

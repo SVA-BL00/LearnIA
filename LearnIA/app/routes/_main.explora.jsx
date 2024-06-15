@@ -15,7 +15,7 @@ export const loader = async ({ request }) => {
 	  throw new Response("Unauthorized", { status: 401 });
 	}
    
-	// Step 1: Retrieve idCarrera using estudianteId
+	// Retrieve idCarrera using estudianteId
 	const estudiante = await prisma.estudiante.findUnique({
 	  where: {
 		idEstudiante: user.user.estudianteId,
@@ -30,7 +30,7 @@ export const loader = async ({ request }) => {
 	  throw new Error("Carrera not found for the user");
 	}
   
-	// Step 2: Fetch nombreCarrera using idCarrera
+	// Fetch nombreCarrera using idCarrera
 	const carrera = await prisma.carrera.findUnique({
 	  where: {
 		idCarrera: idCarrera,
@@ -81,9 +81,9 @@ export const action = async ({ request }) => {
 	const temas = JSON.parse(formData.get("temario"));
 	const quizzes = JSON.parse(formData.get("quizzes"));
 	const finalExam = JSON.parse(formData.get("examenFinal"));
-	//const proyectos = "Proyecto 1: Desarrolla una simulación en MATLAB para estudiar y optimizar el tiro parabólico en un campo de deportes, como el lanzamiento de una pelota de fútbol. El objetivo es determinar las mejores condiciones para maximizar la distancia y precisión del tiro.Proyecto 2: Desarrolla un proyecto en MATLAB que modele y analice el tiro parabólico aplicado en proyectos de ingeniería civil, como el lanzamiento de materiales en la construcción de puentes o edificios.";
+	const proyectosRec = formData.get("proyectosRec");
   	
-	if (!idMateria || !temas || !quizzes || !finalExam) {
+	if (!idMateria || !temas || !quizzes || !finalExam || !proyectosRec) {
 		throw new Response("Bad Request", { status: 400 });
 	}
 
@@ -91,10 +91,10 @@ export const action = async ({ request }) => {
     	data: {
       		idEstudiante: user.user.estudianteId,
       		idMateria: Number.parseInt(idMateria, 10),
-      		completado: "false", // Adjust as needed, use true/false if it's a boolean in your schema
-      		plazo: "", // Default value, adjust as needed
-      		descripcion: "", // Default value, adjust as needed
-      		proyectosRec: "", // Default value, adjust as needed
+      		completado: "false",
+      		plazo: "", 
+      		descripcion: "",
+      		proyectosRec: proyectosRec,
    		},
   	});
       console.log("FormData before sending aaaaa:", formData.get("temas"));

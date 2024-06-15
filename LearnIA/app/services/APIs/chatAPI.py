@@ -295,7 +295,7 @@ def proyectos():
             messages=[
                 {"role": "system", "content": '''Se te dará un temario. Revisarás el nombre de la carrera, nombre de la materia, objetivos de la materia y los temas NO COMPLETADOS del temario.
                     En base a eso, generarás 3 ideas de proyectos que el estudiante pueda utilizar para aprender los temas faltantes en el temario.
-                    Los proyectos deberán contener nombre del proyecto, objetivo, descripción, subtemas aplicados, y paso a paso cómo desarrollar el proyecto.
+                    Los proyectos deberán contener nombre del proyecto, objetivo, descripción, temas aplicados, y paso a paso cómo desarrollar el proyecto.
                     IMPORTANTE: Deberás regresar los proyectos y sus características en formato JSON.
                     '''},
                 {"role": "user", "content": user_message},
