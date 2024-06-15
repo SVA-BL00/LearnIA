@@ -9,34 +9,36 @@ import "../styles/Explora.css";
 
 
 export const loader = async ({ request }) => {
-  const user = await authenticator.isAuthenticated(request);
-
-  if (!user) {
-    throw new Response("Unauthorized", { status: 401 });
-  }
-
-  const estudiante = await prisma.estudiante.findUnique({
-    where: {
-      idEstudiante: user.user.estudianteId,
-    },
-    select: {
-      idCarrera: true,
-    },
-  });
-
-  const idCarrera = estudiante?.idCarrera;
-  if (!idCarrera) {
-    throw new Error("Carrera not found for the user");
-  }
-
-  const carrera = await prisma.carrera.findUnique({
-    where: {
-      idCarrera: idCarrera,
-    },
-    select: {
-      siglasCarrera: true,
-    },
-  });
+	const user = await authenticator.isAuthenticated(request);
+  
+	if (!user) {
+	  throw new Response("Unauthorized", { status: 401 });
+	}
+   
+	// Retrieve idCarrera using estudianteId
+	const estudiante = await prisma.estudiante.findUnique({
+	  where: {
+		idEstudiante: user.user.estudianteId,
+	  },
+	  select: {
+		idCarrera: true,
+	  },
+	});
+  
+	const idCarrera = estudiante?.idCarrera;
+	if (!idCarrera) {
+	  throw new Error("Carrera not found for the user");
+	}
+  
+	// Fetch nombreCarrera using idCarrera
+	const carrera = await prisma.carrera.findUnique({
+	  where: {
+		idCarrera: idCarrera,
+	  },
+	  select: {
+		siglasCarrera: true,
+	  },
+	});
 
   const nombreCarrera = carrera?.siglasCarrera || "Unknown Carrera";
 
@@ -76,35 +78,39 @@ export const action = async ({ request }) => {
 	const idMateria = formData.get("idMateria");
 	const temas = JSON.parse(formData.get("temario"));
 	const finalExam = JSON.parse(formData.get("examenFinal"));
-	const proyectos = "Proyecto 1: Desarrolla una simulación en MATLAB para estudiar y optimizar el tiro parabólico en un campo de deportes, como el lanzamiento de una pelota de fútbol. El objetivo es determinar las mejores condiciones para maximizar la distancia y precisión del tiro.Proyecto 2: Desarrolla un proyecto en MATLAB que modele y analice el tiro parabólico aplicado en proyectos de ingeniería civil, como el lanzamiento de materiales en la construcción de puentes o edificios.";
-  
-	if (!idMateria || !temas || !finalExam) {
-	  throw new Response("Bad Request", { status: 400 });
+	const proyectosRec = formData.get("proyectosRec");
+  	
+	if (!idMateria || !temas || !quizzes || !finalExam || !proyectosRec) {
+		throw new Response("Bad Request", { status: 400 });
 	}
-  
-	const curso = await prisma.curso.create({
-	  data: {
-		idEstudiante: user.user.estudianteId,
-		idMateria: Number.parseInt(idMateria, 10),
-		completado: "false",
-		plazo: "",
-		descripcion: "",
-		proyectosRec: proyectos,
-	  },
-	});
-  
-	try {
-	  const temasCreados = await prisma.tema.createMany({
-		data: temas.map((tema) => ({
-		  idCurso: curso.idCurso,
-		  nombre: tema,
-		  completado: "false",
-		})),
-	  });
-  
-	  console.log("Temas creados:", temasCreados);
-  
-	  const quizzes = [];
+
+  	const curso = await prisma.curso.create({
+    	data: {
+      		idEstudiante: user.user.estudianteId,
+      		idMateria: Number.parseInt(idMateria, 10),
+      		completado: "false",
+      		plazo: "", 
+      		descripcion: "",
+      		proyectosRec: proyectosRec,
+   		},
+  	});
+      console.log("FormData before sending aaaaa:", formData.get("temas"));
+      console.log("Funcionapleasetelosuplico", temas);
+	  console.log("idcurso", curso.idCurso);
+	
+	try{
+		const temasCreados = await prisma.tema.createMany({
+			data: temas.map((tema) => ({
+				idCurso: curso.idCurso,
+				nombre: tema,
+				completado: "false",
+			})),
+		});
+
+		console.log("Temas creados:", temasCreados);
+		console.log(quizzes);
+  /*
+		const quizzes = [];
 		for (const tema of temas) {
 		try {
 			const quizData = await GenerateQuiz({ tema });
@@ -114,40 +120,40 @@ export const action = async ({ request }) => {
 			throw new Response("Failed to fetch questions", { status: 500 });
 		}
 		}
-  
-	  const quizzesCreados = await prisma.quiz.createMany({
-		data: quizzes.map((quiz) => ({
-		  idCurso: curso.idCurso,
-		  fecha: quiz.fecha ? new Date(quiz.fecha + "T00:00:00Z").toISOString() : null,
-		  tipo: "quiz",
-		  feedback: "",
-		  preguntas: JSON.stringify(quiz.preguntas), // Ensure preguntas is stored as a string
-		  respuestas: null,
-		  calificacion: null,
-		})),
-	  });
-  
-	  console.log("Quizzes creados:", quizzesCreados);
-  
-	  const finalExamCreado = await prisma.quiz.create({
-		data: {
-		  idCurso: curso.idCurso,
-		  fecha: finalExam.fecha ? new Date(finalExam.fecha + "T00:00:00Z").toISOString() : null,
-		  tipo: "final_exam",
-		  feedback: "",
-		  preguntas: JSON.stringify(finalExam.preguntas), // Ensure preguntas is stored as a string
-		  respuestas: null,
-		  calificacion: null,
-		},
-	  });
-  
-	  console.log("Final exam creado:", finalExamCreado);
-  
+  */
+		const quizzesCreados = await prisma.quiz.createMany({
+			data: quizzes.map((quiz) => ({
+				idCurso: curso.idCurso,
+				fecha: quiz.fecha ? new Date(quiz.fecha + "T00:00:00Z").toISOString() : null,
+				tipo: "quiz",
+				feedback: "",
+				preguntas: "",
+				respuestas: null,
+				calificacion: null,
+			})),
+		});
+		console.log("Quizzes creados:", quizzesCreados);
+
+		const finalExamCreado = await prisma.quiz.create({
+			data: {
+				idCurso: curso.idCurso,
+				fecha: finalExam.fecha ? new Date(finalExam.fecha + "T00:00:00Z").toISOString() : null,
+				tipo: "final_exam",
+				feedback: "",
+				preguntas: "",
+				respuestas: null,
+				calificacion: null,
+			},
+		});
+
+		console.log("Final exam creado:", finalExamCreado);
+
 	} catch (error) {
 	  console.error("Error in action function:", error);
 	  throw new Response("Internal Server Error", { status: 500 });
 	}
 	return json({ success: true });
+	return redirect("/explora");
   };
   
 

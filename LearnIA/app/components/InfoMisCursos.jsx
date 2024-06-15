@@ -78,8 +78,7 @@ function MisCursos({ cursos }) {
 										Hacer quiz
 									</button>
 									<button
-										className="btn green"
-										style={{marginTop:'2em'}}
+										className="btn dark-blue"
 										onClick={() => navigate(`/historial/${curso.idCurso}`)}
 									>
 										Ver historial de quizzes
@@ -143,9 +142,29 @@ function MisCursos({ cursos }) {
 			)}
 			{selectedProyectos && (
 				<div className="modal">
-					<div className="modal-content">
+					<div className="modal-content" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
 						<h2>Proyectos recomendados:</h2>
-						<p>{selectedProyectos.proyectosRec}</p>
+						<ul>
+							{Array.isArray(JSON.parse(selectedProyectos.proyectosRec)) ? JSON.parse(selectedProyectos.proyectosRec).map((proyecto, index) => (
+								<li key={index}>
+									<h3>{proyecto.nombre}</h3>
+									<p><strong>Objetivo:</strong> {proyecto.objetivo}</p>
+									<p><strong>Descripción:</strong> {proyecto.descripcion}</p>
+									<p><strong>Temas Aplicados:</strong></p>
+									<ul>
+										{proyecto.temas_aplicados.map((tema, index) => (
+											<li key={index}>{tema}</li>
+										))}
+									</ul>
+									<p><strong>Pasos:</strong></p>
+									<ol>
+										{proyecto.pasos.map((paso, index) => (
+											<li key={index}>{paso}</li>
+										))}
+									</ol>
+								</li>
+							)) : <p>Error: proyectosRec is not a valid JSON array</p>}
+						</ul>
 						<button className="btn close" onClick={handleCloseModal}>
 							Cerrar
 						</button>

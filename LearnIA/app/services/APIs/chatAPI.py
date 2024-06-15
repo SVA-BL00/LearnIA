@@ -277,7 +277,15 @@ def proyectos():
         return jsonify({'error': 'Invalid input format, JSON expected'}), 400
 
     data = request.json
-    user_message = data.get('message', '')
+    nombre_carrera = data.get('nombreCarrera')
+    nombre_materia = data.get('nombreMateria')
+    objetivos = data.get('objetivos')
+    temas = data.get('temas')
+
+    if not all([nombre_carrera, nombre_materia, objetivos, temas]):
+        return jsonify({'error': 'Missing fields'}), 400
+    
+    user_message = f"Carrera: {nombre_carrera}\nMateria: {nombre_materia}\nObjetivos: {objetivos}\nTemas: {temas}"
 
     if not user_message:
         return jsonify({'error': 'No message provided'}), 400
@@ -289,7 +297,7 @@ def proyectos():
             messages=[
                 {"role": "system", "content": '''Se te dará un temario. Revisarás el nombre de la carrera, nombre de la materia, objetivos de la materia y los temas NO COMPLETADOS del temario.
                     En base a eso, generarás 3 ideas de proyectos que el estudiante pueda utilizar para aprender los temas faltantes en el temario.
-                    Los proyectos deberán contener nombre del proyecto, objetivo, descripción, subtemas aplicados, y paso a paso cómo desarrollar el proyecto.
+                    Los proyectos deberán contener nombre del proyecto, objetivo, descripción, temas aplicados, y paso a paso cómo desarrollar el proyecto.
                     IMPORTANTE: Deberás regresar los proyectos y sus características en formato JSON.
                     '''},
                 {"role": "user", "content": user_message},
