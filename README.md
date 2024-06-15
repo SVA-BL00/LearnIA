@@ -36,7 +36,7 @@ Corre chatAPI:
 ```
 python chatAPI
 ```
-3. Correr la aplicación
+4. Correr la aplicación
 ```
 npm run dev
 ```
