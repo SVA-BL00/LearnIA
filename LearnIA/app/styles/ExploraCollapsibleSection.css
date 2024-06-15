@@ -162,11 +162,12 @@
   color: #132941;
   cursor: pointer;
   padding: 10px 18px;
+  padding-left: 30px;
   width: calc(100%);
   border: 2px solid #132941;
   text-align: left;
   outline: none;
-  font-size: 21px;
+  font-size: 18px;
   font-weight: 500;
   border-radius: 0px;
   margin-left: 0px;
@@ -237,11 +238,12 @@
   color: #132941;
   cursor: pointer;
   padding: 5px 18px;
+  padding-left: 45px;
   width: calc(100%);
   border: 2px solid #132941;
   text-align: left;
   outline: none;
-  font-size: 21px;
+  font-size: 16px;
   font-weight: 500;
   border-radius: 0px;
   margin-left: 0px;
