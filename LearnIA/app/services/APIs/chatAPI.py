@@ -275,7 +275,15 @@ def proyectos():
         return jsonify({'error': 'Invalid input format, JSON expected'}), 400
 
     data = request.json
-    user_message = data.get('message', '')
+    nombre_carrera = data.get('nombreCarrera')
+    nombre_materia = data.get('nombreMateria')
+    objetivos = data.get('objetivos')
+    temas = data.get('temas')
+
+    if not all([nombre_carrera, nombre_materia, objetivos, temas]):
+        return jsonify({'error': 'Missing fields'}), 400
+    
+    user_message = f"Carrera: {nombre_carrera}\nMateria: {nombre_materia}\nObjetivos: {objetivos}\nTemas: {temas}"
 
     if not user_message:
         return jsonify({'error': 'No message provided'}), 400
