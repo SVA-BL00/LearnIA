@@ -121,7 +121,7 @@ export const action = async ({ request }) => {
 				feedback: "",
 				preguntas: "",
 				respuestas: null,
-				calificacion: 0,
+				calificacion: null,
 			})),
 		});
 		console.log("Quizzes creados:", quizzesCreados);
@@ -134,7 +134,7 @@ export const action = async ({ request }) => {
 				feedback: "",
 				preguntas: "",
 				respuestas: null,
-				calificacion: 0,
+				calificacion: null,
 			},
 		});
 

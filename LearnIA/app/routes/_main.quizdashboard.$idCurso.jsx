@@ -1,43 +1,57 @@
 import { json } from "@remix-run/node";
 import { useLoaderData, useNavigate } from "@remix-run/react";
+import { PrismaClient } from "@prisma/client";
 import { authenticator } from "../services/auth.server";
 import TitleWithImages from "../components/TitleWithImages";
 import CollapsibleSection from "../components/CollapsibleSection";
 import "../styles/main.css";
 
+const prisma = new PrismaClient();
+
+/* function mapTipoToCustomString(tipo) {
+	switch (tipo) {
+		case 'final_exam':
+			return `Examen Final (${curso.nombreMateria})`;
+		case 'quiz':
+			return `Quiz (${curso.nombreMateria})`;
+		default:
+			return tipo;
+	}
+  }
+ */
 // Define the loader function
-export const loader = async ({ request }) => {
+export const loader = async ({ request, params }) => {
 	const user = await authenticator.isAuthenticated(request);
 
 	if (!user) {
 		throw new Response("Unauthorized", { status: 401 });
 	}
 
-	// Dummy data for quizzes
-	const quizzes = [
-		{
-			name: "Quiz 1",
-			idQuiz: 1,
-			date: "2024-06-10",
-			temas: [
-				"Introducción a las Estructuras de Datos",
-				"Arrays y Listas Enlazadas",
-				"Pilas y Colas",
-			],
+	const _idCurso = await (params.idCurso);
+	const numidCurso = parseInt(_idCurso);
+
+
+
+	const quizzesNoFormat = await prisma.quiz.findMany({
+		where: {
+		  idCurso: numidCurso,
+		  calificacion: null,
 		},
-		{
-			name: "Quiz 2",
-			idQuiz: 2,
-			date: "2024-06-09",
-			temas: ["Tema 1", "Tema 2"],
+		select: {
+		  idQuiz: true,
+		  preguntas: true,
+		  fecha: true,
+		  tipo: true,
 		},
-		{
-			name: "Quiz 3",
-			idQuiz: 3,
-			date: "2024-06-25",
-			temas: ["Tema 1", "Tema 2"],
-		},
-	];
+	  });
+	  console.log(quizzesNoFormat);
+
+	  const quizzes = quizzesNoFormat.map(quiz => ({
+		idQuiz: quiz.idQuiz,
+		preguntas: quiz.preguntas,
+		fecha: quiz.fecha.toISOString().slice(0, 10),
+		tipo: quiz.tipo, /* mapTipoToCustomString(quiz.tipo)  */
+	  }));
 
 	return json(quizzes);
 };
@@ -51,7 +65,7 @@ function categorizeAndSortQuizzes(quizzes) {
 	quizzes.sort((a, b) => new Date(a.date) - new Date(b.date));
 
 	quizzes.forEach((quiz) => {
-		const quizDate = new Date(quiz.date);
+		const quizDate = new Date(quiz.fecha);
 		const diffInDays = (quizDate - now) / (1000 * 60 * 60 * 24);
 
 		if (diffInDays <= 7) {
@@ -88,19 +102,9 @@ export default function QuizCurso() {
 							style={{ color: "#E33838", fontSize: "1.3em" }}
 							className="fw-bold fst-italic"
 						>
-							La fecha límite para completar este quiz es el {quiz.date}
+							La fecha límite para completar este quiz es el {quiz.fecha}
 						</p>
-						<p
-							style={{ color: "#FF7F11", fontSize: "1.1em" }}
-							className="fw-bold fst-italic"
-						>
-							Temas a evaluar:
-						</p>
-						<ul>
-							{quiz.temas.map((tema, index) => (
-								<li key={index}>{tema}</li>
-							))}
-						</ul>
+
 						<button
 							className="btn"
 							style={{ backgroundColor: "#48605B", color: "white" }}
@@ -139,8 +143,3 @@ export default function QuizCurso() {
 		</div>
 	);
 }
-
-/* export async function loader({params,}: LoaderFunctionArgs) {
-    return fakeDb.getAllConcertsForCity(params.city);
-  }
-   */

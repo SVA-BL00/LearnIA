@@ -63,7 +63,7 @@ model Quiz {
   fecha        DateTime? @db.DateTime(0)
   tipo         String    @db.VarChar(45)
   respuestas   String?   @db.MediumText
-  calificacion Int
+  calificacion Int?
   idCurso      Int?
   curso        Curso?    @relation("CursoQuizzes", fields: [idCurso], references: [idCurso], onDelete: Cascade, map: "fk_Quiz_Curso")
 

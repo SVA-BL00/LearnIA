@@ -69,7 +69,7 @@ function MisCursos({ cursos }) {
 									</button>
 									<button
 										className="btn blue"
-										onClick={() => navigate("/quizcurso")}
+										onClick={() => navigate(`/quizdashboard/${curso.idCurso}`)}
 									>
 										Hacer quiz
 									</button>
