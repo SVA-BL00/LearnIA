@@ -47,7 +47,7 @@ export const loader = async ({ request, params }) => {
 
 	  console.log(quizzes);
 	return json(quizzes); */
-	return "hola :3";
+	return json({ success: true });
 };
 
 const questions = [

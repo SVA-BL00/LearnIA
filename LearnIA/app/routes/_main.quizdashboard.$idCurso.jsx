@@ -56,7 +56,7 @@ export const loader = async ({ request, params }) => {
 	  const quizzes = quizzesNoFormat.map(quiz => ({
 		idQuiz: quiz.idQuiz,
 		preguntas: quiz.preguntas,
-		fecha: quiz.fecha.toISOString().slice(0, 10),
+		fecha: quiz.fecha ? quiz.fecha.toISOString().slice(0, 10) : null,
 		tipo: mapTipoToCustomString(quiz.tipo) 
 	  }));
 
@@ -64,16 +64,24 @@ export const loader = async ({ request, params }) => {
 	return json(quizzes);
 };
 
-
 function categorizeAndSortQuizzes(quizzes) {
 	const now = new Date();
 	const thisWeek = [];
 	const thisMonth = [];
 	const later = [];
 
-	quizzes.sort((a, b) => new Date(a.date) - new Date(b.date));
+	quizzes.sort((a, b) => {
+		if (a.fecha === null) return 1;
+		if (b.fecha === null) return -1;
+		return new Date(a.fecha) - new Date(b.fecha);
+	});
 
 	quizzes.forEach((quiz) => {
+		if (quiz.fecha === null) {
+			later.push(quiz);
+			return;
+		}
+
 		const quizDate = new Date(quiz.fecha);
 		const diffInDays = (quizDate - now) / (1000 * 60 * 60 * 24);
 
@@ -111,7 +119,9 @@ export default function QuizCurso() {
 							style={{ color: "#E33838", fontSize: "1.3em" }}
 							className="fw-bold fst-italic"
 						>
-							La fecha límite para completar este quiz es el {quiz.fecha}
+							{quiz.fecha
+								? `La fecha límite para completar este quiz es el ${quiz.fecha}`
+								: "La fecha para este quiz es indefinida"}
 						</p>
 
 						<button
