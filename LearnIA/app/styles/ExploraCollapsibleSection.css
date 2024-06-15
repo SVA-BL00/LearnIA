@@ -101,6 +101,7 @@
   font-family: "Ubuntu Mono", monospace;
 }
 .collapsible1.active {
+  background-color: white;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -134,7 +135,7 @@
   padding: 0px 0px;
   display: none;
   overflow: hidden;
-  background-color: #132941;
+  background-color: white;
   border-radius: 0;
   margin: 0 40px;
   transition: border-radius 0.3s ease;
@@ -149,6 +150,7 @@
 }
 
 .collapsible1-content {
+  background-color: white;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -181,6 +183,7 @@
 }
 
 .collapsible2.active {
+  background-color: white;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   display: flex;
@@ -221,6 +224,7 @@
 }
 
 .content2.active {
+  background-color: white;
   display: flex;
 }
 
@@ -257,6 +261,7 @@
 }
 
 .collapsible3.active {
+  background-color: white;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   display: flex;
@@ -279,6 +284,7 @@
 
 .content3.active {
   display: flex;
+  background-color: #f1f1f1;
 }
 
 .content3 {
