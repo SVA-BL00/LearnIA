@@ -173,6 +173,8 @@ def quiz():
                     ],
                     correct_answer:
                         "La alineación del proceso computacional con los requisitos del problema específico.",
+                },
+                No generes nada más que el json.
                 '''},
                 {"role": "user", "content": user_message},
             ],
