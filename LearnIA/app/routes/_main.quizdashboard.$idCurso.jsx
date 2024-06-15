@@ -8,17 +8,6 @@ import "../styles/main.css";
 
 const prisma = new PrismaClient();
 
-/* function mapTipoToCustomString(tipo) {
-	switch (tipo) {
-		case 'final_exam':
-			return `Examen Final (${curso.nombreMateria})`;
-		case 'quiz':
-			return `Quiz (${curso.nombreMateria})`;
-		default:
-			return tipo;
-	}
-  }
- */
 // Define the loader function
 export const loader = async ({ request, params }) => {
 	const user = await authenticator.isAuthenticated(request);
@@ -30,7 +19,26 @@ export const loader = async ({ request, params }) => {
 	const _idCurso = await (params.idCurso);
 	const numidCurso = parseInt(_idCurso);
 
+	const curso = await prisma.curso.findUnique({
+		where: {
+		  idCurso: numidCurso,
+		},
+		include: {
+		  materia: true
+		}
+	});
 
+	function mapTipoToCustomString(tipo) {
+		switch (tipo) {
+			case 'final_exam':
+				return `Examen Final | ${curso.materia.nombre}`;
+			case 'quiz':
+				return `Quiz | ${curso.materia.nombre}`;
+			default:
+				return tipo;
+		}
+	  }
+	
 
 	const quizzesNoFormat = await prisma.quiz.findMany({
 		where: {
@@ -44,17 +52,18 @@ export const loader = async ({ request, params }) => {
 		  tipo: true,
 		},
 	  });
-	  console.log(quizzesNoFormat);
 
 	  const quizzes = quizzesNoFormat.map(quiz => ({
 		idQuiz: quiz.idQuiz,
 		preguntas: quiz.preguntas,
 		fecha: quiz.fecha.toISOString().slice(0, 10),
-		tipo: quiz.tipo, /* mapTipoToCustomString(quiz.tipo)  */
+		tipo: mapTipoToCustomString(quiz.tipo) 
 	  }));
 
+	  console.log(quizzes);
 	return json(quizzes);
 };
+
 
 function categorizeAndSortQuizzes(quizzes) {
 	const now = new Date();
@@ -96,7 +105,7 @@ export default function QuizCurso() {
 				</div>
 			)}
 			{quizzes.map((quiz, index) => (
-				<CollapsibleSection key={index} title={quiz.name}>
+				<CollapsibleSection key={index} title={quiz.tipo}>
 					<div style={{ flexDirection: "column", width: "100%" }}>
 						<p
 							style={{ color: "#E33838", fontSize: "1.3em" }}
@@ -135,7 +144,7 @@ export default function QuizCurso() {
 				</div>
 			) : (
 				<>
-					{renderQuizzes(thisWeek, "Esta semana")}
+					{renderQuizzes(thisWeek, "Próximos 7 días")}
 					{renderQuizzes(thisMonth, "Este mes")}
 					{renderQuizzes(later, "Más adelante")}
 				</>
