@@ -1,6 +1,53 @@
-import { useState } from "react";
+import { json } from "@remix-run/node";
+import { useLoaderData, useNavigate, useState } from "@remix-run/react";
+import { PrismaClient } from "@prisma/client";
+import { authenticator } from "../services/auth.server";
 import "../styles/main.css";
 import "../styles/quiz.css";
+
+const prisma = new PrismaClient();
+
+// Define the loader function
+// PARAMS OBTIENE LOS PARAMETROS DEL URL
+export const loader = async ({ request, params }) => {
+	// AUTORIZACION
+	const user = await authenticator.isAuthenticated(request);
+
+	if (!user) {
+		throw new Response("Unauthorized", { status: 401 });
+	}
+
+	// SE OBTIENE EL ID DEL QUIZ DEL URL
+	const _idQuiz = await (params.idQuiz);
+	const numidQuiz = parseInt(_idQuiz);
+
+	/* const curso = await prisma.curso.findUnique({
+		where: {
+		  idCurso: numidCurso,
+		},
+		include: {
+		  materia: true
+		}
+	});
+
+
+	const quizzesNoFormat = await prisma.quiz.findMany({
+		where: {
+		  idCurso: numidCurso,
+		  calificacion: null,
+		},
+		select: {
+		  idQuiz: true,
+		  preguntas: true,
+		  fecha: true,
+		  tipo: true,
+		},
+	  });
+
+	  console.log(quizzes);
+	return json(quizzes); */
+	return "hola :3";
+};
 
 const questions = [
 	{
