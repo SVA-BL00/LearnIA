@@ -43,6 +43,11 @@ h1 {
   text-align: center;
 }
 
+.btn.dark-blue {
+  background-color: #125e98;
+  color: white;
+}
+
 .btn.blue {
   background-color: #7fbff0;
   color: white;

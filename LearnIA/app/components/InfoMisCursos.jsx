@@ -78,8 +78,7 @@ function MisCursos({ cursos }) {
 										Hacer quiz
 									</button>
 									<button
-										className="btn green"
-										style={{marginTop:'2em'}}
+										className="btn dark-blue"
 										onClick={() => navigate(`/historial/${curso.idCurso}`)}
 									>
 										Ver historial de quizzes
