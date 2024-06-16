@@ -34,7 +34,7 @@ Activa el ambiente virtual:
 ```
 Corre chatAPI:
 ```
-python chatAPI
+python chatAPI.py
 ```
 4. Correr la aplicación
 ```
