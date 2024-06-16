@@ -111,9 +111,11 @@ def quiz():
 
                 Todo esto se debe incluir en un mismo archivo json.
 
-                El formato del quiz deberá ser una string JSON SIEMPRE como el del siguiente ejemplo:
-        	    {"question":"¿Cuál de las siguientes acciones representa una implementación científica o ingenieril adecuada para un problema de optimización de recursos?","options": ["Implementar un algoritmo de búsqueda binaria.","Desarrollar un modelo de simulación para evaluar diferentes escenarios.","Usar hojas de cálculo para almacenar datos sin análisis posterior.","Crear gráficos atractivos sin fundamentos teóricos.",],"correct_answer":"Desarrollar un modelo de simulación para evaluar diferentes escenarios.",},{"question":"Para resolver un problema de ingeniería con un alto nivel de incertidumbre, ¿qué enfoque es más adecuado?","options": ["Realizar una serie de pruebas empíricas controladas.","Tomar decisiones basadas en intuición y experiencia personal.","Consultar únicamente fuentes teóricas sin validación práctica.","Evitar tomar decisiones hasta que se elimine toda incertidumbre.",],"correct_answer": "Realizar una serie de pruebas empíricas controladas.",},'
-                '''},
+                El formato del quiz deberá ser una string JSON, SIEMPRE como el del siguiente ejemplo:
+        	    {"question":"¿Cuál de las siguientes acciones representa una implementación científica o ingenieril adecuada para un problema de optimización de recursos?","options": ["Implementar un algoritmo de búsqueda binaria.","Desarrollar un modelo de simulación para evaluar diferentes escenarios.","Usar hojas de cálculo para almacenar datos sin análisis posterior.","Crear gráficos atractivos sin fundamentos teóricos.",],"correct_answer":"Desarrollar un modelo de simulación para evaluar diferentes escenarios.","topic":"Interacción entre variables en un problema",},{"question":"Para resolver un problema de ingeniería con un alto nivel de incertidumbre, ¿qué enfoque es más adecuado?","options": ["Realizar una serie de pruebas empíricas controladas.","Tomar decisiones basadas en intuición y experiencia personal.","Consultar únicamente fuentes teóricas sin validación práctica.","Evitar tomar decisiones hasta que se elimine toda incertidumbre.",],"correct_answer": "Realizar una serie de pruebas empíricas controladas.","topic":"Patrones Relevantes en un Conjunto de Información",},'
+                IMPORTANTE: esta string será parseada después, generarla respetando el formato para que esto sea posible
+                 
+                 '''},
                 {"role": "user", "content": user_message},
             ],
             temperature=0.1,
