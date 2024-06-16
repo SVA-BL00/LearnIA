@@ -22,14 +22,7 @@ export const loader = async ({ request, params }) => {
 	const _idQuiz = await (params.idQuiz);
 	const numidQuiz = parseInt(_idQuiz);
 
-	/* const curso = await prisma.curso.findUnique({
-		where: {
-		  idCurso: numidCurso,
-		},
-		include: {
-		  materia: true
-		}
-	});*/
+
 
 	const quizzesNoFormat = await prisma.quiz.findMany({
 		where: {
@@ -40,94 +33,24 @@ export const loader = async ({ request, params }) => {
 		  preguntas: true,
 		  fecha: true,
 		  tipo: true,
+		  idCurso: true,
 		},
 	  });
 
-	  console.log("porfavorporfavorporfavor", quizzesNoFormat );
-	  /*console.log("a ver", quizzesNoFormat[0].preguntas);
-	  console.log("a verrrrr", JSON.parse(quizzesNoFormat[0].preguntas));
-	  /*
-	  const quizData = JSON.parse(quizzesNoFormat[0].preguntas);
-	  const cleanedResponse = quizData.replace(/\\n/g, '');
-	  const response = JSON.parse(cleanedResponse);
-	  
-	  // Now you can access the parsed JSON object
-	  console.log(response);
-	  /*const parsedPreguntas = JSON.parse(quizzesNoFormat[0].preguntas).quiz;
-	
 
-	  const questions = parsedPreguntas.map((question) => ({
-		question: question.question,
-		options: question.options,
-		correct_answer: question.correct_answer,
-	}));
-	  console.log("a veeeer", questions);*/
+	  const numidCurso = quizzesNoFormat[0].idCurso;
+	  const curso = await prisma.curso.findUnique({
+		where: {
+		  idCurso: numidCurso,
+		},
+		include: {
+		  materia: true
+		}
+	});
 
-	return json(quizzesNoFormat);
-	return json({ success: true });
+	const nombreMateria = curso.materia.nombre.toString();
+	return json({ quizzesNoFormat, nombreMateria: nombreMateria });
 };
-
-const questions = [
-	{
-		question:
-			"¿Cuál de las siguientes acciones representa una implementación científica o ingenieril adecuada para un problema de optimización de recursos?",
-		options: [
-			"Implementar un algoritmo de búsqueda binaria.",
-			"Desarrollar un modelo de simulación para evaluar diferentes escenarios.",
-			"Usar hojas de cálculo para almacenar datos sin análisis posterior.",
-			"Crear gráficos atractivos sin fundamentos teóricos.",
-		],
-		correct_answer:
-			"Desarrollar un modelo de simulación para evaluar diferentes escenarios.",
-	},
-	{
-		question:
-			"Para resolver un problema de ingeniería con un alto nivel de incertidumbre, ¿qué enfoque es más adecuado?",
-		options: [
-			"Realizar una serie de pruebas empíricas controladas.",
-			"Tomar decisiones basadas en intuición y experiencia personal.",
-			"Consultar únicamente fuentes teóricas sin validación práctica.",
-			"Evitar tomar decisiones hasta que se elimine toda incertidumbre.",
-		],
-		correct_answer: "Realizar una serie de pruebas empíricas controladas.",
-	},
-	{
-		question:
-			"En el contexto de la ingeniería y las ciencias, ¿qué significa aplicar los principios de sustentabilidad?",
-		options: [
-			"Reducir costos a corto plazo a expensas del medio ambiente.",
-			"Priorizar soluciones que maximicen el uso de recursos naturales.",
-			"Desarrollar tecnologías que mitiguen el impacto ambiental y promuevan el uso eficiente de recursos.",
-			"Implementar soluciones que aumenten la dependencia de combustibles fósiles.",
-		],
-		correct_answer:
-			"Desarrollar tecnologías que mitiguen el impacto ambiental y promuevan el uso eficiente de recursos.",
-	},
-	{
-		question:
-			"¿Cuál de las siguientes estrategias es más adecuada para garantizar el bienestar de las generaciones futuras?",
-		options: [
-			"Incrementar la explotación de recursos naturales sin considerar su regeneración.",
-			"Implementar políticas que promuevan la reducción, reutilización y reciclaje de materiales.",
-			"Fomentar el consumo masivo de productos desechables.",
-			"Desarrollar infraestructuras que no consideren el impacto ambiental.",
-		],
-		correct_answer:
-			"Implementar políticas que promuevan la reducción, reutilización y reciclaje de materiales.",
-	},
-	{
-		question:
-			"En la implementación de procesos computacionales, ¿qué factor es crucial para asegurar que la solución sea adecuada?",
-		options: [
-			"La velocidad de desarrollo del código.",
-			"La compatibilidad con las tecnologías más recientes, sin considerar su relevancia.",
-			"La alineación del proceso computacional con los requisitos del problema específico.",
-			"La cantidad de líneas de código escritas.",
-		],
-		correct_answer:
-			"La alineación del proceso computacional con los requisitos del problema específico.",
-	},
-];
 
 export default function Quiz() {
 	const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -135,7 +58,8 @@ export default function Quiz() {
 	const [showScore, setShowScore] = useState(false);
 	const [userAnswers, setUserAnswers] = useState([]);
 	const [selectedOption, setSelectedOption] = useState(null);
-
+	const {quizzesNoFormat, nombreMateria } = useLoaderData();
+	const questions = JSON.parse(quizzesNoFormat[0].preguntas);
 	const handleAnswerOptionChange = (event) => {
 		setSelectedOption(event.target.value);
 	};
@@ -179,7 +103,7 @@ export default function Quiz() {
 					className="quiz-title Ubuntu"
 					style={{ backgroundColor: "var(--green-color)" }}
 				>
-					Modelación de la ingeniería y ciencias
+					{nombreMateria}
 				</div>{" "}
 				{/* cambiar a que se envíe el titulo desde la base de datos */}
 				{showScore ? (

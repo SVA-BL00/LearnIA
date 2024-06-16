@@ -150,7 +150,6 @@ const handleQuizCreation = async (quizId, curso) => {
 		console.error("Error fetching questions for tema:", temas, error);
 		throw new Response("Failed to fetch questions", { status: 500 });
 	}
-
 	try {
 		formData.append('quizId', quizId);
 		formData.append('preguntas', JSON.stringify(quizData));
