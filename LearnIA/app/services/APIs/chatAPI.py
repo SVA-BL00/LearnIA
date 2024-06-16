@@ -114,7 +114,7 @@ def quiz():
                 Todo esto se debe incluir en un mismo archivo json.
 
                 El formato del quiz deberá ser una string JSON SIEMPRE como el del siguiente ejemplo:
-        	    '{
+        	    {
                     "question":
                         "¿Cuál de las siguientes acciones representa una implementación científica o ingenieril adecuada para un problema de optimización de recursos?",
                     "options": [
@@ -183,7 +183,7 @@ def quiz():
 
         # Accessing the content from the response
         message = completion.choices[0].message.content.strip()
-        return {'response': message})
+        return jsonify({'response': message})
     except Exception as e:
         # Log the error
         app.logger.error(f"Error occurred: {e}", exc_info=True)
