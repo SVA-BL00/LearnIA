@@ -33,11 +33,10 @@ export const loader = async ({ request, params }) => {
 
 	const quizzesNoFormat = await prisma.quiz.findMany({
 		where: {
-		  idCurso: numidQuiz,
+		  idQuiz: numidQuiz,
 		  calificacion: null,
 		},
 		select: {
-		  idQuiz: true,
 		  preguntas: true,
 		  fecha: true,
 		  tipo: true,
@@ -45,6 +44,25 @@ export const loader = async ({ request, params }) => {
 	  });
 
 	  console.log("porfavorporfavorporfavor", quizzesNoFormat );
+	  /*console.log("a ver", quizzesNoFormat[0].preguntas);
+	  console.log("a verrrrr", JSON.parse(quizzesNoFormat[0].preguntas));
+	  /*
+	  const quizData = JSON.parse(quizzesNoFormat[0].preguntas);
+	  const cleanedResponse = quizData.replace(/\\n/g, '');
+	  const response = JSON.parse(cleanedResponse);
+	  
+	  // Now you can access the parsed JSON object
+	  console.log(response);
+	  /*const parsedPreguntas = JSON.parse(quizzesNoFormat[0].preguntas).quiz;
+	
+
+	  const questions = parsedPreguntas.map((question) => ({
+		question: question.question,
+		options: question.options,
+		correct_answer: question.correct_answer,
+	}));
+	  console.log("a veeeer", questions);*/
+
 	return json(quizzesNoFormat);
 	return json({ success: true });
 };
