@@ -183,7 +183,7 @@ def quiz():
 
         # Accessing the content from the response
         message = completion.choices[0].message.content.strip()
-        return {'response': message}
+        return {'response': message})
     except Exception as e:
         # Log the error
         app.logger.error(f"Error occurred: {e}", exc_info=True)
