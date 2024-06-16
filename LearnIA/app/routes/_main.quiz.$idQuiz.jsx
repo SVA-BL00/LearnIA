@@ -30,7 +30,7 @@ export const loader = async ({ request, params }) => {
 		  materia: true
 		}
 	});*/
-
+/*
 	const quizzesNoFormat = await prisma.quiz.findMany({
 		where: {
 		  idCurso: numidCurso,
@@ -45,7 +45,7 @@ export const loader = async ({ request, params }) => {
 	  });
 
 	  console.log("porfavorporfavorporfavor", quizzes);
-	return json(quizzes);
+	return json(quizzes);*/
 	return json({ success: true });
 };
 
