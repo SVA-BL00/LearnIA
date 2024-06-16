@@ -24,10 +24,19 @@ Abriendo una nueva terminal además de la que se tiene para correr la aplicació
 LearnIA/app/services/APIs
 ```
 Crea un ambiente virtual:
+```
+py -3 -m venv .venv
+```
 Instala todas las librerías que se corran en el archivo chatAPI.
 Activa el ambiente virtual:
+```
+.venv\Scripts\activate
+```
 Corre chatAPI:
-3. Correr la aplicación
+```
+python chatAPI.py
+```
+4. Correr la aplicación
 ```
 npm run dev
 ```
