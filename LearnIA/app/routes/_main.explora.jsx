@@ -121,8 +121,7 @@ export const action = async ({ request }) => {
 		  fecha: quiz.fecha ? new Date(quiz.fecha + "T00:00:00Z").toISOString() : null,
 		  tipo: "quiz",
 		  feedback: "",
-		  preguntas: JSON.stringify(quiz.preguntas), // Ensure preguntas is stored as a string
-		  respuestas: null,
+		  preguntas: JSON.stringify(quiz.preguntas), 
 		  calificacion: null,
 		})),
 	  });
@@ -135,7 +134,7 @@ export const action = async ({ request }) => {
 		  fecha: finalExam.fecha ? new Date(finalExam.fecha + "T00:00:00Z").toISOString() : null,
 		  tipo: "final_exam",
 		  feedback: "",
-		  preguntas: JSON.stringify(finalExam.preguntas), // Ensure preguntas is stored as a string
+		  preguntas: JSON.stringify(finalExam.preguntas), 
 		  respuestas: null,
 		  calificacion: null,
 		},
