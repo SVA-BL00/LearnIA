@@ -113,9 +113,8 @@ def quiz():
 
                 Todo esto se debe incluir en un mismo archivo json.
 
-                El formato del quiz generado debe ser siempre:
                 El formato del quiz deberá ser SIEMPRE como el del siguiente ejemplo:
-        
+        	    {
                     question:
                         "¿Cuál de las siguientes acciones representa una implementación científica o ingenieril adecuada para un problema de optimización de recursos?",
                     options: [
@@ -173,6 +172,7 @@ def quiz():
                     ],
                     correct_answer:
                         "La alineación del proceso computacional con los requisitos del problema específico.",
+                 }
                 '''},
                 {"role": "user", "content": user_message},
             ],

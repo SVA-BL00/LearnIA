@@ -29,8 +29,7 @@ export const loader = async ({ request, params }) => {
 		include: {
 		  materia: true
 		}
-	});
-
+	});*/
 
 	const quizzesNoFormat = await prisma.quiz.findMany({
 		where: {
@@ -45,8 +44,8 @@ export const loader = async ({ request, params }) => {
 		},
 	  });
 
-	  console.log(quizzes);
-	return json(quizzes); */
+	  console.log("porfavorporfavorporfavor", quizzes);
+	return json(quizzes);
 	return json({ success: true });
 };
 
