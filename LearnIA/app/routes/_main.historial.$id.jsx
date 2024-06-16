@@ -8,39 +8,70 @@ import { useLoaderData, useNavigate } from "@remix-run/react";
 import { authenticator } from "../services/auth.server";
 import { json } from "@remix-run/node";
 import { useState } from 'react';
+import { PrismaClient } from '@prisma/client';
+import { useParams } from "react-router-dom";
 
 ChartJS.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, CategoryScale);
 
+const prisma = new PrismaClient();
 
-// Define the loader function
-export const loader = async ({ request }) => {
+export const loader = async ({ request, params  }) => {
 	const user = await authenticator.isAuthenticated(request);
 
 	if (!user) {
 		throw new Response("Unauthorized", { status: 401 });
 	}
 
-	// Dummy data for quizzes
-	const hist = [
-        {
-            "materia": "Matemáticas",
-            "quizzes": [
-              {
-                "nombre": "Quiz 1",
-                "calificacion": 85,
-                "fecha": "2021-09-01",
-                "retroalimentacion": "Buen trabajo, pero necesitas mejorar en álgebra."
-              },
-              {
-                "nombre": "Quiz 2",
-                "calificacion": 90,
-                "fecha": "2021-09-15",
-                "retroalimentacion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac purus sit amet nunc. Nullam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac purus sit amet nunc. Nullam."
-              }
-            ]
-          },
-	];
+    const _idCurso = await (params.id);
+    const numIdCurso = parseInt(_idCurso);
+    
+    if (isNaN(numIdCurso)) {
+        throw new Error('Invalid idCurso');
+    }
 
+    //Materia
+    const curso = await prisma.curso.findUnique({
+        where: {
+            idCurso: numIdCurso
+        },
+        include: {
+            materia: true
+        }
+    });
+
+    if (!curso) {
+        throw new Error('Curso not found');
+    }
+
+    const materia = curso.materia.nombre;
+
+   //Quizzes
+    const quizzesNoFormat = await prisma.quiz.findMany({
+		where: {
+          
+          idCurso: numIdCurso,
+          calificacion: {
+            not: null
+            }
+		},
+		select: {
+		  idQuiz: true,
+		  fecha: true,
+		  tipo: true,
+          feedback: true,
+          calificacion: true,
+		},
+	  });
+    
+    const hist = [{
+        materia: materia,
+        quizzes: quizzesNoFormat.map(quiz => ({
+            nombre: quiz.tipo,
+            calificacion: quiz.calificacion,
+            fecha: quiz.fecha,
+            retroalimentacion: quiz.feedback
+        }))
+    }];
 	return json(hist);
 };
 
@@ -94,7 +125,18 @@ function Historial() {
                 }
             }
         };
-
+        const parseFeedback = (feedback) => {
+            try {
+                const parsedFeedback = JSON.parse(feedback);
+                return parsedFeedback.map((quiz, index) => (
+                    `${index + 1}. Pregunta: ${quiz.question}\n   Respuesta del usuario: ${quiz.userAnswer}\n   Respuesta correcta: ${quiz.correctAnswer}\n`
+                )).join('\n\n');
+            } catch (error) {
+                console.error('Error parsing feedback:', error);
+                return 'Error parsing feedback';
+            }
+        };
+    
         return (
             <div key={materia} style={{ width: '100%'}}>
                 <Line data={data} options={options} />
@@ -108,7 +150,7 @@ function Historial() {
                                     <div className="content-historial">
                                         <p><strong>Calificación:</strong> {quizzes[selectedQuiz].calificacion}</p>
                                         <p><strong>Fecha:</strong> {quizzes[selectedQuiz].fecha}</p>
-                                        <p><strong>Retroalimentación:</strong> {quizzes[selectedQuiz].retroalimentacion}</p>
+                                        <p><strong>Retroalimentación:</strong> {parseFeedback(quizzes[selectedQuiz].retroalimentacion)}</p>
                                     </div>
                                 </div>
                             ) : (

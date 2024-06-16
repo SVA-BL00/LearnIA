@@ -22,7 +22,22 @@ export const loader = async ({ request, params }) => {
 	const _idQuiz = await (params.idQuiz);
 	const numidQuiz = parseInt(_idQuiz);
 
-	/* const curso = await prisma.curso.findUnique({
+	const quizzesNoFormat = await prisma.quiz.findMany({
+		where: {
+		  idQuiz: numidQuiz,
+		},
+		select: {
+		  idQuiz: true,
+		  preguntas: true,
+		  fecha: true,
+		  tipo: true,
+		  idCurso: true,
+		},
+	  });
+
+
+	  const numidCurso = quizzesNoFormat[0].idCurso;
+	  const curso = await prisma.curso.findUnique({
 		where: {
 		  idCurso: numidCurso,
 		},
@@ -31,86 +46,76 @@ export const loader = async ({ request, params }) => {
 		}
 	});
 
+	
+try{
+	const preguntas = JSON.parse(quizzesNoFormat[0].preguntas);
+	console.log(preguntas);
 
-	const quizzesNoFormat = await prisma.quiz.findMany({
-		where: {
-		  idCurso: numidCurso,
-		  calificacion: null,
-		},
-		select: {
-		  idQuiz: true,
-		  preguntas: true,
-		  fecha: true,
-		  tipo: true,
-		},
-	  });
+} catch {
+	console.log("Incorrect format.");
+}
 
-	  console.log(quizzes);
-	return json(quizzes); */
-	return json({ success: true });
+	const nombreMateria = curso.materia.nombre.toString();
+	return json({ quizzesNoFormat, nombreMateria: nombreMateria });
 };
 
-const questions = [
-	{
-		question:
-			"¿Cuál de las siguientes acciones representa una implementación científica o ingenieril adecuada para un problema de optimización de recursos?",
-		options: [
-			"Implementar un algoritmo de búsqueda binaria.",
-			"Desarrollar un modelo de simulación para evaluar diferentes escenarios.",
-			"Usar hojas de cálculo para almacenar datos sin análisis posterior.",
-			"Crear gráficos atractivos sin fundamentos teóricos.",
-		],
-		correct_answer:
-			"Desarrollar un modelo de simulación para evaluar diferentes escenarios.",
-	},
-	{
-		question:
-			"Para resolver un problema de ingeniería con un alto nivel de incertidumbre, ¿qué enfoque es más adecuado?",
-		options: [
-			"Realizar una serie de pruebas empíricas controladas.",
-			"Tomar decisiones basadas en intuición y experiencia personal.",
-			"Consultar únicamente fuentes teóricas sin validación práctica.",
-			"Evitar tomar decisiones hasta que se elimine toda incertidumbre.",
-		],
-		correct_answer: "Realizar una serie de pruebas empíricas controladas.",
-	},
-	{
-		question:
-			"En el contexto de la ingeniería y las ciencias, ¿qué significa aplicar los principios de sustentabilidad?",
-		options: [
-			"Reducir costos a corto plazo a expensas del medio ambiente.",
-			"Priorizar soluciones que maximicen el uso de recursos naturales.",
-			"Desarrollar tecnologías que mitiguen el impacto ambiental y promuevan el uso eficiente de recursos.",
-			"Implementar soluciones que aumenten la dependencia de combustibles fósiles.",
-		],
-		correct_answer:
-			"Desarrollar tecnologías que mitiguen el impacto ambiental y promuevan el uso eficiente de recursos.",
-	},
-	{
-		question:
-			"¿Cuál de las siguientes estrategias es más adecuada para garantizar el bienestar de las generaciones futuras?",
-		options: [
-			"Incrementar la explotación de recursos naturales sin considerar su regeneración.",
-			"Implementar políticas que promuevan la reducción, reutilización y reciclaje de materiales.",
-			"Fomentar el consumo masivo de productos desechables.",
-			"Desarrollar infraestructuras que no consideren el impacto ambiental.",
-		],
-		correct_answer:
-			"Implementar políticas que promuevan la reducción, reutilización y reciclaje de materiales.",
-	},
-	{
-		question:
-			"En la implementación de procesos computacionales, ¿qué factor es crucial para asegurar que la solución sea adecuada?",
-		options: [
-			"La velocidad de desarrollo del código.",
-			"La compatibilidad con las tecnologías más recientes, sin considerar su relevancia.",
-			"La alineación del proceso computacional con los requisitos del problema específico.",
-			"La cantidad de líneas de código escritas.",
-		],
-		correct_answer:
-			"La alineación del proceso computacional con los requisitos del problema específico.",
-	},
-];
+export const action = async ({ request, params }) => {
+
+	const user = await authenticator.isAuthenticated(request);
+	if (!user) {
+	throw new Response("Unauthorized", { status: 401 });
+	}
+
+	const formData = await request.formData();
+	const calificacion =  parseInt(formData.get("calificacion"));
+    const quizId = params.idQuiz;
+	const idQuiz = parseInt(quizId);
+	const retro = formData.get("retro");
+	const completedTopicsJSON = formData.get("completedTopics");
+
+	// Check if quizId is a valid integer
+	if (isNaN(idQuiz)) {
+		throw new Response("Bad Request: Invalid quizId", { status: 400 });
+	}
+	
+	//Grade and feedback
+	const updatedQuiz = await prisma.quiz.update({
+		where: {
+			idQuiz: idQuiz,
+		},
+		data: {
+			calificacion: calificacion,
+			feedback: retro,
+		},
+	});
+
+	const completedTopics = JSON.parse(completedTopicsJSON);
+	const updatedTopics = await prisma.tema.updateMany({
+		where: {
+			nombre: {
+				in: completedTopics,
+			},
+			idCurso: updatedQuiz.idCurso,
+		},
+		data: {
+			completado: "true",
+		},
+	});
+
+	//Para visualizar
+	const updatedTopicsCheck = await prisma.tema.findMany({
+		where: {
+			idCurso: updatedQuiz.idCurso,
+			completado: "true",
+		},
+	});
+
+	console.log(updatedTopicsCheck[0]);
+	console.log(updatedQuiz.calificacion);
+	console.log(updatedQuiz.feedback);
+
+	return json({ success: true });
+};
 
 export default function Quiz() {
 	const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -118,7 +123,8 @@ export default function Quiz() {
 	const [showScore, setShowScore] = useState(false);
 	const [userAnswers, setUserAnswers] = useState([]);
 	const [selectedOption, setSelectedOption] = useState(null);
-
+	const {quizzesNoFormat, nombreMateria } = useLoaderData();
+	const questions = JSON.parse(quizzesNoFormat[0].preguntas);
 	const handleAnswerOptionChange = (event) => {
 		setSelectedOption(event.target.value);
 	};
@@ -146,13 +152,62 @@ export default function Quiz() {
 		}
 	};
 
-	const handleSubmitClick = () => {
+	const handleSubmitClick = async  () => {
 		const correctAnswer = questions[currentQuestion].correct_answer;
 		if (selectedOption === correctAnswer) {
 			setScore(score + 1);
 		}
-		setUserAnswers([...userAnswers, selectedOption]);
+		const updatedUserAnswers = [...userAnswers, selectedOption];
+		const correctAnswersCount = score + (selectedOption === correctAnswer ? 1 : 0);
+        const finalScore = (correctAnswersCount * 100) / questions.length;
+	
+		const formData = new FormData();
+		formData.append("idQuiz", quizzesNoFormat[0].idQuiz);
+		formData.append("calificacion", finalScore);
+		const routeQuiz = quizzesNoFormat[0].idQuiz.toString();
+		console.log(routeQuiz);
+
+		const quizResults = questions.map((question, index) => ({
+			question: question.question,
+			userAnswer: updatedUserAnswers[index],
+			correctAnswer: question.correct_answer
+		}));
+		const quizResultsString = JSON.stringify(quizResults);
+		formData.append("retro", quizResultsString);
+
+			// Cuantas respuestas correctas por tema
+			const topicScores = {};
+			questions.forEach((question, index) => {
+				const topic = question.topic;
+				if (!topicScores[topic]) {
+					topicScores[topic] = { total: 0, correct: 0 };
+				}
+				topicScores[topic].total++;
+				if (updatedUserAnswers[index] === question.correct_answer) {
+					topicScores[topic].correct++;
+				}
+			});
+		
+			// Cuantos temas completamente bien
+			const newCompletedTopics = Object.keys(topicScores).filter(
+				(topic) => topicScores[topic].total === topicScores[topic].correct
+			);
+	
+			const completedTopicsJSON = JSON.stringify(newCompletedTopics);
+			formData.append("completedTopics", completedTopicsJSON);
+
+		const response = await fetch(`/quiz/${routeQuiz}`, {
+			method: "POST",
+			body: formData,
+		});
+	
+		if (response.ok) {
+			console.log("Score updated successfully.");
+		} else {
+			console.log("Failed to update score.");
+		}
 		setShowScore(true);
+		setUserAnswers(updatedUserAnswers);
 	};
 
 	return (
@@ -162,9 +217,8 @@ export default function Quiz() {
 					className="quiz-title Ubuntu"
 					style={{ backgroundColor: "var(--green-color)" }}
 				>
-					Modelación de la ingeniería y ciencias
+					{nombreMateria}
 				</div>{" "}
-				{/* cambiar a que se envíe el titulo desde la base de datos */}
 				{showScore ? (
 					<div className="score-section">
 						<h1 style={{ color: "var(--green-color)" }} className="Roboto">

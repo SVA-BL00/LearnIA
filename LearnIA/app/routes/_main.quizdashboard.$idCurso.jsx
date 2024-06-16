@@ -5,6 +5,8 @@ import { authenticator } from "../services/auth.server";
 import TitleWithImages from "../components/TitleWithImages";
 import CollapsibleSection from "../components/CollapsibleSection";
 import "../styles/main.css";
+import { fetchDataFromFlask } from "../services/APIs/aiRequest.js";
+import React, { useState } from "react";
 
 const prisma = new PrismaClient();
 
@@ -24,7 +26,8 @@ export const loader = async ({ request, params }) => {
 		  idCurso: numidCurso,
 		},
 		include: {
-		  materia: true
+		  materia: true,
+		  tema: true,
 		}
 	});
 
@@ -61,8 +64,37 @@ export const loader = async ({ request, params }) => {
 	  }));
 
 	  console.log(quizzes);
-	return json(quizzes);
+	return json({ curso, quizzes });
 };
+
+export const action = async ({ request }) => {
+	
+	const formData = await request.formData();
+	const user = await authenticator.isAuthenticated(request);
+	if (!user) {
+	throw new Response("Unauthorized", { status: 401 });
+	}
+
+	const preguntas = formData.get("preguntas");
+	const quizId = parseInt(formData.get("quizId"), 10);
+	const numidCurso = parseInt(formData.get("cursoId"), 10);
+	// Check if quizId is a valid integer
+	if (isNaN(quizId)) {
+		throw new Response("Bad Request: Invalid quizId", { status: 400 });
+	}
+	
+	const updatedQuiz = await prisma.quiz.update({
+		where: {
+			idQuiz: quizId,
+		},
+		data: {
+			preguntas: preguntas,
+		},
+	});
+
+	return json({ success: true });
+};
+
 
 function categorizeAndSortQuizzes(quizzes) {
 	const now = new Date();
@@ -97,11 +129,62 @@ function categorizeAndSortQuizzes(quizzes) {
 	return { thisWeek, thisMonth, later };
 }
 
+
+const handleQuizCreation = async (quizId, curso) => {
+	if (!quizId || !curso) return;
+	const formData = new FormData();
+	console.log(curso);
+	const temas = curso.tema;
+	console.log(temas)
+
+	if (!temas || temas.length === 0) {
+	  console.error("No temas found in curso.");
+	  return;
+	}
+
+	let quizData;
+	try {
+		quizData = await fetchDataFromFlask("http://127.0.0.1:5000/quiz", { message: JSON.stringify(temas) } );
+		console.log(quizData);
+	} catch (error) {
+		console.error("Error fetching questions for tema:", temas, error);
+		throw new Response("Failed to fetch questions", { status: 500 });
+	}
+	try {
+		formData.append('quizId', quizId);
+		formData.append('preguntas', JSON.stringify(quizData));
+		formData.append('cursoId', JSON.stringify(curso.idCurso));
+		
+	} catch (error) {
+		console.error('Error enrolling:', error);
+	}
+	console.log("idCurso:", curso.idCurso);
+	
+	const response = await fetch(`/quizdashboard/${curso.idCurso.toString()}`, {
+		method: 'POST',
+		body: formData,
+	});
+
+	if (response.ok) {
+		console.log("Todo funciona correctamente");
+	} else {
+		console.error("Failed to enroll:", await response.text());
+	}
+};
+
 export default function QuizCurso() {
-	const quizzes = useLoaderData();
+	const { curso, quizzes } = useLoaderData();
+	const [creatingQuiz, setCreatingQuiz] = useState(false);
 	const navigate = useNavigate();
 	const { thisWeek, thisMonth, later } = categorizeAndSortQuizzes(quizzes);
-
+	
+	async function handleCombined(quizId, curso) {
+		setCreatingQuiz(true);
+		await handleQuizCreation(quizId, curso);
+		setCreatingQuiz(false);
+		navigate(`/quiz/${quizId}`);
+	}
+	
 	const renderQuizzes = (quizzes, title) => (
 		<>
 			{quizzes.length > 0 && (
@@ -127,9 +210,9 @@ export default function QuizCurso() {
 						<button
 							className="btn"
 							style={{ backgroundColor: "#48605B", color: "white" }}
-							onClick={() => navigate(`/quiz/${quiz.idQuiz}`)}
-						>
-							Hacer quiz
+							onClick={() => handleCombined(quiz.idQuiz, curso)}
+							>
+							{creatingQuiz ? "Creando quiz..." : "Hacer quiz"}
 						</button>
 					</div>
 				</CollapsibleSection>
