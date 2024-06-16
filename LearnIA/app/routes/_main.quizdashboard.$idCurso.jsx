@@ -6,6 +6,7 @@ import TitleWithImages from "../components/TitleWithImages";
 import CollapsibleSection from "../components/CollapsibleSection";
 import "../styles/main.css";
 import { fetchDataFromFlask } from "../services/APIs/aiRequest.js";
+import React, { useState } from "react";
 
 const prisma = new PrismaClient();
 
@@ -91,20 +92,6 @@ export const action = async ({ request }) => {
 		},
 	});
 
-	const quizzesNoFormat = await prisma.quiz.findMany({
-		where: {
-		  idCurso: numidCurso,
-		  calificacion: null,
-		},
-		select: {
-		  idQuiz: true,
-		  preguntas: true,
-		  fecha: true,
-		  tipo: true,
-		},
-	  });
-
-	  console.log("porfavorporfavorporfavor", quizzesNoFormat);
 	return json({ success: true });
 };
 
@@ -180,7 +167,7 @@ const handleQuizCreation = async (quizId, curso) => {
 	});
 
 	if (response.ok) {
-		console.log("No sé cual es el error");
+		console.log("Todo funciona correctamente");
 	} else {
 		console.error("Failed to enroll:", await response.text());
 	}
@@ -188,11 +175,14 @@ const handleQuizCreation = async (quizId, curso) => {
 
 export default function QuizCurso() {
 	const { curso, quizzes } = useLoaderData();
+	const [creatingQuiz, setCreatingQuiz] = useState(false);
 	const navigate = useNavigate();
 	const { thisWeek, thisMonth, later } = categorizeAndSortQuizzes(quizzes);
 	
-	function handleCombined(quizId, curso) {
-		handleQuizCreation(quizId, curso);
+	async function handleCombined(quizId, curso) {
+		setCreatingQuiz(true);
+		await handleQuizCreation(quizId, curso);
+		setCreatingQuiz(false);
 		navigate(`/quiz/${quizId}`);
 	}
 	
@@ -220,10 +210,10 @@ export default function QuizCurso() {
 
 						<button
 							className="btn"
-							style={{ backgroundColor: "#48605B", color: "white"}}
+							style={{ backgroundColor: "#48605B", color: "white" }}
 							onClick={() => handleCombined(quiz.idQuiz, curso)}
-						>
-							Hacer quiz
+							>
+							{creatingQuiz ? "Creando quiz..." : "Hacer quiz"}
 						</button>
 					</div>
 				</CollapsibleSection>
